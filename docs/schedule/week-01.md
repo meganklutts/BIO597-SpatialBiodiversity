@@ -39,3 +39,9 @@ python geospatial libraries.
 
 Submit a reproducible notebook which demonstrates reinforcement of several concepts
 from the lab assignment.
+
+Additionally, please watch this (short) video about [Species Distribution Models: Ecological Explanation](https://www.youtube.com/watch?v=4Ap4rkgWb7Q)
+
+And here is the article for paper discussion this week, it is a simple application of SDMs to N. American snake species:
+
+[Huang et al 2024 - The impact of anthropogenic disturbance and climate change on the distribution of Dekay’s brown snake (Storeria dekayi)](https://doi.org/10.1093/biolinnean/blae053)
