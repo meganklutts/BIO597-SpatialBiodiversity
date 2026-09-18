@@ -40,6 +40,23 @@ specify the location of a file from the 'root' of the filesystem (which is
 indicated by the first "/"). **Relative** paths will usually start with a '.'
 (meaning "this directory") or a '..' (meaning one directory up).
 
+### How do I see information about all the variables that are active in a jupyter notebook?
 
+There are two ways to do this. The first way is to use the `%whos` magic command.
+Inside a new cell you can type `%whos` and it will give information about all the
+variables you have created.
 
+![Seeing variables with `%whos`](images/faq_whos_variables.png){ width="400" }
+
+This is *fine* but you can't browse it like the variables pane in RStudio. To get
+a more interactive view of the variables you can enable the **debugger** by clicking
+the little bug shaped button (it might be hidden inside a 'three-dots' menu on the
+right side of the command bar).
+![Enable the debugger in jupyter notebooks](images/faq_debugger.png){ width="400" }
+
+After you do this (it might open immediately) you will see the 'bug' menu on the
+right side and if you open this you will see a 'variables' panel much like in
+RStudio, where you can click on variable names to see their current contents.
+
+![View instantiated variables and their contents](images/faq_variables.png){ width="400" }
 

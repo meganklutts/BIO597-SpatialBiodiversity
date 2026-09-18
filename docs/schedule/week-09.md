@@ -1,32 +1,32 @@
-# Week 9: Species Distribution Modeling
+# Week 9: Spatial Sampling and Sampling Bias
 
 ## Core Questions
 
-- What does a species distribution model estimate?
-- How do presence/absence, presence/background, and pseudoabsence designs differ?
-- Why might logistic regression and random forests produce different suitability maps?
+- How does spatial sampling bias influence estimates of biodiversity?
+- How do random, stratified, systematic, clustered, and thinned samples differ?
+- Why are rare species and spatial pseudoreplication especially difficult?
 
 ## Concepts
 
-- Species-environment relationships.
-- Presence/absence, presence/background, and pseudoabsence data.
-- Logistic regression.
-- Random forests.
-- Habitat suitability.
-- Prediction versus inference.
-- Model evaluation and thresholding.
+- Random, stratified, and systematic sampling.
+- Spatial clustering.
+- Sampling effort and accessibility bias.
+- Spatial thinning.
+- Rare species.
+- Pseudoreplication.
+- Background and pseudoabsence sampling.
 
 ## Python Tools
 
+- GeoPandas.
+- NumPy.
 - scikit-learn.
-- rasterio or rioxarray.
-- pandas.
-- matplotlib.
+- scipy.
 
 ## Applied Lab
 
-Students combine occurrence data, climate, elevation, and land cover covariates to fit logistic regression and random forest models, then compare predicted suitability rasters.
+Students compare raw observations, spatially thinned observations, and stratified samples from a biased occurrence dataset, then evaluate how each sampling strategy changes species richness and model-ready data.
 
 ## Deliverable
 
-Submit a first species distribution model with methods, evaluation metrics, prediction maps, and a comparison of model behavior.
+Submit a sampling-bias analysis with maps, summary statistics, and a short recommendation for the final project sampling strategy.
