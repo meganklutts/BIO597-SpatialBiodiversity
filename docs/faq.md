@@ -60,3 +60,32 @@ RStudio, where you can click on variable names to see their current contents.
 
 ![View instantiated variables and their contents](images/faq_variables.png){ width="400" }
 
+### Why am I getting an error when loading a csv file (e.g. `DTypeWarning`)?
+
+For the Maine Amphibian data for Assignment 3, when you load this data
+you get a warning message:
+
+![DTypeWarning on pd.read_csv()](images/faq_dtype_warning.png){ width="400" }
+
+First, this is a **warning** only, which means it still worked but it wants
+you to be aware of something. In this case there are two columns in the input
+csv (`typeStatus` and `establishmentMeans`) which have "mixed" types. You can 
+see what this means if you query one of these columns and use the `set()` 
+function to retain only unique elements:
+
+```python
+set(amphibians["establishmentMeans"])
+```
+```
+{nan, 'native', 'uncertain'}
+```
+Here you can see there are two *string* type elements ('native' and 'uncertain')
+and there is `nan` which stands for "Not a Number" and which is often used
+as a default value for non-existent records. `nan` is also treated internally
+as a `float`, so this column has both `string` and `float` values (which
+is what the warning is about.
+
+Buried in this warning you can see that it is trying to be helpful in
+suggesting to use `low_memory=False`, and indeed this will get rid of the
+error. You can also **safely ignore this** for this exercise because
+we aren't using the values from either of these columns anyway.
