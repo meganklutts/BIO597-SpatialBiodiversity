@@ -2,6 +2,8 @@
 
 This directory contains vector layers used in Lab 04 and Assignment 04.
 
+Lab 05 and Assignment 05 also use the Maine state boundary to clip raster data.
+
 ## Layers
 
 ### Maine conserved lands
@@ -26,6 +28,15 @@ This directory contains vector layers used in Lab 04 and Assignment 04.
 - Dataset: 2023 Maine Primary and Secondary Roads
 - Download: https://www2.census.gov/geo/tiger/TIGER2023/PRISECROADS/tl_2023_23_prisecroads.zip
 - Description: Primary roads and major secondary roads. This is not a complete inventory of every local road.
+
+### Maine state boundary
+
+- Source: Maine GeoLibrary and MaineIT GIS
+- Dataset: Maine State Boundary Polygon
+- Source item: https://www.arcgis.com/home/item.html?id=0a5e9f2b9c444da3b4e96683f1afecf4
+- Service layer: https://services1.arcgis.com/RbMX0mRVOFNTdLzd/ArcGIS/rest/services/Maine_State_Boundary_Polygon/FeatureServer/0
+- Description: Authoritative Maine state boundary polygon mapped at 1:24,000 scale.
+- Important limitation: Users assume responsibility for determining whether the data are suitable for a particular analysis.
 
 ## Shapefile components
 

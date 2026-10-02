@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lecture 05: Raster Data and Environmental Covariates</title>
+  <link rel="stylesheet" href="reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="reveal.js/dist/plugin/highlight/monokai.css">
+  <style>
+    :root {
+      --ink: #18212b;
+      --muted: #52606d;
+      --paper: #f7f8f6;
+      --white: #ffffff;
+      --teal: #087e8b;
+      --coral: #d95d39;
+      --gold: #e1ad01;
+      --blue: #275dad;
+      --line: #ccd3d7;
+      --soft-teal: #dff1f1;
+      --soft-coral: #f8e5df;
+      --soft-gold: #fff4c7;
+    }
+
+    body { background: var(--paper); }
+
+    .reveal {
+      color: var(--ink);
+      font-family: Inter, "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
+      font-size: 34px;
+    }
+
+    .reveal .slides { text-align: left; }
+
+    .reveal .slides section {
+      box-sizing: border-box;
+      padding: 48px 72px;
+    }
+
+    .reveal h1,
+    .reveal h2,
+    .reveal h3 {
+      color: var(--ink);
+      font-family: inherit;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .reveal h1 {
+      font-size: 2.05em;
+      line-height: 1.02;
+      margin: 0 0 0.34em;
+    }
+
+    .reveal h2 {
+      font-size: 1.42em;
+      line-height: 1.08;
+      margin: 0 0 0.55em;
+    }
+
+    .reveal h3 {
+      font-size: 0.86em;
+      margin: 0 0 0.35em;
+    }
+
+    .reveal p,
+    .reveal li {
+      line-height: 1.35;
+    }
+
+    .reveal ul,
+    .reveal ol {
+      margin: 0.25em 0 0.25em 1.05em;
+    }
+
+    .reveal li { margin-bottom: 0.32em; }
+
+    .reveal strong { color: var(--teal); }
+
+    .reveal code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    .reveal pre {
+      width: 100%;
+      margin: 0.4em 0 0;
+      box-shadow: none;
+      font-size: 0.52em;
+      line-height: 1.35;
+    }
+
+    .reveal pre code {
+      max-height: 470px;
+      padding: 20px 24px;
+      border-left: 7px solid var(--teal);
+    }
+
+    .reveal .slide-number {
+      right: 24px;
+      bottom: 18px;
+      color: var(--muted);
+      background: transparent;
+      font-size: 18px;
+    }
+
+    .reveal .progress { color: var(--teal); height: 5px; }
+    .reveal .controls { color: var(--teal); }
+
+    .kicker {
+      color: var(--coral);
+      font-size: 0.58em;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75em;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.82em;
+      max-width: 960px;
+    }
+
+    .course-mark {
+      border-top: 5px solid var(--teal);
+      color: var(--muted);
+      font-size: 0.54em;
+      margin-top: 2.2em;
+      padding-top: 0.7em;
+      width: 460px;
+    }
+
+    .two-col {
+      align-items: center;
+      display: grid;
+      gap: 54px;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .two-col.wide-right { grid-template-columns: 0.8fr 1.2fr; }
+    .two-col.wide-left { grid-template-columns: 1.2fr 0.8fr; }
+
+    .three-col {
+      display: grid;
+      gap: 34px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .rule {
+      background: var(--line);
+      height: 2px;
+      margin: 0.6em 0;
+      width: 100%;
+    }
+
+    .callout {
+      border-left: 8px solid var(--coral);
+      font-size: 0.86em;
+      margin-top: 0.8em;
+      padding: 0.28em 0 0.28em 0.75em;
+    }
+
+    .question {
+      color: var(--ink);
+      font-size: 1.16em;
+      font-weight: 750;
+      line-height: 1.25;
+    }
+
+    .small { font-size: 0.67em; }
+    .tiny { font-size: 0.52em; }
+    .muted { color: var(--muted); }
+    .teal { color: var(--teal); }
+    .coral { color: var(--coral); }
+    .gold { color: var(--gold); }
+
+    .visual-band {
+      align-items: stretch;
+      display: grid;
+      gap: 8px;
+      grid-template-columns: repeat(5, 1fr);
+      margin-top: 0.8em;
+    }
+
+    .visual-band > div {
+      border-top: 10px solid var(--blue);
+      padding: 0.45em 0.25em 0;
+    }
+
+    .visual-band > div:nth-child(2) { border-color: var(--teal); }
+    .visual-band > div:nth-child(3) { border-color: var(--gold); }
+    .visual-band > div:nth-child(4) { border-color: var(--coral); }
+    .visual-band > div:nth-child(5) { border-color: var(--ink); }
+
+    .visual-band b {
+      display: block;
+      font-size: 0.72em;
+      margin-bottom: 0.15em;
+    }
+
+    .visual-band span {
+      color: var(--muted);
+      display: block;
+      font-size: 0.5em;
+      line-height: 1.3;
+    }
+
+    .compare {
+      display: grid;
+      gap: 40px;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 0.3em;
+    }
+
+    .compare article {
+      border-top: 8px solid var(--teal);
+      padding-top: 0.45em;
+    }
+
+    .compare article:last-child { border-color: var(--coral); }
+
+    .compare h3 { font-size: 0.9em; }
+
+    .compare p,
+    .compare li { font-size: 0.66em; }
+
+    .raster-stage {
+      align-items: center;
+      display: grid;
+      gap: 42px;
+      grid-template-columns: 1fr 0.9fr;
+      margin-top: 0.3em;
+    }
+
+    .pixel-grid {
+      aspect-ratio: 7 / 6;
+      background:
+        linear-gradient(to right, rgba(255,255,255,0.68) 2px, transparent 2px),
+        linear-gradient(to bottom, rgba(255,255,255,0.68) 2px, transparent 2px),
+        linear-gradient(135deg, #275dad, #63b7af 48%, #f1c453 72%, #d95d39);
+      background-size: calc(100% / 7) 100%, 100% calc(100% / 6), 100% 100%;
+      border: 2px solid var(--ink);
+      min-height: 380px;
+      position: relative;
+    }
+
+    .pixel-grid .sample-point {
+      background: var(--ink);
+      border: 6px solid var(--white);
+      border-radius: 50%;
+      height: 34px;
+      left: 57%;
+      position: absolute;
+      top: 37%;
+      width: 34px;
+    }
+
+    .pixel-grid .cell-value {
+      background: var(--white);
+      border: 2px solid var(--ink);
+      font-size: 0.58em;
+      font-weight: 800;
+      left: 61%;
+      padding: 6px 10px;
+      position: absolute;
+      top: 28%;
+    }
+
+    .flow {
+      align-items: center;
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1fr 70px 1fr 70px 1fr;
+      margin-top: 1em;
+    }
+
+    .flow-step {
+      border-top: 9px solid var(--teal);
+      min-height: 160px;
+      padding-top: 0.45em;
+    }
+
+    .flow-step:nth-of-type(3) { border-color: var(--gold); }
+    .flow-step:nth-of-type(5) { border-color: var(--coral); }
+    .flow-step b { display: block; font-size: 0.76em; }
+    .flow-step span { color: var(--muted); display: block; font-size: 0.56em; margin-top: 0.3em; }
+    .arrow { color: var(--muted); font-size: 1.8em; text-align: center; }
+
+    .data-image {
+      display: block;
+      max-height: 590px;
+      max-width: 100%;
+      object-fit: contain;
+      width: 100%;
+    }
+
+    .image-caption {
+      color: var(--muted);
+      font-size: 0.48em;
+      margin-top: 0.25em;
+      text-align: right;
+    }
+
+    .metric-row {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(4, 1fr);
+      margin-top: 0.6em;
+    }
+
+    .metric {
+      border-top: 7px solid var(--teal);
+      padding-top: 0.35em;
+    }
+
+    .metric:nth-child(2) { border-color: var(--blue); }
+    .metric:nth-child(3) { border-color: var(--gold); }
+    .metric:nth-child(4) { border-color: var(--coral); }
+    .metric b { display: block; font-size: 0.72em; }
+    .metric span { color: var(--muted); font-size: 0.52em; }
+
+    .matrix {
+      border-collapse: collapse;
+      font-size: 0.6em;
+      margin: 0.55em auto 0;
+      width: 84%;
+    }
+
+    .matrix th,
+    .matrix td {
+      border: 2px solid var(--white);
+      padding: 0.55em;
+      text-align: center;
+    }
+
+    .matrix th { background: var(--ink); color: var(--white); }
+    .matrix .high { background: var(--soft-coral); color: #8c2f18; font-weight: 800; }
+    .matrix .medium { background: var(--soft-gold); }
+    .matrix .low { background: var(--soft-teal); }
+
+    .failure-list {
+      display: grid;
+      gap: 14px 32px;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .failure-list div {
+      border-left: 7px solid var(--coral);
+      padding: 0.25em 0.6em;
+    }
+
+    .failure-list b { display: block; font-size: 0.68em; }
+    .failure-list span { color: var(--muted); font-size: 0.54em; }
+
+    .source-line {
+      bottom: 28px;
+      color: var(--muted);
+      font-size: 0.38em;
+      left: 72px;
+      position: absolute;
+    }
+
+    .source-line a { color: var(--muted); }
+
+    .dark-slide {
+      background: var(--ink) !important;
+      color: var(--white) !important;
+    }
+
+    .dark-slide h1,
+    .dark-slide h2,
+    .dark-slide h3 { color: var(--white); }
+
+    .dark-slide .subtitle,
+    .dark-slide .muted { color: #c9d1d8; }
+
+    .dark-slide strong { color: #58c5c9; }
+
+    @media (max-width: 900px) {
+      .reveal { font-size: 28px; }
+      .reveal .slides section { padding: 34px 42px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section class="dark-slide">
+        <div class="kicker">BIO597 · Spatial Analysis of Biodiversity</div>
+        <h1>Raster data and<br>environmental covariates</h1>
+        <p class="subtitle">Finding and extracting environmental values at species occurrence sites</p>
+        <div class="course-mark">Lecture 05 · Fall 2026</div>
+        <aside class="notes">
+          Timing: 1 minute. Frame this as preparation for the lab rather than a complete raster-analysis course. The central question is how we connect point occurrences to gridded environmental context.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Today’s questions</div>
+        <ol>
+          <li>How does a raster represent continuous environmental variation?</li>
+          <li>How do resolution, extent, alignment, and NoData affect an analysis?</li>
+          <li>Which environmental covariates make biological sense for our study?</li>
+        </ol>
+        <aside class="notes">
+          Timing: 1 minute. Read the questions, then tell students every slide connects to at least one of them. Ask them to keep ecological interpretation in view while learning mechanics.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Types of spatial data</div>
+        <h2>Vector are shapes (boundaries or objects)<br>Rasters are georeferenced numerical arrays</h2>
+        <div class="compare">
+          <article>
+            <h3>Vector</h3>
+            <ul>
+              <li>Points, lines, polygons</li>
+              <li>Separate objects with attributes</li>
+              <li>Useful for occurrences and boundaries</li>
+            </ul>
+          </article>
+          <article>
+            <h3>Raster</h3>
+            <ul>
+              <li>Regular grid of cells</li>
+              <li>One value per band per cell</li>
+              <li>Useful for climate, elevation, and land cover</li>
+            </ul>
+          </article>
+        </div>
+        <aside class="notes">
+          Timing: 1 minute. Connect back to last week’s vector analysis. A raster is not just a picture; it is a georeferenced numerical array.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Raster anatomy</div>
+        <h2>A cell is an area, not a point</h2>
+        <div class="raster-stage">
+          <div class="pixel-grid" aria-label="A colored raster grid with a sample point inside one cell">
+            <span class="sample-point"></span>
+            <span class="cell-value">6.4°C</span>
+          </div>
+          <div>
+            <p class="question">Every location inside one cell is represented by the same stored value.</p>
+            <p class="small muted">The value may be observed, interpolated, modeled, classified, or summarized.</p>
+          </div>
+        </div>
+        <aside class="notes">
+          Timing: 1.5 minutes. Emphasize that the point’s exact location is more precise than the environmental data. That mismatch becomes important when students interpret extracted values.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Metadata</div>
+        <h2>Five properties define the grid</h2>
+        <div class="visual-band">
+          <div><b>CRS</b><span>How coordinates locate the raster on Earth</span></div>
+          <div><b>Resolution</b><span>Cell width and height in coordinate units</span></div>
+          <div><b>Extent</b><span>The outer bounds of the raster</span></div>
+          <div><b>Alignment</b><span>Whether cell edges and centers coincide</span></div>
+          <div><b>NoData</b><span>Cells that do not contain a valid measurement</span></div>
+        </div>
+        <p class="callout"><strong>Shape</strong> tells us the number of bands, rows, and columns.</p>
+        <aside class="notes">
+          Timing: 1.5 minutes. Preview the exact metadata students will print in the notebook. Distinguish shape from geographic extent.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Resolution</div>
+        <h2>Finer cells retain more spatial variation</h2>
+        <img class="data-image" src="assets/Lecture05-resolution-comparison.png" alt="The same temperature surface represented at 2.5, 5, and 10 arc-minute resolution">
+        <p class="image-caption">Actual WorldClim BIO1 values, aggregated to illustrate coarser grids</p>
+        <aside class="notes">
+          Timing: 1.5 minutes. Ask what disappears as cells get larger. Note that finer resolution is not automatically more accurate; it can imply detail unsupported by source observations.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Scale</div>
+        <h2>2.5 arc-minutes is angular resolution</h2>
+        <div class="two-col">
+          <div>
+            <p class="question">0.04167° × 0.04167°</p>
+            <p class="small muted">At Maine’s latitude, a cell is roughly 3 km east–west and 4.6 km north–south.</p>
+          </div>
+          <div>
+            <ul class="small">
+              <li>Cell width changes with latitude</li>
+              <li>Many occurrence points share one climate value</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">
+          Timing: 1 minute. Explain why degrees are not a constant physical distance. The approximate Maine dimensions are enough for interpretation; no calculation is required in the lab.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Extent and clipping</div>
+        <h2>Keep the study area, preserve the grid</h2>
+        <div class="flow">
+          <div class="flow-step"><b>Global raster</b><span>8,640 columns × 4,320 rows</span></div>
+          <div class="arrow">→</div>
+          <div class="flow-step"><b>Maine boundary</b><span>Vector mask from Maine GeoLibrary</span></div>
+          <div class="arrow">→</div>
+          <div class="flow-step"><b>Maine raster</b><span>About 101 columns × 109 rows</span></div>
+        </div>
+        <p class="callout">Clipping changes extent and shape. It should not change CRS or resolution.</p>
+        <aside class="notes">
+          Timing: 1 minute. Tie this directly to the metadata comparison in the lab. Mention that from_disk=True lets us read only the required window.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Alignment</div>
+        <h2>Same resolution does not guarantee same cells</h2>
+        <div class="two-col wide-left">
+          <div>
+            <ul>
+              <li>Same CRS</li>
+              <li>Same resolution</li>
+              <li>Same extent or compatible overlap</li>
+              <li>Same cell origin and boundaries</li>
+            </ul>
+          </div>
+          <div>
+            <div class="pixel-grid" style="min-height:290px" aria-label="Raster grid illustrating cell alignment"></div>
+          </div>
+        </div>
+        <p class="small muted">If grids are offset, row 20 / column 30 refers to different ground locations.</p>
+        <aside class="notes">
+          Timing: 1.5 minutes. This is often the least intuitive raster concept. Explain alignment as graph paper laid over the landscape: same square size but shifted graph paper is still misaligned.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">NoData</div>
+        <h2>Missing is not zero</h2>
+        <div class="three-col">
+          <div><h3 class="teal">0°C</h3><p class="small">A valid temperature</p></div>
+          <div><h3 class="blue">0 mm</h3><p class="small">A valid precipitation value</p></div>
+          <div><h3 class="coral">NoData</h3><p class="small">No valid value for the cell</p></div>
+        </div>
+        <div class="rule"></div>
+        <p class="question">Think about a few ways we could deal with No Data?</p>
+        <aside class="notes">
+          Timing: 1 minute. Give coastal examples: ocean, clipped-out cells, or an occurrence georeferenced near shore. Missing values need diagnosis, not automatic filling.
+        </aside>
+      </section>
+
+      <section class="dark-slide">
+        <div class="kicker">WorldClim 2.1</div>
+        <h2>Climate normals (averages), not weather observations</h2>
+        <div class="metric-row">
+          <div class="metric"><b>1970–2000</b><span>Temporal coverage</span></div>
+          <div class="metric"><b>19</b><span>Bioclimatic variables</span></div>
+          <div class="metric"><b>2.5′</b><span>Resolution used here</span></div>
+          <div class="metric"><b>Global</b><span>Original extent</span></div>
+        </div>
+        <br>
+        <p>WorldClim refers to the actual spatial database and repository created by researchers to provide interpolated global weather grids. WorldClim calculates and distributes the 19 BIOCLIM along with many other raw climate datasets.</p>
+        <p class="subtitle" style="margin-top:1.1em">Long-term summaries derived from interpolated monthly temperature and precipitation.</p>
+        <div class="source-line"><a href="https://www.worldclim.org/data/worldclim21.html">WorldClim 2.1 historical climate data</a></div>
+        <aside class="notes">
+          Timing: 1 minute. Distinguish a climate normal from the weather on an occurrence date. These rasters characterize broad climatic context.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Bioclimatic variables</div>
+        <h2>Derived to represent biological constraints</h2>
+        <div class="metric-row">
+          <div class="metric"><b>BIO1</b><span>Annual mean temperature</span></div>
+          <div class="metric"><b>BIO5</b><span>Max temperature of warmest month</span></div>
+          <div class="metric"><b>BIO6</b><span>Min temperature of coldest month</span></div>
+          <div class="metric"><b>BIO12</b><span>Annual precipitation</span></div>
+        </div>
+        <br>
+        <p>BIOCLIM: Refers to the specific metrics (Bio 1 through Bio 19) derived from monthly temperature and rainfall to represent annual trends, seasonality, and extreme environmental limits (e.g., Annual Mean Temperature or Precipitation of the Wettest Quarter).</p>
+        <p class="callout">A climatic extreme may be more limiting than an annual average.</p>
+        <div class="source-line"><a href="https://www.worldclim.org/data/bioclim.html">WorldClim bioclimatic variable definitions</a></div>
+        <aside class="notes">
+          Timing: 1.5 minutes. Use amphibians as the example: annual mean temperature may summarize geography, while winter minimum or moisture availability may relate more directly to survival.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">The study area</div>
+        <h2>Climate surfaces clipped to Maine</h2>
+        <img class="data-image" src="assets/Lecture05-climate-maps.png" alt="Maps of annual mean temperature and annual precipitation across Maine">
+        <p class="image-caption">WorldClim 2.1 BIO1 and BIO12 at 2.5 arc-minute resolution</p>
+        <aside class="notes">
+          Timing: 1.5 minutes. Ask students to describe each map before explaining it. Point out the north-south temperature gradient and the different precipitation pattern.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Read and inspect</div>
+        <h2>Open the raster before analyzing it</h2>
+        <pre><code class="language-python" data-trim data-line-numbers="1-4|6-9">bio1 = rxr.open_rasterio(
+    "bioclim/wc2.1_2.5m_bio_1.tif",
+    masked=True,
+)
+
+print(bio1.shape)
+print(bio1.rio.crs)
+print(bio1.rio.resolution())
+print(bio1.rio.bounds())</code></pre>
+        <p class="small muted"><code>masked=True</code> converts the file’s NoData code to missing values.</p>
+        <aside class="notes">
+          Timing: 1 minute. Walk through the two targets in this cell: open, then inspect. Reinforce that students should not infer CRS or units from the filename.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Clip</div>
+        <h2>Use the state polygon as a mask</h2>
+        <pre><code class="language-python" data-trim data-line-numbers="1-6|8">bio1_maine = bio1.rio.clip(
+    maine_boundary.geometry,
+    maine_boundary.crs,
+    drop=True,
+    from_disk=True,
+)
+
+bio1_maine = bio1_maine.squeeze()</code></pre>
+        <div class="callout"><code>from_disk=True</code> avoids loading the entire global raster into memory.</div>
+        <div class="callout"><code>`squeeze()`</code> removes the one-element band of the bioclim variable to simplify extraction and plotting.</div>
+        <aside class="notes">
+          Timing: 1 minute. Explain drop=True and squeeze briefly. The original raster has a one-element band dimension; squeeze removes it for simpler plotting and extraction.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Point extraction</div>
+        <h2>Connect every occurrence to a raster cell</h2>
+        <div class="raster-stage">
+          <div class="pixel-grid" aria-label="A point being assigned the value of its nearest raster cell">
+            <span class="sample-point"></span>
+            <span class="cell-value">BIO1 = 6.4</span>
+          </div>
+          <div>
+            <p class="question">Nearest-cell extraction</p>
+            <ol class="small">
+              <li>Read point longitude and latitude</li>
+              <li>Find the nearest cell center</li>
+              <li>Copy the cell value to the record</li>
+              <li>Raster grid cells have _ONE_ environmental value and sampled points do not interpolate given their position within the cell</li>
+            </ol>
+          </div>
+        </div>
+        <aside class="notes">
+          Timing: 1.5 minutes. Clarify that nearest-cell extraction is not interpolation between cells. Multiple nearby occurrences can receive identical values.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Extract</div>
+        <h2>Select values for many points at once</h2>
+        <pre><code class="language-python" data-trim data-line-numbers="1-2|4-8|10">point_x = xr.DataArray(points.geometry.x, dims="record")
+point_y = xr.DataArray(points.geometry.y, dims="record")
+
+bio1_values = bio1_maine.sel(
+    x=point_x,
+    y=point_y,
+    method="nearest",
+)
+
+points["bio1_mean_temp_c"] = bio1_values.to_numpy()</code></pre>
+        <aside class="notes">
+          Timing: 1.5 minutes. Explain that xarray uses coordinate labels, not row and column numbers, in this selection. The shared record dimension keeps values aligned with the occurrence rows.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Interpret missing values</div>
+        <h2>Why might a valid point receive NoData?</h2>
+        <ul>
+          <li>Coastline detail differs between raster and boundary</li>
+          <li>The nearest cell center falls over ocean</li>
+          <li>Coordinate uncertainty places the point near a cell edge</li>
+          <li>The source raster has no valid estimate at that location</li>
+        </ul>
+        <p class="callout">Inspect the spatial pattern of missing values before deciding what to do.</p>
+        <aside class="notes">
+          Timing: 1 minute. Link this to the lab’s isna count. Missingness may have geographic structure and could bias later analyses.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Selecting predictors based on ecological meaning: a matter for debate</div>
+        <h2>Should one choose predictors from hypotheses? Or just use all available predictors?</h2>
+        <div class="three-col">
+          <div>
+            <h3 class="teal">Activity</h3>
+            <p class="small">Mean temperature may constrain seasonal activity.</p>
+          </div>
+          <div>
+            <h3 class="coral">Tolerance</h3>
+            <p class="small">Warmest or coldest extremes may limit survival.</p>
+          </div>
+          <div>
+            <h3 class="blue">Moisture</h3>
+            <p class="small">Precipitation may relate to breeding habitat and desiccation risk.</p>
+          </div>
+        </div>
+        <p class="callout">Selection of environmental predictors is still a topic of debate. In the prior two papers we read the authors either used all available predictors or removed correlated predictors. What do you think is the best method and how would you evaluate/justify this method?</p>
+        <aside class="notes">
+          Timing: 1.5 minutes. Ask for one amphibian-specific mechanism for each category. Note that the best predictor can differ among species and life stages.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Correlation of bioclim variables</div>
+        <h2>Some bioclim variables are strongly correlated (encode similar gradients)</h2>
+        <table class="matrix" aria-label="Illustrative correlation matrix for four bioclimatic predictors">
+          <tr><th></th><th>BIO1</th><th>BIO5</th><th>BIO6</th><th>BIO12</th></tr>
+          <tr><th>BIO1</th><td>1.00</td><td class="high">0.91</td><td class="high">0.95</td><td class="low">−0.18</td></tr>
+          <tr><th>BIO5</th><td class="high">0.91</td><td>1.00</td><td class="medium">0.76</td><td class="low">−0.09</td></tr>
+          <tr><th>BIO6</th><td class="high">0.95</td><td class="medium">0.76</td><td>1.00</td><td class="low">−0.21</td></tr>
+          <tr><th>BIO12</th><td class="low">−0.18</td><td class="low">−0.09</td><td class="low">−0.21</td><td>1.00</td></tr>
+        </table>
+        <p class="tiny muted">Illustrative matrix: students will calculate correlations from their extracted table.</p>
+        <p class="callout">Whether correlation among environmental predictors is a 'problem' is very method dependent. It's important to be aware of the constraints of the SDM method you are using, and to account for predictor correlation if necessary.</p>
+        <aside class="notes">
+          Timing: 1 minute. Make clear that this matrix is illustrative, not the lab result. Correlation is a warning about redundancy, not an automatic deletion rule.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Time</div>
+        <h2>Occurrence dates and climate normals answer different questions</h2>
+        <div class="two-col">
+          <div>
+            <h3 class="teal">WorldClim</h3>
+            <p class="question">1970–2000 average conditions</p>
+          </div>
+          <div>
+            <h3 class="coral">GBIF records</h3>
+            <p class="question">Many dates, often more recent</p>
+          </div>
+        </div>
+        <div class="rule"></div>
+        <p class="small">Extraction describes the site’s historical climatic context. It does not recreate weather on the observation date.</p>
+        <aside class="notes">
+          Timing: 1.5 minutes. Ask students what claim is justified: broad niche context, yes; temperature experienced by the animal that day, no.
+        </aside>
+      </section>
+
+      <section class="dark-slide">
+        <div class="kicker">Takeaways for the lab exercise</div>
+        <h2>Raster values are only meaningful with context</h2>
+        <ol>
+          <li><strong>Inspect</strong> the grid before using it.</li>
+          <li><strong>Align</strong> spatial data before comparing or extracting.</li>
+          <li><strong>Clip</strong> spatial data to the region of interest (improve performance).</li>
+          <li><strong>Sample</strong> Environmental data at occurrence records of interest.</li>
+        </ol>
+        <p class="subtitle" style="margin-top:1em">Next: open the lab and turn these principles into an occurrence–environment table.</p>
+        <aside class="notes">
+          Timing: 1 minute. Close by linking directly to the lab. Remind students that the goal is not merely four new columns; it is four defensible, documented environmental predictors.
+        </aside>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="reveal.js/dist/reveal.js"></script>
+  <script src="reveal.js/dist/plugin/highlight.js"></script>
+  <script src="reveal.js/dist/plugin/notes.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      controls: true,
+      progress: true,
+      center: false,
+      slideNumber: "c/t",
+      width: 1440,
+      height: 810,
+      margin: 0.03,
+      transition: "fade",
+      transitionSpeed: "fast",
+      plugins: [RevealHighlight, RevealNotes]
+    });
+  </script>
+</body>
+</html>
