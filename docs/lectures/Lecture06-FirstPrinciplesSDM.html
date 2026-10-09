@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lecture 06: Species Distribution Models From First Principles</title>
+  <link rel="stylesheet" href="reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="reveal.js/dist/plugin/highlight/monokai.css">
+  <style>
+    :root {
+      --ink: #18212b;
+      --muted: #52606d;
+      --paper: #f7f8f6;
+      --white: #ffffff;
+      --teal: #087e8b;
+      --coral: #d95d39;
+      --gold: #e1ad01;
+      --blue: #275dad;
+      --line: #ccd3d7;
+      --soft-teal: #dff1f1;
+      --soft-coral: #f8e5df;
+      --soft-gold: #fff4c7;
+    }
+
+    body { background: var(--paper); }
+
+    .reveal {
+      color: var(--ink);
+      font-family: Inter, "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
+      font-size: 34px;
+    }
+
+    .reveal .slides { text-align: left; }
+
+    .reveal .slides section {
+      box-sizing: border-box;
+      padding: 48px 72px;
+    }
+
+    .reveal h1,
+    .reveal h2,
+    .reveal h3 {
+      color: var(--ink);
+      font-family: inherit;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .reveal h1 {
+      font-size: 2.05em;
+      line-height: 1.02;
+      margin: 0 0 0.34em;
+    }
+
+    .reveal h2 {
+      font-size: 1.42em;
+      line-height: 1.08;
+      margin: 0 0 0.55em;
+    }
+
+    .reveal h3 {
+      font-size: 0.86em;
+      margin: 0 0 0.35em;
+    }
+
+    .reveal p,
+    .reveal li { line-height: 1.35; }
+
+    .reveal ul,
+    .reveal ol { margin: 0.25em 0 0.25em 1.05em; }
+
+    .reveal li { margin-bottom: 0.32em; }
+    .reveal strong { color: var(--teal); }
+
+    .reveal code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    .reveal pre {
+      width: 100%;
+      margin: 0.4em 0 0;
+      box-shadow: none;
+      font-size: 0.52em;
+      line-height: 1.35;
+    }
+
+    .reveal pre code {
+      max-height: 470px;
+      padding: 20px 24px;
+      border-left: 7px solid var(--teal);
+    }
+
+    .reveal .slide-number {
+      right: 24px;
+      bottom: 18px;
+      color: var(--muted);
+      background: transparent;
+      font-size: 18px;
+    }
+
+    .reveal .progress { color: var(--teal); height: 5px; }
+    .reveal .controls { color: var(--teal); }
+
+    .kicker {
+      color: var(--coral);
+      font-size: 0.58em;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75em;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.82em;
+      max-width: 960px;
+    }
+
+    .course-mark {
+      border-top: 5px solid var(--teal);
+      color: var(--muted);
+      font-size: 0.54em;
+      margin-top: 2.2em;
+      padding-top: 0.7em;
+      width: 460px;
+    }
+
+    .two-col {
+      align-items: center;
+      display: grid;
+      gap: 54px;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .two-col.wide-left { grid-template-columns: 1.2fr 0.8fr; }
+    .two-col.wide-right { grid-template-columns: 0.8fr 1.2fr; }
+
+    .three-col {
+      display: grid;
+      gap: 34px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .small { font-size: 0.67em; }
+    .tiny { font-size: 0.52em; }
+    .muted { color: var(--muted); }
+    .teal { color: var(--teal); }
+    .coral { color: var(--coral); }
+    .gold { color: var(--gold); }
+    .blue { color: var(--blue); }
+
+    .rule {
+      background: var(--line);
+      height: 2px;
+      margin: 0.6em 0;
+      width: 100%;
+    }
+
+    .callout {
+      border-left: 8px solid var(--coral);
+      font-size: 0.86em;
+      margin-top: 0.8em;
+      padding: 0.28em 0 0.28em 0.75em;
+    }
+
+    .question {
+      color: var(--ink);
+      font-size: 1.16em;
+      font-weight: 750;
+      line-height: 1.25;
+    }
+
+    .compare {
+      display: grid;
+      gap: 40px;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 0.3em;
+    }
+
+    .compare article {
+      border-top: 8px solid var(--teal);
+      padding-top: 0.45em;
+    }
+
+    .compare article:last-child { border-color: var(--coral); }
+    .compare h3 { font-size: 0.9em; }
+    .compare p,
+    .compare li { font-size: 0.66em; }
+
+    .flow {
+      align-items: stretch;
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1fr 70px 1fr 70px 1fr;
+      margin-top: 1em;
+    }
+
+    .flow-step {
+      border-top: 9px solid var(--teal);
+      min-height: 150px;
+      padding-top: 0.45em;
+    }
+
+    .flow-step:nth-of-type(3) { border-color: var(--gold); }
+    .flow-step:nth-of-type(5) { border-color: var(--coral); }
+    .flow-step b { display: block; font-size: 0.76em; }
+    .flow-step span {
+      color: var(--muted);
+      display: block;
+      font-size: 0.56em;
+      margin-top: 0.3em;
+    }
+
+    .arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.8em;
+      text-align: center;
+    }
+
+    .metric-row {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(4, 1fr);
+      margin-top: 0.6em;
+    }
+
+    .metric {
+      border-top: 7px solid var(--teal);
+      padding-top: 0.35em;
+    }
+
+    .metric:nth-child(2) { border-color: var(--blue); }
+    .metric:nth-child(3) { border-color: var(--gold); }
+    .metric:nth-child(4) { border-color: var(--coral); }
+    .metric b { display: block; font-size: 0.72em; }
+    .metric span { color: var(--muted); font-size: 0.52em; }
+
+    .map-panel {
+      aspect-ratio: 1.18 / 1;
+      background:
+        radial-gradient(circle at 72% 24%, rgba(255,255,255,0.55) 0 5%, transparent 6%),
+        radial-gradient(circle at 38% 70%, rgba(255,255,255,0.5) 0 4%, transparent 5%),
+        linear-gradient(160deg, #275dad 0%, #63b7af 36%, #f1c453 68%, #d95d39 100%);
+      border: 2px solid var(--ink);
+      clip-path: polygon(41% 2%, 57% 8%, 64% 24%, 72% 39%, 67% 54%, 74% 70%, 58% 94%, 39% 86%, 35% 69%, 23% 54%, 31% 37%, 26% 18%);
+      min-height: 440px;
+      position: relative;
+    }
+
+    .map-panel .dot {
+      background: var(--white);
+      border: 4px solid var(--ink);
+      border-radius: 50%;
+      height: 19px;
+      position: absolute;
+      width: 19px;
+    }
+
+    .map-panel .d1 { left: 45%; top: 20%; }
+    .map-panel .d2 { left: 51%; top: 30%; }
+    .map-panel .d3 { left: 43%; top: 42%; }
+    .map-panel .d4 { left: 55%; top: 51%; }
+    .map-panel .d5 { left: 49%; top: 64%; }
+    .map-panel .d6 { left: 58%; top: 78%; }
+
+    .axis-plot {
+      background: var(--white);
+      border-bottom: 4px solid var(--ink);
+      border-left: 4px solid var(--ink);
+      height: 380px;
+      margin: 0.2em 0 0 0.2em;
+      position: relative;
+      width: 92%;
+    }
+
+    .axis-plot svg {
+      display: block;
+      height: 100%;
+      overflow: visible;
+      width: 100%;
+    }
+
+    .axis-label {
+      color: var(--muted);
+      font-size: 0.45em;
+      position: absolute;
+    }
+
+    .axis-label.x { bottom: -44px; left: 31%; }
+    .axis-label.y {
+      left: -86px;
+      top: 43%;
+      transform: rotate(-90deg);
+    }
+
+    .histogram {
+      align-items: end;
+      display: grid;
+      gap: 6px;
+      grid-template-columns: repeat(12, 1fr);
+      height: 310px;
+      margin-top: 0.7em;
+    }
+
+    .bar {
+      background: var(--soft-teal);
+      border-top: 5px solid var(--teal);
+      min-height: 18px;
+      position: relative;
+    }
+
+    .bar.presence::after {
+      background: var(--coral);
+      bottom: 0;
+      content: "";
+      left: 25%;
+      position: absolute;
+      right: 25%;
+      top: var(--presence-top);
+    }
+
+    .label-row {
+      color: var(--muted);
+      display: grid;
+      font-size: 0.44em;
+      grid-template-columns: 1fr 1fr 1fr;
+      margin-top: 0.5em;
+    }
+
+    .threshold {
+      display: grid;
+      gap: 26px;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 0.6em;
+    }
+
+    .threshold > div {
+      background: linear-gradient(160deg, #1f4f7a 0%, #58a98f 52%, #f1c453 53%, #d95d39 100%);
+      border: 2px solid var(--ink);
+      min-height: 260px;
+      position: relative;
+    }
+
+    .threshold > div::after {
+      background: rgba(255,255,255,0.72);
+      bottom: 0;
+      content: "";
+      left: var(--mask-left);
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    .threshold b {
+      background: var(--white);
+      bottom: 12px;
+      font-size: 0.55em;
+      left: 12px;
+      padding: 5px 8px;
+      position: absolute;
+      z-index: 2;
+    }
+
+    .dark-slide {
+      background: var(--ink) !important;
+      color: var(--white) !important;
+    }
+
+    .dark-slide h1,
+    .dark-slide h2,
+    .dark-slide h3 { color: var(--white); }
+
+    .dark-slide .subtitle,
+    .dark-slide .muted { color: #c9d1d8; }
+
+    .dark-slide strong { color: #58c5c9; }
+
+    @media (max-width: 900px) {
+      .reveal { font-size: 28px; }
+      .reveal .slides section { padding: 34px 42px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section class="dark-slide">
+        <div class="kicker">BIO597 &middot; Spatial Analysis of Biodiversity</div>
+        <h1>Species distribution models<br>from first principles</h1>
+        <p class="subtitle">A conceptual bridge from occurrence records and environmental rasters to mapped habitat suitability</p>
+        <div class="course-mark">Lecture 06 &middot; Fall 2026</div>
+        <aside class="notes">
+          Timing: 1 minute. Frame this as motivation for the lab, not a full SDM methods lecture. The goal is to make the mechanics of later packages feel less mysterious.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Today&rsquo;s questions</div>
+        <ol>
+          <li>What is the basic logic behind a species distribution model?</li>
+          <li>How do occurrence records become information about environmental conditions?</li>
+          <li>How can a suitability rule be projected back onto a map?</li>
+          <li>Why is suitability not the same thing as probability of occurrence?</li>
+        </ol>
+        <aside class="notes">
+          Timing: 1 minute. Tell students that the lab will answer these with one environmental variable and a simple hand-built model.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Motivation</div>
+        <h2>We often want to map places we have not sampled</h2>
+        <div class="two-col wide-left">
+          <div>
+            <p class="question">Occurrence records are uneven glimpses of where a species has been observed.</p>
+            <p class="small muted">An SDM asks whether those observations are associated with environmental conditions that occur elsewhere.</p>
+          </div>
+          <div class="map-panel" aria-label="Stylized map with occurrence points over an environmental gradient">
+            <span class="dot d1"></span>
+            <span class="dot d2"></span>
+            <span class="dot d3"></span>
+            <span class="dot d4"></span>
+            <span class="dot d5"></span>
+            <span class="dot d6"></span>
+          </div>
+        </div>
+        <aside class="notes">
+          Timing: 1.5 minutes. Ask: What do we know at the white points? What do we want to infer about places without white points?
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">The SDM idea</div>
+        <h2>Connect observations to environments, then project that relationship</h2>
+        <div class="flow">
+          <div class="flow-step"><b>Occurrences</b><span>Coordinates where the species was recorded</span></div>
+          <div class="arrow">&rarr;</div>
+          <div class="flow-step"><b>Environment</b><span>Raster values at those locations</span></div>
+          <div class="arrow">&rarr;</div>
+          <div class="flow-step"><b>Suitability map</b><span>Scores for other cells with similar conditions</span></div>
+        </div>
+        <p class="callout">The lab keeps this chain visible by using one species, one predictor, and one equation.</p>
+        <aside class="notes">
+          Timing: 1 minute. This is the entire lab workflow in one slide. Emphasize that packages automate the middle step but do not change this overall logic.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Important distinction</div>
+        <h2>Observed does not mean all suitable places are known</h2>
+        <div class="compare">
+          <article>
+            <h3>Presence records</h3>
+            <ul>
+              <li>Species was recorded there</li>
+              <li>Usually affected by sampling effort</li>
+              <li>May miss many suitable locations</li>
+            </ul>
+          </article>
+          <article>
+            <h3>Absence records</h3>
+            <ul>
+              <li>Species was searched for and not detected</li>
+              <li>Requires survey design or detection assumptions</li>
+              <li>Not the same as a blank spot on a map</li>
+            </ul>
+          </article>
+        </div>
+        <aside class="notes">
+          Timing: 1.5 minutes. Tie this to GBIF-style data: a missing record usually means no record, not absence.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Background</div>
+        <h2>Background is the environment available in the study area</h2>
+        <div class="two-col">
+          <div>
+            <p class="question">A background sample is not a set of absences.</p>
+            <p class="small muted">It tells us what environmental values exist across the region where we are making predictions.</p>
+          </div>
+          <div>
+            <ul>
+              <li>Occurrences: used environments</li>
+              <li>Background: available environments</li>
+              <li>SDM signal: used differs from available</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">
+          Timing: 1.5 minutes. This prepares students for the lab histogram. If occurrence temperatures and background temperatures are identical, there is little evidence of a temperature association.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">One predictor</div>
+        <h2>Start with annual mean temperature</h2>
+        <div class="metric-row">
+          <div class="metric"><b>Simple</b><span>One axis is easy to inspect</span></div>
+          <div class="metric"><b>Spatial</b><span>Temperature varies across Maine</span></div>
+          <div class="metric"><b>Biological</b><span>Temperature can affect activity and survival</span></div>
+          <div class="metric"><b>Incomplete</b><span>Many important processes are missing</span></div>
+        </div>
+        <p class="callout">A deliberately simple model is useful because every assumption is visible.</p>
+        <aside class="notes">
+          Timing: 1 minute. Name the limitation early: amphibian distributions depend on moisture, habitat, breeding sites, interactions, dispersal, and sampling.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Environmental space</div>
+        <h2>Compare occurrence values with background values</h2>
+        <div class="histogram" aria-label="Stylized histogram comparing background and occurrence temperature distributions">
+          <div class="bar" style="height:22%"></div>
+          <div class="bar" style="height:38%"></div>
+          <div class="bar" style="height:63%"></div>
+          <div class="bar presence" style="height:86%; --presence-top:64%"></div>
+          <div class="bar presence" style="height:94%; --presence-top:35%"></div>
+          <div class="bar presence" style="height:88%; --presence-top:16%"></div>
+          <div class="bar presence" style="height:70%; --presence-top:24%"></div>
+          <div class="bar presence" style="height:52%; --presence-top:48%"></div>
+          <div class="bar" style="height:38%"></div>
+          <div class="bar" style="height:30%"></div>
+          <div class="bar" style="height:18%"></div>
+          <div class="bar" style="height:12%"></div>
+        </div>
+        <div class="label-row">
+          <span>Cooler</span>
+          <span style="text-align:center">Annual mean temperature</span>
+          <span style="text-align:right">Warmer</span>
+        </div>
+        <p class="tiny muted">Teal bars represent available background; coral overlays represent occurrence records.</p>
+        <aside class="notes">
+          Timing: 2 minutes. Ask students what pattern would suggest a temperature association. This is the first conceptual model check.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">A first-principles rule</div>
+        <h2>Suitability is highest near the observed mean</h2>
+        <div class="two-col">
+          <div>
+            <p class="question">Today&rsquo;s model:</p>
+            <p class="small">Places are more suitable when annual mean temperature is close to the mean annual mean temperature at occurrence records.</p>
+          </div>
+          <div class="axis-plot" aria-label="A suitability curve with highest values near the middle of a temperature axis">
+            <svg viewBox="0 0 500 360" preserveAspectRatio="none">
+              <path d="M0,338 C80,335 130,310 175,230 C220,140 240,35 260,28 C283,35 305,145 350,225 C395,305 445,334 500,338" fill="none" stroke="#087e8b" stroke-width="12"/>
+              <line x1="260" y1="28" x2="260" y2="350" stroke="#d95d39" stroke-width="6" stroke-dasharray="12 12"/>
+            </svg>
+            <span class="axis-label x">Annual mean temperature</span>
+            <span class="axis-label y">Suitability</span>
+          </div>
+        </div>
+        <aside class="notes">
+          Timing: 1.5 minutes. Explain optimum as the occurrence mean and tolerance as how fast suitability declines away from that mean.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">The equation</div>
+        <h2>A simple curve makes the assumption explicit</h2>
+        <pre><code class="language-python" data-trim data-line-numbers="1-3|5-8">def temperature_suitability(temperature, optimum, tolerance):
+    z = (temperature - optimum) / tolerance
+    return np.exp(-0.5 * z**2)
+
+optimum = occurrence_temperature.mean()
+tolerance = occurrence_temperature.std()
+
+suitability = temperature_suitability(raster_temperature, optimum, tolerance)</code></pre>
+        <p class="small muted">This is not the only possible curve. It is a transparent starting point.</p>
+        <aside class="notes">
+          Timing: 1.5 minutes. Walk through z-score logic. This is also a chance to demystify models as functions that transform predictor values into scores.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Tolerance</div>
+        <h2>One parameter changes the breadth of prediction</h2>
+        <div class="threshold">
+          <div style="--mask-left:42%"><b>Narrow</b></div>
+          <div style="--mask-left:58%"><b>Observed SD</b></div>
+          <div style="--mask-left:74%"><b>Broad</b></div>
+        </div>
+        <p class="callout">A broad tolerance predicts more suitable area; a narrow tolerance predicts less.</p>
+        <aside class="notes">
+          Timing: 1 minute. This slide motivates the lab section where students halve and double the tolerance.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Projection</div>
+        <h2>Every raster cell gets passed through the same rule</h2>
+        <div class="flow">
+          <div class="flow-step"><b>Cell temperature</b><span>Example: 6.4 C</span></div>
+          <div class="arrow">&rarr;</div>
+          <div class="flow-step"><b>Suitability function</b><span>Compare to optimum and tolerance</span></div>
+          <div class="arrow">&rarr;</div>
+          <div class="flow-step"><b>Cell score</b><span>Example: 0.82</span></div>
+        </div>
+        <p class="small muted">Projection is just repeated prediction across the grid.</p>
+        <aside class="notes">
+          Timing: 1 minute. Connect directly to applying the function to the whole xarray DataArray in lab.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Thresholding</div>
+        <h2>A binary map hides a modeling choice</h2>
+        <div class="compare">
+          <article>
+            <h3>Continuous suitability</h3>
+            <ul>
+              <li>Retains gradient information</li>
+              <li>Shows relative differences among cells</li>
+              <li>Often better for interpretation</li>
+            </ul>
+          </article>
+          <article>
+            <h3>Suitable / unsuitable</h3>
+            <ul>
+              <li>Easy to communicate</li>
+              <li>Depends on an arbitrary or justified cutoff</li>
+              <li>Can exaggerate certainty</li>
+            </ul>
+          </article>
+        </div>
+        <aside class="notes">
+          Timing: 1.5 minutes. Mention that full SDM workflows often debate threshold choice. In lab they will use it as a thought experiment, not a final truth.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Interpretation</div>
+        <h2>Suitability is not probability of presence</h2>
+        <div class="three-col">
+          <div>
+            <h3 class="teal">Suitability</h3>
+            <p class="small">A relative score based on similarity to modeled conditions.</p>
+          </div>
+          <div>
+            <h3 class="coral">Occurrence</h3>
+            <p class="small">Depends on environment, dispersal, history, detection, and sampling effort.</p>
+          </div>
+          <div>
+            <h3 class="blue">Probability</h3>
+            <p class="small">Requires stronger statistical assumptions and usually validation data.</p>
+          </div>
+        </div>
+        <p class="callout">A high score means "similar to known occurrence environments" in this lab.</p>
+        <aside class="notes">
+          Timing: 1.5 minutes. This distinction is essential. Have students practice saying what the map does and does not claim.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">What we are leaving out</div>
+        <h2>A one-variable model is a sketch</h2>
+        <div class="metric-row">
+          <div class="metric"><b>Sampling bias</b><span>Records cluster near roads, people, and projects</span></div>
+          <div class="metric"><b>Detection</b><span>Not seeing a species is not always absence</span></div>
+          <div class="metric"><b>Process</b><span>Dispersal, interactions, habitat, and history matter</span></div>
+          <div class="metric"><b>Scale</b><span>Raster cells miss fine-scale microhabitats</span></div>
+        </div>
+        <aside class="notes">
+          Timing: 1.5 minutes. This slide protects against overconfidence. Simple models are useful for learning, but not sufficient for management conclusions.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">What SDM packages add</div>
+        <h2>The same idea with more machinery</h2>
+        <ul>
+          <li>Multiple predictors and interactions</li>
+          <li>Flexible response curves</li>
+          <li>Different sampling designs and background strategies</li>
+          <li>Cross-validation and evaluation metrics</li>
+          <li>Uncertainty, model comparison, and reproducible prediction workflows</li>
+        </ul>
+        <p class="callout">The lab gives us the mental model before the machinery arrives.</p>
+        <aside class="notes">
+          Timing: 1 minute. Foreshadow later lessons without teaching them now.
+        </aside>
+      </section>
+
+      <section class="dark-slide">
+        <div class="kicker">Takeaways for the lab exercise</div>
+        <h2>Today we build the smallest useful SDM</h2>
+        <ol>
+          <li><strong>Extract</strong> one environmental value at occurrence records.</li>
+          <li><strong>Compare</strong> occurrence environments with background environments.</li>
+          <li><strong>Define</strong> a transparent suitability curve.</li>
+          <li><strong>Project</strong> that curve back across the raster.</li>
+          <li><strong>Interpret</strong> the map cautiously.</li>
+        </ol>
+        <p class="subtitle" style="margin-top:1em">Next: open the lab and make the SDM logic visible in code.</p>
+        <aside class="notes">
+          Timing: 1 minute. Transition directly into Lab06-FirstPrinciplesSDM.ipynb.
+        </aside>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="reveal.js/dist/reveal.js"></script>
+  <script src="reveal.js/dist/plugin/highlight.js"></script>
+  <script src="reveal.js/dist/plugin/notes.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      controls: true,
+      progress: true,
+      center: false,
+      slideNumber: "c/t",
+      width: 1440,
+      height: 810,
+      margin: 0.03,
+      transition: "fade",
+      transitionSpeed: "fast",
+      plugins: [RevealHighlight, RevealNotes]
+    });
+  </script>
+</body>
+</html>

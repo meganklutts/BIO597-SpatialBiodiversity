@@ -89,3 +89,10 @@ Buried in this warning you can see that it is trying to be helpful in
 suggesting to use `low_memory=False`, and indeed this will get rid of the
 error. You can also **safely ignore this** for this exercise because
 we aren't using the values from either of these columns anyway.
+
+### What do I do if I have committed a file bigger than 100MB and I get an error about "this exceeds GitHub's file size limit of"?
+Assuming you are only one commit ahead of origin you can do a \
+`git reset --soft origin/main` to "forget" the local commit you made, then
+open the notebook and 'clear cell output' for several of the maps/images
+(this usually comes from the `explore()` function). Then you can save
+the notebook, then add/commit again and it should push fine.

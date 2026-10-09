@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lecture: A Beginner's Tour of GitHub</title>
+  <link rel="stylesheet" href="reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="reveal.js/dist/plugin/highlight/monokai.css">
+  <style>
+    :root {
+      --ink: #18212b;
+      --muted: #52606d;
+      --paper: #f7f8f6;
+      --white: #ffffff;
+      --teal: #087e8b;
+      --coral: #d95d39;
+      --gold: #e1ad01;
+      --blue: #275dad;
+      --line: #ccd3d7;
+      --soft-teal: #dff1f1;
+      --soft-coral: #f8e5df;
+      --soft-gold: #fff4c7;
+    }
+
+    body { background: var(--paper); }
+
+    .reveal {
+      color: var(--ink);
+      font-family: Inter, "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
+      font-size: 34px;
+    }
+
+    .reveal .slides { text-align: left; }
+
+    .reveal .slides section {
+      box-sizing: border-box;
+      padding: 48px 72px;
+    }
+
+    .reveal h1,
+    .reveal h2,
+    .reveal h3 {
+      color: var(--ink);
+      font-family: inherit;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .reveal h1 {
+      font-size: 2.05em;
+      line-height: 1.02;
+      margin: 0 0 0.34em;
+    }
+
+    .reveal h2 {
+      font-size: 1.42em;
+      line-height: 1.08;
+      margin: 0 0 0.55em;
+    }
+
+    .reveal h3 {
+      font-size: 0.86em;
+      margin: 0 0 0.35em;
+    }
+
+    .reveal p,
+    .reveal li { line-height: 1.35; }
+
+    .reveal ul,
+    .reveal ol { margin: 0.25em 0 0.25em 1.05em; }
+
+    .reveal li { margin-bottom: 0.32em; }
+    .reveal strong { color: var(--teal); }
+
+    .reveal code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    .reveal pre {
+      width: 100%;
+      margin: 0.4em 0 0;
+      box-shadow: none;
+      font-size: 0.52em;
+      line-height: 1.35;
+    }
+
+    .reveal pre code {
+      max-height: 470px;
+      padding: 20px 24px;
+      border-left: 7px solid var(--teal);
+    }
+
+    .reveal .slide-number {
+      right: 24px;
+      bottom: 18px;
+      color: var(--muted);
+      background: transparent;
+      font-size: 18px;
+    }
+
+    .reveal .progress { color: var(--teal); height: 5px; }
+    .reveal .controls { color: var(--teal); }
+
+    .kicker {
+      color: var(--coral);
+      font-size: 0.58em;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75em;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.82em;
+      max-width: 960px;
+    }
+
+    .course-mark {
+      border-top: 5px solid var(--teal);
+      color: var(--muted);
+      font-size: 0.54em;
+      margin-top: 2.2em;
+      padding-top: 0.7em;
+      width: 460px;
+    }
+
+    .two-col {
+      align-items: center;
+      display: grid;
+      gap: 54px;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .two-col.wide-left { grid-template-columns: 1.2fr 0.8fr; }
+    .two-col.wide-right { grid-template-columns: 0.8fr 1.2fr; }
+
+    .three-col {
+      display: grid;
+      gap: 34px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .small { font-size: 0.67em; }
+    .tiny { font-size: 0.52em; }
+    .muted { color: var(--muted); }
+    .teal { color: var(--teal); }
+    .coral { color: var(--coral); }
+    .gold { color: var(--gold); }
+    .blue { color: var(--blue); }
+
+    .rule {
+      background: var(--line);
+      height: 2px;
+      margin: 0.6em 0;
+      width: 100%;
+    }
+
+    .callout {
+      border-left: 8px solid var(--coral);
+      font-size: 0.86em;
+      margin-top: 0.8em;
+      padding: 0.28em 0 0.28em 0.75em;
+    }
+
+    .question {
+      color: var(--ink);
+      font-size: 1.16em;
+      font-weight: 750;
+      line-height: 1.25;
+    }
+
+    .compare {
+      display: grid;
+      gap: 40px;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 0.3em;
+    }
+
+    .compare article {
+      border-top: 8px solid var(--teal);
+      padding-top: 0.45em;
+    }
+
+    .compare article:last-child { border-color: var(--coral); }
+    .compare h3 { font-size: 0.9em; }
+    .compare p,
+    .compare li { font-size: 0.66em; }
+
+    .flow {
+      align-items: stretch;
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1fr 70px 1fr 70px 1fr;
+      margin-top: 1em;
+    }
+
+    .flow-step {
+      border-top: 9px solid var(--teal);
+      min-height: 145px;
+      padding-top: 0.45em;
+    }
+
+    .flow-step:nth-of-type(3) { border-color: var(--gold); }
+    .flow-step:nth-of-type(5) { border-color: var(--coral); }
+    .flow-step b { display: block; font-size: 0.76em; }
+    .flow-step span {
+      color: var(--muted);
+      display: block;
+      font-size: 0.56em;
+      margin-top: 0.3em;
+    }
+
+    .arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.8em;
+      text-align: center;
+    }
+
+    .metric-row {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(4, 1fr);
+      margin-top: 0.6em;
+    }
+
+    .metric {
+      border-top: 7px solid var(--teal);
+      padding-top: 0.35em;
+    }
+
+    .metric:nth-child(2) { border-color: var(--blue); }
+    .metric:nth-child(3) { border-color: var(--gold); }
+    .metric:nth-child(4) { border-color: var(--coral); }
+    .metric b { display: block; font-size: 0.72em; }
+    .metric span { color: var(--muted); font-size: 0.52em; }
+
+    .repo-window {
+      background: var(--white);
+      border: 3px solid var(--ink);
+      min-height: 430px;
+      padding: 0;
+    }
+
+    .repo-tabs {
+      background: var(--ink);
+      color: var(--white);
+      display: grid;
+      font-size: 0.42em;
+      font-weight: 800;
+      grid-template-columns: repeat(5, 1fr);
+      letter-spacing: 0.02em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .repo-tabs span {
+      border-right: 2px solid rgba(255,255,255,0.18);
+      padding: 14px 4px;
+    }
+
+    .repo-tabs span:nth-child(1) { background: var(--teal); }
+    .repo-body { padding: 24px 30px; }
+
+    .file-row {
+      align-items: center;
+      border-bottom: 2px solid var(--line);
+      display: grid;
+      font-size: 0.56em;
+      grid-template-columns: 0.85fr 1.15fr;
+      padding: 12px 0;
+    }
+
+    .file-row b { color: var(--teal); }
+    .file-row span { color: var(--muted); }
+
+    .board {
+      display: grid;
+      gap: 22px;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 0.6em;
+    }
+
+    .board-col {
+      background: var(--white);
+      border-top: 8px solid var(--teal);
+      min-height: 390px;
+      padding: 18px;
+    }
+
+    .board-col:nth-child(2) { border-color: var(--gold); }
+    .board-col:nth-child(3) { border-color: var(--coral); }
+    .board-col h3 { font-size: 0.62em; }
+
+    .card {
+      background: var(--paper);
+      border-left: 6px solid var(--blue);
+      font-size: 0.48em;
+      margin-top: 16px;
+      padding: 12px;
+    }
+
+    .card b { display: block; }
+    .card span { color: var(--muted); display: block; margin-top: 4px; }
+
+    .issue-box {
+      background: var(--white);
+      border: 3px solid var(--ink);
+      padding: 24px;
+    }
+
+    .issue-title {
+      border-bottom: 2px solid var(--line);
+      font-size: 0.76em;
+      font-weight: 800;
+      padding-bottom: 12px;
+    }
+
+    .tag {
+      background: var(--soft-teal);
+      border: 2px solid var(--teal);
+      color: var(--ink);
+      display: inline-block;
+      font-size: 0.44em;
+      font-weight: 800;
+      margin: 12px 8px 0 0;
+      padding: 5px 9px;
+    }
+
+    .tag.coral { background: var(--soft-coral); border-color: var(--coral); }
+    .tag.gold { background: var(--soft-gold); border-color: var(--gold); }
+
+    .source-line {
+      bottom: 28px;
+      color: var(--muted);
+      font-size: 0.38em;
+      left: 72px;
+      position: absolute;
+    }
+
+    .source-line a { color: var(--muted); }
+
+    .dark-slide {
+      background: var(--ink) !important;
+      color: var(--white) !important;
+    }
+
+    .dark-slide h1,
+    .dark-slide h2,
+    .dark-slide h3 { color: var(--white); }
+
+    .dark-slide .subtitle,
+    .dark-slide .muted { color: #c9d1d8; }
+
+    .dark-slide strong { color: #58c5c9; }
+
+    @media (max-width: 900px) {
+      .reveal { font-size: 28px; }
+      .reveal .slides section { padding: 34px 42px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section class="dark-slide">
+        <div class="kicker">BIO597 &middot; Spatial Analysis of Biodiversity</div>
+        <h1>A beginner&rsquo;s tour<br>of GitHub</h1>
+        <p class="subtitle">Using GitHub as a practical home for scripts, notes, figures, and project coordination</p>
+        <div class="course-mark">Supplemental lecture &middot; Fall 2026</div>
+        <aside class="notes">
+          Timing: 1 minute. Frame GitHub as research infrastructure, not as a test of whether students are "real programmers."
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Today&rsquo;s questions</div>
+        <ol>
+          <li>What is GitHub useful for if you are a biologist writing scripts?</li>
+          <li>How do repositories, commits, issues, and projects fit together?</li>
+          <li>Which features help make an analysis easier to find, rerun, and share?</li>
+          <li>What should not be put on GitHub?</li>
+        </ol>
+        <aside class="notes">
+          Timing: 1 minute. Make clear that this is a tour. They do not need to memorize every feature today.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Big picture</div>
+        <h2>GitHub is a project home, not just a code website</h2>
+        <div class="metric-row">
+          <div class="metric"><b>Store</b><span>Scripts, notebooks, small data, figures, docs</span></div>
+          <div class="metric"><b>Track</b><span>What changed, when, and why</span></div>
+          <div class="metric"><b>Coordinate</b><span>Tasks, questions, bugs, deadlines</span></div>
+          <div class="metric"><b>Share</b><span>Methods and materials with collaborators</span></div>
+        </div>
+        <p class="callout">Git is the version-control system. GitHub is the cloud platform built around it.</p>
+        <div class="source-line"><a href="https://docs.github.com/en/get-started/start-your-journey/what-is-github">GitHub Docs: What is GitHub?</a></div>
+        <aside class="notes">
+          Timing: 1.5 minutes. This distinction helps students understand why command-line Git and the website both exist.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Research use case</div>
+        <h2>Think of a repository as an analysis binder</h2>
+        <div class="repo-window" aria-label="Stylized GitHub repository page">
+          <div class="repo-tabs">
+            <span>Code</span><span>Issues</span><span>Projects</span><span>Pull requests</span><span>Insights</span>
+          </div>
+          <div class="repo-body">
+            <div class="file-row"><b>README.md</b><span>What is this project and how do I run it?</span></div>
+            <div class="file-row"><b>scripts/</b><span>Reusable Python or R scripts</span></div>
+            <div class="file-row"><b>notebooks/</b><span>Exploration, teaching, or reports</span></div>
+            <div class="file-row"><b>data/</b><span>Small derived or example data only</span></div>
+            <div class="file-row"><b>figures/</b><span>Outputs used in talks, posters, manuscripts</span></div>
+            <div class="file-row"><b>environment.yml</b><span>Packages needed to rerun the analysis</span></div>
+          </div>
+        </div>
+        <aside class="notes">
+          Timing: 2 minutes. Tell students a repo should answer: What is this? Where do I start? What generated the results?
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Repository</div>
+        <h2>The repository is the container for a project</h2>
+        <div class="two-col">
+          <div>
+            <p class="question">Good repo size: one coherent analysis, class assignment, tool, or paper project.</p>
+            <p class="small muted">Avoid one giant repository for every script you have ever written.</p>
+          </div>
+          <div>
+            <ul>
+              <li>Files and folders</li>
+              <li>History of changes</li>
+              <li>Project notes and tasks</li>
+              <li>Settings for sharing and collaboration</li>
+            </ul>
+          </div>
+        </div>
+        <div class="source-line"><a href="https://docs.github.com/en/get-started/start-your-journey/creating-a-repository-for-your-project-on-github">GitHub Docs: Creating a repository</a></div>
+        <aside class="notes">
+          Timing: 1 minute. For biologists, "one repo per research question or analysis product" is usually a good mental model.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">README</div>
+        <h2>The README is the front door</h2>
+        <div class="compare">
+          <article>
+            <h3>Minimum useful README</h3>
+            <ul>
+              <li>What question does this project answer?</li>
+              <li>What data are used?</li>
+              <li>Which script or notebook should run first?</li>
+              <li>Who maintains it?</li>
+            </ul>
+          </article>
+          <article>
+            <h3>Better README</h3>
+            <ul>
+              <li>Reproducible setup instructions</li>
+              <li>Folder guide</li>
+              <li>Expected outputs</li>
+              <li>Citation and license information</li>
+            </ul>
+          </article>
+        </div>
+        <div class="source-line"><a href="https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes">GitHub Docs: About README files</a></div>
+        <aside class="notes">
+          Timing: 1.5 minutes. Emphasize that a README is for future you as much as collaborators.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Commits</div>
+        <h2>A commit is a saved checkpoint with a message</h2>
+        <div class="flow">
+          <div class="flow-step"><b>Edit files</b><span>Fix a script, add a figure, update notes</span></div>
+          <div class="arrow">&rarr;</div>
+          <div class="flow-step"><b>Commit</b><span>Save a named snapshot of the changes</span></div>
+          <div class="arrow">&rarr;</div>
+          <div class="flow-step"><b>Push</b><span>Send the snapshot to GitHub</span></div>
+        </div>
+        <p class="callout">A good commit message says what changed in plain language.</p>
+        <aside class="notes">
+          Timing: 1.5 minutes. Keep this nontechnical. The goal is "checkpoint with a label."
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">History</div>
+        <h2>GitHub can show what changed between versions</h2>
+        <div class="two-col wide-left">
+          <div>
+            <ul>
+              <li>Find when a parameter changed</li>
+              <li>Recover a deleted code block</li>
+              <li>Compare old and new figures or scripts</li>
+              <li>Explain methods changes during a project</li>
+            </ul>
+          </div>
+          <div class="issue-box">
+            <div class="issue-title">Example commit</div>
+            <p class="small"><strong>Update amphibian cleaning filter</strong></p>
+            <p class="small muted">Removed records with coordinate uncertainty over 10 km and regenerated occurrence map.</p>
+          </div>
+        </div>
+        <aside class="notes">
+          Timing: 1 minute. Connect history to scientific defensibility: methods evolve, and GitHub helps show how.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Issues</div>
+        <h2>Issues are lab notes with a status</h2>
+        <div class="issue-box">
+          <div class="issue-title">Check why BIO12 extraction has missing values near the coast</div>
+          <p class="small">Some occurrence points are valid but receive NoData after clipping. Need to inspect whether this is coastline mismatch or coordinate uncertainty.</p>
+          <span class="tag coral">bug/question</span>
+          <span class="tag">raster</span>
+          <span class="tag gold">assignment-05</span>
+        </div>
+        <p class="callout">Use issues for tasks, questions, bugs, ideas, and decisions you do not want to lose.</p>
+        <div class="source-line"><a href="https://docs.github.com/en/issues/tracking-your-work-with-issues/learning-about-issues/about-issues">GitHub Docs: About issues</a></div>
+        <aside class="notes">
+          Timing: 2 minutes. Translate developer language: "bug" can mean "something unexpected happened in my analysis."
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Issue habits</div>
+        <h2>Write issues so another person can act on them</h2>
+        <div class="compare">
+          <article>
+            <h3>Vague</h3>
+            <p>"Map broken."</p>
+          </article>
+          <article>
+            <h3>Useful</h3>
+            <p>"The Maine amphibian map renders points in the ocean after reprojection. I expected points to stay within the state boundary. See notebook cell 14."</p>
+          </article>
+        </div>
+        <div class="rule"></div>
+        <p class="small">A useful issue includes context, expected result, actual result, and next step.</p>
+        <aside class="notes">
+          Timing: 1.5 minutes. Encourage students to write issues for future themselves, not just for teams.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Labels, assignees, milestones</div>
+        <h2>Small bits of metadata make tasks easier to sort</h2>
+        <div class="three-col">
+          <div>
+            <h3 class="teal">Labels</h3>
+            <p class="small">Kind of work: data, figure, bug, writing, question.</p>
+          </div>
+          <div>
+            <h3 class="coral">Assignees</h3>
+            <p class="small">Who is responsible for the next action?</p>
+          </div>
+          <div>
+            <h3 class="blue">Milestones</h3>
+            <p class="small">Group work for a deadline, assignment, poster, or manuscript.</p>
+          </div>
+        </div>
+        <aside class="notes">
+          Timing: 1 minute. This is especially useful for group projects and thesis work with many small tasks.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Projects</div>
+        <h2>Projects turn issues into a work board</h2>
+        <div class="board" aria-label="Stylized GitHub project board">
+          <div class="board-col">
+            <h3>Backlog</h3>
+            <div class="card"><b>Download updated GBIF records</b><span>data</span></div>
+            <div class="card"><b>Choose climate predictors</b><span>analysis</span></div>
+          </div>
+          <div class="board-col">
+            <h3>In progress</h3>
+            <div class="card"><b>Clean duplicate coordinates</b><span>notebook 03</span></div>
+            <div class="card"><b>Draft methods text</b><span>writing</span></div>
+          </div>
+          <div class="board-col">
+            <h3>Done</h3>
+            <div class="card"><b>Create repository README</b><span>documentation</span></div>
+          </div>
+        </div>
+        <div class="source-line"><a href="https://docs.github.com/en/issues/planning-and-tracking-with-projects/creating-projects/creating-a-project">GitHub Docs: Creating a project</a></div>
+        <aside class="notes">
+          Timing: 1.5 minutes. Projects are useful even for one person because they externalize "what should I do next?"
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Pull requests</div>
+        <h2>A pull request is a proposed change with discussion</h2>
+        <div class="two-col">
+          <div>
+            <p class="question">You do not need to master pull requests on day one.</p>
+            <p class="small muted">But they are useful when collaborators want to review changes before merging them into the main project.</p>
+          </div>
+          <div>
+            <ul>
+              <li>Summarize what changed</li>
+              <li>Show line-by-line differences</li>
+              <li>Ask for feedback</li>
+              <li>Merge when ready</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">
+          Timing: 1 minute. For novice users, describe PRs as "track changes plus conversation."
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Branches</div>
+        <h2>A branch is a safe workspace for a change</h2>
+        <div class="compare">
+          <article>
+            <h3>Main branch</h3>
+            <ul>
+              <li>Stable current version</li>
+              <li>What collaborators expect to run</li>
+              <li>Protect this from half-finished edits</li>
+            </ul>
+          </article>
+          <article>
+            <h3>Working branch</h3>
+            <ul>
+              <li>Try a new analysis</li>
+              <li>Revise a figure</li>
+              <li>Fix a broken script</li>
+            </ul>
+          </article>
+        </div>
+        <p class="callout">For solo class work, commits on main may be enough. For collaboration, branches become more useful.</p>
+        <aside class="notes">
+          Timing: 1 minute. Do not over-teach branching. Just give the mental model.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">Releases, citations, licenses</div>
+        <h2>Make a project easier to cite and reuse</h2>
+        <div class="three-col">
+          <div>
+            <h3 class="teal">Release</h3>
+            <p class="small">A named version of your repository, such as the analysis used for a manuscript.</p>
+          </div>
+          <div>
+            <h3 class="coral">CITATION.cff</h3>
+            <p class="small">Tells others how to cite your code or project.</p>
+          </div>
+          <div>
+            <h3 class="blue">LICENSE</h3>
+            <p class="small">States what others are allowed to do with your code.</p>
+          </div>
+        </div>
+        <aside class="notes">
+          Timing: 1.5 minutes. Stress that public does not automatically mean reusable. Licensing matters.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">What not to commit</div>
+        <h2>GitHub is not the right place for everything</h2>
+        <div class="metric-row">
+          <div class="metric"><b>Secrets</b><span>Passwords, tokens, private keys</span></div>
+          <div class="metric"><b>Sensitive data</b><span>Human subjects, protected locations, permits</span></div>
+          <div class="metric"><b>Huge files</b><span>Large rasters, videos, raw archives</span></div>
+          <div class="metric"><b>Generated clutter</b><span>Caches, temporary files, system files</span></div>
+        </div>
+        <p class="callout">Use `.gitignore` to keep files out of the repository.</p>
+        <aside class="notes">
+          Timing: 1.5 minutes. This is important for biologists because biodiversity data may include sensitive species localities.
+        </aside>
+      </section>
+
+      <section>
+        <div class="kicker">A biology-friendly workflow</div>
+        <h2>Start simple and build habits gradually</h2>
+        <div class="flow">
+          <div class="flow-step"><b>README</b><span>Explain the project and folder structure</span></div>
+          <div class="arrow">&rarr;</div>
+          <div class="flow-step"><b>Commit often</b><span>Small checkpoints with meaningful messages</span></div>
+          <div class="arrow">&rarr;</div>
+          <div class="flow-step"><b>Track tasks</b><span>Use issues and a project board for next steps</span></div>
+        </div>
+        <aside class="notes">
+          Timing: 1 minute. This slide gives students a manageable entry point.
+        </aside>
+      </section>
+
+      <section class="dark-slide">
+        <div class="kicker">Takeaways</div>
+        <h2>GitHub helps future you understand present you</h2>
+        <ol>
+          <li><strong>Repositories</strong> organize the files and history for an analysis.</li>
+          <li><strong>Commits</strong> create named checkpoints.</li>
+          <li><strong>Issues</strong> capture tasks, bugs, questions, and decisions.</li>
+          <li><strong>Projects</strong> turn scattered tasks into a visible plan.</li>
+          <li><strong>README files</strong> make your work easier to rerun and share.</li>
+        </ol>
+        <p class="subtitle" style="margin-top:1em">Use the features that solve real research problems. You do not need all of GitHub at once.</p>
+        <aside class="notes">
+          Timing: 1 minute. End by lowering the intimidation barrier: GitHub is a set of tools, not a personality test.
+        </aside>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="reveal.js/dist/reveal.js"></script>
+  <script src="reveal.js/dist/plugin/highlight.js"></script>
+  <script src="reveal.js/dist/plugin/notes.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      controls: true,
+      progress: true,
+      center: false,
+      slideNumber: "c/t",
+      width: 1440,
+      height: 810,
+      margin: 0.03,
+      transition: "fade",
+      transitionSpeed: "fast",
+      plugins: [RevealHighlight, RevealNotes]
+    });
+  </script>
+</body>
+</html>
