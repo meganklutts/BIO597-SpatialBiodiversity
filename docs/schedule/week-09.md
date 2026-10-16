@@ -1,32 +1,31 @@
-# Week 9: Spatial Sampling and Sampling Bias
+# Week 09: Spatial Interpolation and Prediction
 
 ## Core Questions
 
-- How does spatial sampling bias influence estimates of biodiversity?
-- How do random, stratified, systematic, clustered, and thinned samples differ?
-- Why are rare species and spatial pseudoreplication especially difficult?
+- What is the difference between interpolation and extrapolation?
+- How can spatial prediction fill gaps between sampled locations?
+- How should prediction uncertainty be interpreted?
 
 ## Concepts
 
-- Random, stratified, and systematic sampling.
-- Spatial clustering.
-- Sampling effort and accessibility bias.
-- Spatial thinning.
-- Rare species.
-- Pseudoreplication.
-- Background and pseudoabsence sampling.
+- Spatial prediction.
+- Interpolation versus extrapolation.
+- Nearest-neighbor prediction.
+- Inverse distance weighting.
+- Kriging concepts.
+- Gaussian processes.
+- Prediction uncertainty.
 
 ## Python Tools
 
-- GeoPandas.
-- NumPy.
-- scikit-learn.
 - scipy.
+- scikit-learn.
+- optionally gstools.
 
 ## Applied Lab
 
-Students compare raw observations, spatially thinned observations, and stratified samples from a biased occurrence dataset, then evaluate how each sampling strategy changes species richness and model-ready data.
+Students hide observations from a spatial dataset and reconstruct an environmental or ecological surface using multiple interpolation or prediction methods.
 
 ## Deliverable
 
-Submit a sampling-bias analysis with maps, summary statistics, and a short recommendation for the final project sampling strategy.
+Submit a prediction comparison showing observed points, predicted surfaces, held-out error, and uncertainty or limitations.

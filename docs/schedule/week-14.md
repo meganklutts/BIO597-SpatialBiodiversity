@@ -1,32 +1,31 @@
-# Week 14: Spatial Machine Learning and Model Evaluation
+# Week 14: Synthesis: Biodiversity Under Environmental Change
 
 ## Core Questions
 
-- Why can random train/test splits exaggerate ecological model performance?
-- How does spatial leakage occur?
-- How should transferability, extrapolation, and uncertainty be evaluated?
+- How can spatial biodiversity analysis support inference about environmental change?
+- How should maps, models, uncertainty, and ecological interpretation be communicated?
+- What are the main limitations of the final analysis?
 
 ## Concepts
 
-- Train/test splitting.
-- Spatial cross-validation.
-- Spatial leakage.
-- Overfitting.
-- Model transferability.
-- Environmental extrapolation and novelty.
-- Model uncertainty.
-- Variable importance and partial dependence.
+- Biodiversity observations.
+- Spatial processing.
+- Environmental covariates.
+- Spatial analysis.
+- Statistical and machine-learning models.
+- Spatial prediction.
+- Uncertainty.
+- Map and figure design.
+- Ecological interpretation and limitations.
 
 ## Python Tools
 
-- scikit-learn.
-- GeoPandas.
-- NumPy.
+- Full course stack.
 
 ## Applied Lab
 
-Students compare a random train/test split with a spatial train/test split and evaluate how the estimated predictive performance changes.
+Students finalize project reports and presentations around ecological question, spatial data, methods, results, model evaluation, spatial uncertainty, ecological interpretation, and limitations.
 
 ## Deliverable
 
-Submit a model evaluation report with cross-validation design, performance comparison, extrapolation or uncertainty discussion, and a justified final modeling approach.
+Submit the final project report, reproducible analysis materials, and presentation slides.

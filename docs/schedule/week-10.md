@@ -1,31 +1,33 @@
-# Week 10: Spatial Interpolation and Prediction
+# Week 10: Measuring Spatial Biodiversity Patterns
 
 ## Core Questions
 
-- What is the difference between interpolation and extrapolation?
-- How can spatial prediction fill gaps between sampled locations?
-- How should prediction uncertainty be interpreted?
+- What do richness, Shannon diversity, Simpson diversity, endemism, and rarity measure?
+- How do alpha, beta, and gamma diversity differ?
+- How do grid grain and spatial aggregation change biodiversity surfaces?
 
 ## Concepts
 
-- Spatial prediction.
-- Interpolation versus extrapolation.
-- Nearest-neighbor prediction.
-- Inverse distance weighting.
-- Kriging concepts.
-- Gaussian processes.
-- Prediction uncertainty.
+- Species richness.
+- Shannon and Simpson diversity.
+- Endemism, weighted endemism, corrected weighted endemism, and rarity.
+- Alpha, beta, and gamma diversity.
+- Moving-window diversity.
+- Spatial aggregation and scale sensitivity.
+- Community genetic diversity as an advanced extension.
 
 ## Python Tools
 
+- pandas.
+- NumPy.
+- GeoPandas.
 - scipy.
-- scikit-learn.
-- optionally gstools.
+- matplotlib.
 
 ## Applied Lab
 
-Students hide observations from a spatial dataset and reconstruct an environmental or ecological surface using multiple interpolation or prediction methods.
+Students aggregate species observations to a grid, calculate spatial biodiversity metrics, and create richness, diversity, endemism, and rarity maps.
 
 ## Deliverable
 
-Submit a prediction comparison showing observed points, predicted surfaces, held-out error, and uncertainty or limitations.
+Submit biodiversity maps at multiple grains with a short interpretation of scale sensitivity and metric choice.

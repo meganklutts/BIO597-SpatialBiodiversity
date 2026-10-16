@@ -17,11 +17,11 @@ hide:
 | [Week 7 (10/16)](week-07.md) | Species distribution modeling (Random Forest) | scikit-learn, rasterio, pandas | Build a first SDM from scratch w/ ML |
 | [Week 8 (10/23)](week-08.md) | Exploring SDM software | Running 'production grade' SDMs | Build and compare distribution models |
 | [Week 9 (10/30)](week-09.md) | SDM predictions in space and time | | Projecting a fitted SDM to future climate conditions |
-| [Week 10 (11/06)](week-10.md) | Spatial autocorrelation | libpysal, esda, GeoPandas | Calculate global and local Moran's I |
-| [Week 11 (11/13)](week-11.md) | Spatial interpolation and prediction | scipy, scikit-learn, optionally gstools | Predict an environmental or ecological surface |
-| [Week 12 (11/20)](week-12.md) | Community composition across space | pandas, scipy, scikit-learn, GeoPandas | Analyze beta diversity and distance decay |
-| [Week 13 (12/04)](week-14.md) | Landscape connectivity and conservation prioritization | rasterio, NumPy, networkx | Build resistance and prioritization scenarios |
-| [Week 14 (12/11)](week-15.md) | Synthesis: biodiversity under environmental change | Full stack | Final project presentations |
+| [Week 10 (11/06)](week-10.md) | Measuring Spatial Biodiversity Patterns | numpy, pandas, scipy, scikit-learn | Quantify biodiversity across spatial scales |
+| [Week 11 (11/13)](week-11.md) | Community composition across space | pandas, scipy, scikit-learn, GeoPandas | Analyze beta diversity and distance decay |
+| [Week 12 (11/20)](week-13.md) | Ordination, gradients, and evolutionary diversity | scikit-learn, scipy, matplotlib | Compare geographic, environmental, and diversity spaces |
+| [Week 13 (12/04)](week-13.md) | tbd | tbd | tbd |
+| [Week 14 (12/11)](week-14.md) | tbd | tbd | tbd |
 
 
 ??? note "Course topic scratch pad"
@@ -29,4 +29,3 @@ hide:
     Add gradient forest somewhere mid-semester  
     [scratch pad](_scratch_pad.md)
 
-    scratched week: [Week 13 (12/04)](week-13.md) | Ordination, gradients, and evolutionary diversity | scikit-learn, scipy, matplotlib | Compare geographic, environmental, and diversity spaces |

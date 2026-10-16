@@ -1,0 +1,23 @@
+{
+  "species": "Boreorana sylvatica",
+  "coordinate_uncertainty_filter_m": "<100",
+  "presence_before_complete_cases": 1119,
+  "n_presence_records": 1119,
+  "n_background": 1119,
+  "n_unique_presence_climate_vectors": 450,
+  "n_train": 1678,
+  "n_test": 560,
+  "background_seed": 597,
+  "split_seed": 597,
+  "forest_seed": 597,
+  "n_estimators": 100,
+  "min_samples_leaf": 5,
+  "bio1_MAE": 0.28679191312407476,
+  "three_variable_MAE": 0.2715435790992977,
+  "importance": {
+    "bio_1": 0.6407241786604015,
+    "bio_12": 0.15540219574939737,
+    "bio_15": 0.20387362559020103
+  },
+  "note": "Reproducible lecture example using complete occurrence records and seeded full-grid background sampling. Repeated occurrence cells remain. Lab background draws may differ."
+}

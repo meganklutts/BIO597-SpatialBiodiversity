@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A visual introduction to random forest species distribution modeling for BIO597 Lab07.">
+<title>Lecture 07: A First Machine Learning SDM</title>
+<link rel="stylesheet" href="reveal.js/dist/reset.css">
+<link rel="stylesheet" href="reveal.js/dist/reveal.css">
+<link rel="stylesheet" href="reveal.js/dist/plugin/highlight/monokai.css">
+<style>
+:root { --ink:#18212b; --muted:#52606d; --paper:#f7f8f6; --teal:#087e8b; --coral:#d95d39; --line:#ccd3d7; }
+body { background:var(--paper); }
+.reveal { color:var(--ink); font-family:Inter,"Avenir Next",Avenir,"Helvetica Neue",Arial,sans-serif; font-size:34px; }
+.reveal .slides { text-align:left; }
+.reveal .slides section { box-sizing:border-box; padding:48px 72px; height:810px; }
+.reveal h1,.reveal h2,.reveal h3 { color:var(--ink);font-family:inherit;letter-spacing:0;text-transform:none;font-weight:700; }
+.reveal h1 { font-size:2.05em;line-height:1.02;margin:0 0 .34em; }
+.reveal h2 { font-size:1.42em;line-height:1.08;margin:0 0 .55em; }
+.reveal p,.reveal li { line-height:1.35; }
+.reveal p { margin:0 0 .7em; }
+.reveal strong,.teal { color:var(--teal); }
+.coral { color:var(--coral); }
+.reveal a { color:var(--teal);text-decoration:underline;text-underline-offset:4px; }
+.reveal code { font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace; }
+.reveal pre { width:100%;margin:.4em 0 1em;box-shadow:none;font-size:.62em;line-height:1.6; }
+.reveal pre code { padding:26px 24px;border-left:7px solid var(--teal);max-height:430px; }
+.reveal .slide-number { right:24px;bottom:18px;color:var(--muted);background:transparent;font-size:18px; }
+.reveal .progress { color:var(--teal);height:5px; }
+.reveal .controls { color:var(--teal); }
+.kicker { color:var(--coral);font-size:.58em;font-weight:800;letter-spacing:.08em;margin-bottom:.75em;text-transform:uppercase; }
+.subtitle { color:var(--muted);font-size:.82em; }
+.course-mark { border-top:5px solid var(--teal);color:var(--muted);font-size:.54em;margin-top:2.2em;padding-top:.7em;max-width:460px; }
+.two-col { display:grid;grid-template-columns:1fr 1.15fr;gap:52px;align-items:center; }
+.two-col.narrow-left { grid-template-columns:.75fr 1.25fr; }
+.hero-image { width:100%;height:630px;object-fit:cover; }
+.cover .two-col { grid-template-columns:1fr 1.1fr; }
+.cover .kicker { margin-top:18px; }
+.image-side { width:100%;height:535px;object-fit:contain;display:block; }
+.image-wide { width:100%;height:490px;display:flex;align-items:center;justify-content:center; }
+.image-chart { max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block; }
+.question { font-size:1.05em;font-weight:700;line-height:1.25; }
+.small { font-size:.74em; }
+.caption { font-size:.58em;color:var(--muted);margin-top:16px!important; }
+.muted { color:var(--muted); }
+.callout { border-left:8px solid var(--coral);font-size:.78em;padding:.25em 0 .25em .75em;margin-top:18px!important; }
+.question-bottom { font-size:.84em;margin-top:15px!important; }
+.reveal table { border-collapse:collapse;width:100%;margin:20px 0 28px;font-size:.91em; }
+.reveal th,.reveal td { text-align:left;padding:22px 18px;border-bottom:2px solid var(--line); }
+.reveal th { font-size:.85em;color:var(--muted);font-weight:600; }
+.reveal td { font-variant-numeric:tabular-nums; }
+.reveal .error-table td:last-child { font-weight:800;font-size:1.2em; }
+.equation { font-size:1.06em;line-height:1.4; }
+.comparison-table td[colspan] { text-align:center;color:var(--teal); }
+.comparison-table td code { font-size:.83em; }
+.reveal .lab-steps { margin:30px 0 0 1.1em; }
+.reveal .lab-steps li { margin-bottom:32px;padding-left:14px; }
+.reveal .source-list { margin:32px 0 40px 1.1em;font-size:.86em; }
+.reveal .source-list li { margin-bottom:22px; }
+@media print { .reveal .slides section { overflow:visible; } }
+</style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+<section class="cover">
+<div class="two-col">
+<div><div class="kicker">Lab 07</div><h1>A first machine learning<br>species distribution model</h1>
+<p class="subtitle">Learning complex, non-linear patterns in environmental data</p>
+<div class="course-mark">BIO597 Spatial Analysis of Biodiversity</div></div>
+<img class="hero-image" src="assets/Lecture07-habitat.png" alt="Natural-history illustration of a wood frog beside a woodland pool in Maine.">
+</div>
+<aside class="notes">About 18–22 minutes including discussion. Keep the focus on biological questions. Students already know occurrence records, climate rasters, and last week's temperature curve. The cover is an AI-generated illustration, not a photograph or a documented survey site. Artwork provenance: assets/Lecture07-artwork-notes.md.</aside>
+</section>
+
+<section class="">
+<div class="kicker">Last week</div>
+<h2>We chose the shape of the temperature response</h2>
+<div class="two-col">
+<div><p class="question">Highest suitability near the mean temperature at records.</p><p class="small muted">That was our assumption.</p><p class="small">Today the model will <u>learn</u> a response curve, and it might not be very normal at all!</p></div>
+<img class="image-side" src="assets/Lecture07-last-week.png" alt="A hand-built suitability curve peaks at the mean annual temperature at complete wood-frog records."></div>
+<aside class="notes">Timing: 1 minute. Ask students who decided that last week’s response should have a single smooth peak. We did. This curve uses the supplied wood-frog records after the uncertainty and complete-value filters. It is a conceptual recap, not a claim that the same sample or filtering exactly reproduces every student’s week 6 result.</aside>
+</section>
+
+<section class="">
+<div class="kicker">The observations</div>
+<h2>Recorded environments and available environments</h2>
+<div class="two-col"><div>
+<p class="question"><strong>1</strong> &nbsp; A frog record</p><p class="question"><span class="coral">0</span> &nbsp; A background sample</p>
+<p class="small">Background describes the climate available across Maine.</p>
+<p class="small muted">This is similar to what we did last week.</p></div>
+<img class="image-side" src="assets/Lecture07-records.png" alt="Maine map with teal wood-frog occurrence points and open coral background points sampled across the valid climate grid."></div>
+<aside class="notes">Timing: 1.5 minutes. The zeros are labels we assign to available environments. They are not confirmed absences. The class samples from the full grid, including some places with occurrence records. Records can repeat within a climate cell. These choices simplify preparation but mean the score describes recorded versus available environments under this sampling design.</aside>
+</section>
+
+<section class="">
+<div class="kicker">The input to the machine learning model is a table</div>
+<h2>Rows are occurrences or background points + environment</h2>
+<p class="small">Climate columns are 'features' and the label column is the 'target'.</p>
+<table class="data-table"><thead><tr><th>Temperature (°C)</th><th>Annual rainfall (mm)</th><th>Label</th></tr></thead>
+<tbody><tr><td>5.2</td><td>1,100</td><td class="teal">1 &nbsp; frog record</td></tr>
+<tr><td>6.8</td><td>1,250</td><td class="teal">1 &nbsp; frog record</td></tr>
+<tr><td>2.1</td><td>1,000</td><td class="coral">0 &nbsp; background</td></tr>
+<tr><td>6.0</td><td>1,160</td><td class="coral">0 &nbsp; background</td></tr></tbody></table>
+<aside class="notes">Timing: 1 minute. These numbers illustrate the structure, not actual extracted rows. A predictor is just a column we use to help predict a response. X contains selected climate columns. y contains our 1/0 labels. Geographic coordinates help build maps, but they stay out of X. Preparing all 19 variables does not require fitting all 19.</aside>
+</section>
+
+<section class="">
+<div class="kicker">One decision tree</div>
+<h2>A question separates groups of examples</h2>
+<div class="two-col narrow-left"><div>
+<p class="question">Within each final group, predict the average label.</p>
+<p class="small">There are, on average, more background points in the 'cold' class when the split is at 5 degrees C.</p>
+<p class="caption">Illustration only. The model learns its own thresholds.</p></div>
+<img class="image-side" src="assets/Lecture07-tree.png" alt="Illustrative decision tree asks whether temperature exceeds 5°C. The cooler group has 2 presence and 8 background labels, score 0.2. The warmer group has 8 presence and 2 background labels, score 0.8."></div>
+<aside class="notes">Timing: 1.5 minutes. Follow one route through the tree. The 5°C threshold and group counts are invented for teaching. A regression tree with default squared-error loss predicts the mean training label in a leaf. The algorithm searches for splits that reduce variation in those labels. Source: https://scikit-learn.org/stable/modules/tree.html. Image generated for this lecture; see artwork notes.</aside>
+</section>
+
+<section class="">
+<div class="kicker">A deeper decision tree</div>
+<h2>Two levels of temperature splits</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture07-tree-depth2.png" alt="A depth-2 temperature decision tree splits first above 5°C, then above 3°C on the cooler branch and above 7°C on the warmer branch. The four final groups have scores 0.1, 0.3, 0.8, and 0.4. A highlighted path takes a 6°C location to the 0.8 group."></div>
+<p class="small">A <strong>6°C</strong> location follows the highlighted path and receives a score of <strong>0.8</strong>.</p>
+<p class="caption">Depth 2 means two splits along each path.</p>
+<aside class="notes">Timing: 1.5 minutes. Start at the top with a hypothetical location whose annual mean temperature is 6°C. Is it warmer than 5°C? Yes, follow the right branch. Is it warmer than 7°C? No, follow the left branch into the group above 5°C and up to 7°C. That final group has eight presence labels and two background labels, so its mean label is 8/10 = 0.8. Ask students to trace 2°C, 4°C, and 8°C, which end at scores 0.1, 0.3, and 0.4. Depth counts the number of splits from root to final group: the root is depth 0, its child questions are depth 1, and the four final groups are depth 2. The tree uses temperature repeatedly, so one predictor can produce several different scores and a response that rises and then falls. All thresholds, counts, and scores are invented to illustrate the mechanism, not fitted to the wood-frog data. Source: https://scikit-learn.org/stable/modules/tree.html. Diagram generated for this lecture; see assets/Lecture07-artwork-notes.md.</aside>
+</section>
+
+<section class="">
+<div class="kicker">A fitted tree</div>
+<h2>Decision tree predictions take on a step-shaped response</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture07-tree-response.png" alt="A small fitted decision tree gives a step-shaped score across annual mean temperature. Teal marks show presence labels and open coral marks show background labels."></div>
+<p class="caption">The group boundaries come from the training data.</p>
+<aside class="notes">Timing: 1 minute. This plot uses a deliberately small depth-3 decision tree fitted to the lecture’s training sample. It helps students connect the branching diagram to a response along one environmental axis. It is not the final random forest and its shape need not be smooth or have a single peak. Points along the top are presence labels and points along the bottom are background labels.</aside>
+</section>
+
+<section class="">
+<div class="kicker">A random forest</div>
+<h2>Many trees contribute to one score</h2>
+<div class="two-col narrow-left"><div>
+<p class="question">Each tree learns from a different resample of the training records.</p>
+<p class="small">The forest averages their scores.</p><p class="caption">Three trees shown here. The lab uses 100.</p></div>
+<img class="image-side" src="assets/Lecture07-forest.png" alt="Illustrative scores of 0.2, 0.6, and 0.7 from three trees average to a forest score of 0.5."></div>
+<aside class="notes">Timing: 1.5 minutes. The scores are illustrative, not fitted results. Resampling means choosing training rows with replacement, so the trees see different combinations of records. Averaging can reduce the sensitivity of one tree to one particular sample; it does not eliminate bias. The lab uses RandomForestRegressor with bootstrap=True and the default max_features=1.0, so it considers all selected features at each split. Other forest settings can also randomize predictor choice. No need to introduce ensemble or bootstrap jargon unless asked. Source: https://scikit-learn.org/stable/modules/ensemble.html#forests-of-randomized-trees.</aside>
+</section>
+
+<section class="">
+<div class="kicker">Model validation</div>
+<h2>The use of training vs testing sets</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture07-holdout.png" alt="Two plots in temperature and precipitation space show the 75 percent training sample in gray and the 25 percent held-out test sample in coral."></div>
+<p class="caption">Test data is withheld during training and used to evaluate model performance on 'unobserved' data.</p>
+<aside class="notes">Timing: 1 minute. Split the full modeling table once, preserving approximately equal presence/background proportions. This diagram shows real climate values and the actual seeded lecture split, but point color marks training versus testing rather than presence versus background. Nearby or repeated climate cells can still occur in both sets, so this tests held-out records, not independent transfer to a new region. Source: https://scikit-learn.org/stable/modules/cross_validation.html.</aside>
+</section>
+
+<section class="">
+<div class="kicker">The standard scikit-learn API</div>
+<h2>Learn a relationship, then apply it</h2>
+<div class="two-col"><div>
+<p class="question"><code>.fit()</code></p><p class="small">Learn the mapping from environment ('features') to presence/absence ('targets').</p>
+<p class="question"><code>.predict()</code></p><p class="small">Predict presence/absence for environment of test-set and compare to known test-set labels.</p></div>
+<div><pre><code class="language-python" data-trim>model.fit(X_train, y_train)
+
+scores = model.predict(X_test)</code></pre>
+<p class="caption">X = selected climate columns<br>y = presence/background labels</p></div></div>
+<aside class="notes">Timing: 45 seconds. This is the only model API students need to understand before opening the notebook. Avoid listing parameters. If asked, 100 means number of trees and min_samples_leaf=5 prevents very tiny terminal groups. The test labels do not enter fit().</aside>
+</section>
+
+<section class="">
+<div class="kicker">Evaluating predictions</div>
+<h2>Error is the distance from the assigned label</h2>
+<table class="error-table"><thead><tr><th>Known label</th><th>Prediction score</th><th>Absolute error</th></tr></thead><tbody>
+<tr><td>1 &nbsp; frog record</td><td>0.8</td><td class="teal">0.2</td></tr>
+<tr><td>0 &nbsp; background</td><td>0.3</td><td class="teal">0.3</td></tr>
+<tr><td>1 &nbsp; frog record</td><td>0.4</td><td class="teal">0.6</td></tr>
+</tbody></table>
+<p class="equation">Average error = (0.2 + 0.3 + 0.6) / 3 ≈ <strong>0.37</strong></p>
+<p class="caption">Mean absolute error (MAE). Lower is better.</p>
+<aside class="notes">Timing: 1.5 minutes. Work through the first row aloud and invite a student to calculate the last one. Absolute means ignore the sign. We average across all withheld rows. Predicting 0.5 everywhere gives MAE=0.5 for binary labels. This is error against our assigned presence/background labels, not an error in true occupancy probability. Source: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_absolute_error.html.</aside>
+</section>
+
+<section class="">
+<div class="kicker">Scaling to more predictors</div>
+<h2>Does adding more features (more predictors) add useful information?</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture07-climate.png" alt="Three Maine raster maps show annual mean temperature, annual precipitation, and precipitation seasonality, with units on color scales."></div>
+<p class="question question-bottom">Would two places with similar temperature always suit a frog equally well? What if one was super arid and the other humid?</p>
+<aside class="notes">Timing: 1.5 minutes. Pause before moving on. Ask about moisture, drying, breeding pools and seasonal conditions. BIO1 is annual mean temperature in degrees Celsius, BIO12 is annual precipitation in mm, and BIO15 is precipitation seasonality expressed as coefficient of variation. These are broad climate summaries rather than pond measurements. Source: https://www.worldclim.org/data/bioclim.html. The maps come from the provided Maine NetCDF.</aside>
+</section>
+
+<section class="">
+<div class="kicker">The comparison</div>
+<h2>Temperature alone versus three climate variables</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture07-comparison.png" alt="In one reproducible wood-frog example, temperature-only MAE is 0.287, compared with 0.272 after adding annual rainfall and rainfall seasonality."></div>
+<p class="callout">In this example, precipitation reduces test error, but this isn't necessarily always the case.</p>
+<aside class="notes">Timing: 1 minute. Read lower errors as better performance on the same test rows. The seeded example uses 1119 complete occurrence records, 1119 background rows, 1678 training rows and 560 test rows. BIO1-only MAE=0.286792; three-variable MAE=0.271544. The lecture drops incomplete presence records and fixes random_state=597 for background sampling. The current lab background draw may be unseeded and may retain missing values, so do not promise students these exact scores. Results and settings: assets/Lecture07-example-results.json. Adding variables is not guaranteed to improve test performance.</aside>
+</section>
+
+<section class="">
+<div class="kicker">Projection</div>
+<h2>Running 'predict()' function across the landscape</h2>
+<div class="two-col narrow-left"><div>
+<p class="question">Once the ML model is fit to the data, you can use the 'predict()' function to project suitability.</p>
+<p class="small">Extract the 3 fitted bioclim variables at each cell of the raster.</p>
+<p class="callout">A high score means climate is more suitable (under this model).</p></div>
+<img class="image-side" src="assets/Lecture07-suitability.png" alt="Maine relative suitability map from the all-data three-variable wood-frog random forest, ranging from 0 to 1."></div>
+<aside class="notes">Timing: 1 minute. Refit to all modeling rows after the planned evaluation, using the same three predictor columns and units to project. The final all-data model has no additional independent test score. White outside the study-area mask is NoData, not unsuitable habitat. A score of 0.8 is not evidence for an 80 percent chance of occupancy because our zeros are background, sampling effort is uneven, and label proportions were chosen by us.</aside>
+</section>
+
+<section class="">
+<div class="kicker">Variable importance</div>
+<h2>Which variables helped the trees separate labels?</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture07-importance.png" alt="Horizontal bars show training-based importance for temperature, annual rainfall, and rainfall seasonality in the final three-variable forest."></div>
+<p class="caption">Not all variables contribute equally. Variable importance isn't necessarily _explanatory_, it is correlated though.</p>
+<aside class="notes">Timing: 1 minute. These are the forest’s built-in impurity-based feature_importances_: contribution to reducing training split error, normalized to sum to one. A high bar does not prove an ecological cause, and this is not held-out importance. Correlated predictors can substitute for one another and split credit. Variables with more candidate split values can receive biased importance. Source: https://scikit-learn.org/stable/modules/ensemble.html#feature-importance-evaluation.</aside>
+</section>
+
+</div></div>
+<script src="reveal.js/dist/reveal.js"></script>
+<script src="reveal.js/dist/plugin/highlight.js"></script>
+<script src="reveal.js/dist/plugin/notes.js"></script>
+<script>
+Reveal.initialize({
+ hash:true, controls:true, progress:true, center:false, slideNumber:"c/t",
+ width:1440, height:810, margin:0.03, transition:"fade", transitionSpeed:"fast",
+ plugins:[RevealHighlight,RevealNotes]
+});
+</script>
+</body>
+</html>
