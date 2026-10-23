@@ -8,4 +8,5 @@ Langaha-cleaned.csv
 docs/labs/bioclim
 *.geojson
 !docs/data/amphibians+bioclim.geojson
+!docs/data/amphibians.geojson
 docs/labs/_*.ipynb

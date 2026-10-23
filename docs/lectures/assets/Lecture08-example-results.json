@@ -1,0 +1,64 @@
+{
+  "species": "Lithobates palustris",
+  "n_presence": 1007,
+  "n_background": 908,
+  "background": "temperature-biased",
+  "sample_count_requested": 1000,
+  "np_seed": 597,
+  "split_seed": 597,
+  "model_random_state": 597,
+  "climate_predictors": 19,
+  "sample_weights": "distance_weights(n_neighbors=-1), separate presence/background",
+  "projected_crs": "EPSG:26919",
+  "checkerboard_grid_m": 50000,
+  "buffer_m": 50000,
+  "checkerboard_boundary_rows_omitted": 2,
+  "evaluation": [
+    {
+      "evaluation": "Training rows",
+      "n_train": 1913,
+      "n_evaluate": 1913,
+      "AUC": 0.8754509391369145,
+      "weighted_AUC": 0.8689561040813055
+    },
+    {
+      "evaluation": "Random test",
+      "n_train": 1136,
+      "n_evaluate": 777,
+      "AUC": 0.7976811998512142,
+      "weighted_AUC": 0.7884102252438174
+    },
+    {
+      "evaluation": "Checkerboard A to B",
+      "n_train": 1136,
+      "n_evaluate": 777,
+      "AUC": 0.6637448308589249,
+      "weighted_AUC": 0.663235958230105
+    },
+    {
+      "evaluation": "Checkerboard B to A",
+      "n_train": 777,
+      "n_evaluate": 1136,
+      "AUC": 0.789120269944565,
+      "weighted_AUC": 0.7795340057774065
+    }
+  ],
+  "toy_temperature_cells_C": [
+    2.0,
+    4.0,
+    6.0,
+    8.0
+  ],
+  "toy_observed_mean_C": 6.0,
+  "toy_maxent_relative_weights": [
+    0.1196550732988582,
+    0.18204080033309586,
+    0.2769531794372341,
+    0.4213509469308119
+  ],
+  "toy_AUC": 0.888888888888889,
+  "python": "3.11.15",
+  "elapid": "1.0.4",
+  "sklearn": "1.9.0",
+  "notes": "Empirical example uses the Lab08 pickerel frog, 19 rasters, temperature-biased background and geographic sample weights. Random and checkerboard fits use equal-sized training/test partitions from the same eligible rows. Seeds are fixed for illustration; student results can differ. Toy entropy and AUC examples are illustrative, not fitted ecological results."
+}

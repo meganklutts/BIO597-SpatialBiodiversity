@@ -38,6 +38,7 @@ nav = [
     {"Week 5 (10/02) - Raster data & env correlates" = "labs/Lab05-RasterData.ipynb"},
     {"Week 6 (10/09) - Basic SDMs" = "labs/Lab06-FirstPrinciplesSDM.ipynb"},
     {"Week 7 (10/16) - Machine learning SDMs" = "labs/lab07-MachineLearningSDM.ipynb"},
+    {"Week 8 (10/23) - SDM software" = "labs/Lab08-SDM-Software.ipynb"},
   ]},
   {"Assignments" = [
     {"Overview" = "assignments/index.md"},
@@ -48,6 +49,7 @@ nav = [
     {"Week 5 (10/02) - Raster data & env correlates" = "assignments/Assignment-05-RasterData.ipynb"},
     {"Week 6 (10/09) - Basic SDMs" = "assignments/Assignment-06-FirstPrinciplesSDM.ipynb"},
     {"Week 7 (10/16) - Machine learning SDMs" = "assignments/Assignment-07-MachineLearningSDM.ipynb"},
+    {"Week 8 (10/23) - SDM software" = "assignments/Assignment-08-SDM-Software.ipynb"},
   ]},
   {"Software and Data" = "software-data.md"},
   {"Resources" = "resources.md"},
