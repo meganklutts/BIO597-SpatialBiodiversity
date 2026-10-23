@@ -15,9 +15,6 @@ and habitat"](https://doi.org/10.3161/15081109ACC2021.23.1.011)
 
 # Lab Exercise: The MaxEnt model and more advanced SDM topics
 
-## Core Questions
-
-
 ## Concepts
 
 - MaxEnt the Original SDM model

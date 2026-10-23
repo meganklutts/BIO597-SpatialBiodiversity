@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A visual introduction to MaxEnt, geographic validation, cross-validation and ROC AUC for BIO597 Lab08.">
+<title>Lecture 08: MaxEnt and Spatial Model Evaluation</title>
+<link rel="stylesheet" href="reveal.js/dist/reset.css">
+<link rel="stylesheet" href="reveal.js/dist/reveal.css">
+<link rel="stylesheet" href="reveal.js/dist/plugin/highlight/monokai.css">
+<style>
+:root { --ink:#18212b; --muted:#52606d; --paper:#f7f8f6; --teal:#087e8b; --coral:#d95d39; --line:#ccd3d7; }
+body { background:var(--paper); }
+.reveal { color:var(--ink); font-family:Inter,"Avenir Next",Avenir,"Helvetica Neue",Arial,sans-serif; font-size:34px; }
+.reveal .slides { text-align:left; }
+.reveal .slides section { box-sizing:border-box; padding:48px 72px; height:810px; }
+.reveal h1,.reveal h2,.reveal h3 { color:var(--ink);font-family:inherit;letter-spacing:0;text-transform:none;font-weight:700; }
+.reveal h1 { font-size:2.05em;line-height:1.02;margin:0 0 .34em; }
+.reveal h2 { font-size:1.42em;line-height:1.08;margin:0 0 .55em; }
+.reveal p,.reveal li { line-height:1.35; }
+.reveal p { margin:0 0 .7em; }
+.reveal strong,.teal { color:var(--teal); }
+.coral { color:var(--coral); }
+.reveal a { color:var(--teal);text-decoration:underline;text-underline-offset:4px; }
+.reveal code { font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace; }
+.reveal pre { width:100%;margin:.4em 0 1em;box-shadow:none;font-size:.62em;line-height:1.6; }
+.reveal pre code { padding:26px 24px;border-left:7px solid var(--teal);max-height:430px; }
+.reveal .slide-number { right:24px;bottom:18px;color:var(--muted);background:transparent;font-size:18px; }
+.reveal .progress { color:var(--teal);height:5px; }
+.reveal .controls { color:var(--teal); }
+.kicker { color:var(--coral);font-size:.58em;font-weight:800;letter-spacing:.08em;margin-bottom:.75em;text-transform:uppercase; }
+.subtitle { color:var(--muted);font-size:.82em; }
+.course-mark { border-top:5px solid var(--teal);color:var(--muted);font-size:.54em;margin-top:2.2em;padding-top:.7em;max-width:460px; }
+.two-col { display:grid;grid-template-columns:1fr 1.15fr;gap:52px;align-items:center; }
+.two-col.narrow-left { grid-template-columns:.75fr 1.25fr; }
+.hero-image { width:100%;height:630px;object-fit:cover; }
+.cover .two-col { grid-template-columns:1fr 1.1fr; }
+.cover .kicker { margin-top:18px; }
+.image-side { width:100%;height:535px;object-fit:contain;display:block; }
+.image-wide { width:100%;height:490px;display:flex;align-items:center;justify-content:center; }
+.image-chart { max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block; }
+.question { font-size:1.05em;font-weight:700;line-height:1.25; }
+.small { font-size:.74em; }
+.caption { font-size:.58em;color:var(--muted);margin-top:16px!important; }
+.muted { color:var(--muted); }
+.callout { border-left:8px solid var(--coral);font-size:.78em;padding:.25em 0 .25em .75em;margin-top:18px!important; }
+.question-bottom { font-size:.84em;margin-top:15px!important; }
+.reveal table { border-collapse:collapse;width:100%;margin:20px 0 28px;font-size:.91em; }
+.reveal th,.reveal td { text-align:left;padding:22px 18px;border-bottom:2px solid var(--line); }
+.reveal th { font-size:.85em;color:var(--muted);font-weight:600; }
+.reveal td { font-variant-numeric:tabular-nums; }
+.reveal .error-table td:last-child { font-weight:800;font-size:1.2em; }
+.equation { font-size:1.06em;line-height:1.4; }
+.comparison-table td[colspan] { text-align:center;color:var(--teal); }
+.comparison-table td code { font-size:.83em; }
+.reveal .lab-steps { margin:30px 0 0 1.1em; }
+.reveal .lab-steps li { margin-bottom:32px;padding-left:14px; }
+.reveal .source-list { margin:32px 0 40px 1.1em;font-size:.86em; }
+.reveal .source-list li { margin-bottom:22px; }
+@media print { .reveal .slides section { overflow:visible; } }
+
+.cover .hero-image { object-fit:contain; }
+.mean-balance .image-wide { height:430px; }
+.auc-positive .image-wide { height:390px; }
+.auc-performance .image-wide { height:390px; }
+.reveal .plain-table { font-size:.84em; }
+.reveal .plain-table th,.reveal .plain-table td { padding:20px 16px; }
+.reveal .fold-table td { text-align:center; }
+.reveal .fold-table .test { color:var(--coral);font-weight:800; }
+.reveal .rank-table { font-size:.80em; }
+.reveal .rank-table th,.reveal .rank-table td { padding:18px 16px; }
+.reveal .rank-table td { text-align:center;color:var(--teal);font-weight:700; }
+.reveal .rank-table td.miss { color:var(--coral); }
+.score-number { font-size:3.8em;font-weight:800;line-height:1;color:var(--teal);margin-bottom:20px!important; }
+.reveal .question-list { margin:30px 0 0 1.1em; }
+.reveal .question-list li { margin-bottom:26px; }
+.reveal .source-list { font-size:.69em;margin:22px 0 30px 1.1em; }
+.reveal .source-list li { margin-bottom:15px; }
+.reveal .slim-note { font-size:.56em; }
+</style></head><body>
+<div class="reveal"><div class="slides">
+<section class="cover">
+<div class="two-col"><div>
+<div class="kicker">Lab 08</div>
+<h1>MaxEnt and spatial model evaluation</h1>
+<p class="subtitle">Introducing a few more advanced SDM concepts</p>
+<div class="course-mark">BIO597 Spatial Analysis of Biodiversity</div>
+</div><img class="hero-image" src="assets/Lecture08-habitat.png" alt="Natural-history illustration of a pickerel frog on a mossy bank beside a Maine woodland stream."></div>
+<aside class="notes">About 25–30 minutes with discussion. The audience has already seen a hand-built temperature curve and RandomForestRegressor. Keep new language attached to biological questions and the actual Maine data. The pickerel-frog image is a generated illustration, not a documented observation. Illustration prompt and credits: assets/Lecture08-artwork-notes.md.</aside>
+</section>
+
+<section >
+<div class="kicker">This week</div>
+<h2>A classic presence/background model</h2>
+<table class="plain-table"><thead><tr><th>Approach</th><th>How the relationship is built</th></tr></thead><tbody>
+<tr><td>Our first SDM</td><td>We chose a simple temperature curve.</td></tr>
+<tr><td>Random forest</td><td>ML learned a mapping between env correlates and presence/absence.</td></tr>
+<tr><td><strong>MaxEnt</strong></td><td>A classical statistical model for fitting presence data to environmental evidence.</td></tr>
+</tbody></table>
+<p class="caption">A foundational MaxEnt SDM paper: Phillips, Anderson &amp; Schapire (2006).</p>
+<aside class="notes">Timing: 1 minute. MaxEnt is a classic and influential presence-background method; it was not the first species distribution model. The foundational species-distribution paper is Phillips et al. 2006, https://doi.org/10.1016/j.ecolmodel.2005.03.026. We will use elapid’s Python implementation. It shares the presence/background problem with last week’s forest, but learns the relationship in a different way. This lecture emphasizes mechanism and evaluation rather than model tuning.</aside>
+</section>
+
+<section >
+<div class="kicker">The inputs</div>
+<h2>What information does MaxEnt receive?</h2>
+<div class="two-col"><div>
+<p class="question">Where the species was recorded.</p>
+<p class="question">Climate across the study area.</p>
+<p class="small muted">Background locations describe the environments available in that area.</p>
+<p class="small">A blank place on this map can still contain frogs.</p>
+</div><img class="image-side" src="assets/Lecture08-records.png" alt="Maine occurrence map for the Lab08 pickerel frog, Lithobates palustris."></div>
+<aside class="notes">Timing: 1 minute. Our example is Lithobates palustris, the pickerel frog. The point map uses the course occurrence file after raster annotation removes NoData rows. We do not have systematic absence surveys. A background sample can include a location with a known presence. The chosen study extent defines what counts as available. Source: https://earth-chris.github.io/elapid/sdm/maxent/.</aside>
+</section>
+
+<section >
+<div class="kicker">The ecological signal</div>
+<h2>Recorded climate and available climate</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture08-used-available.png" alt="Density histograms compare temperature and precipitation at pickerel-frog records with the temperature-biased background used in the worked example."></div>
+<p class="caption">What environmental conditions occur more often in the records than in the sampled background?</p>
+<aside class="notes">Timing: 1 minute. These are measured climate values from the supplied rasters. The background in this worked example follows the lab’s temperature-biased sampling design. Differences can reflect ecological associations, observation patterns, or both. Ask students to describe the distributions before interpreting preferences. These histograms motivate the comparison MaxEnt makes; they are not causal experiments.</aside>
+</section>
+
+<section >
+<div class="kicker">The name</div>
+<h2>Maximum entropy starts with broad support</h2>
+<div class="two-col"><div>
+<p class="question">With little evidence, keep the prediction broadly spread.</p>
+<p class="small">Imagine four equal-area cells with temperatures of 2, 4, 6, and 8°C.</p>
+<p class="small">Equal weights imply a mean of <strong>5°C</strong>.</p>
+</div><img class="image-side" src="assets/Lecture08-equal-weights.png" alt="Illustrative equal weights of 25 percent over four equal-area cells at 2, 4, 6, and 8°C imply a weighted mean of 5°C."></div>
+<p class="caption">Weights share a total of 100%. They are not occupancy probabilities for individual cells.</p>
+<aside class="notes">Timing: 1 minute. Entropy here describes how dispersed the weights are, not species diversity. In this deliberately simple geographic example, four equally available cells receive equal weight before any environmental constraints. We are showing relative mass over candidate locations, not the cloglog scores returned by elapid. This is an exact single-constraint teaching example. Source for the general principle: Phillips et al. 2006, https://doi.org/10.1016/j.ecolmodel.2005.03.026.</aside>
+</section>
+
+<section>
+<div class="kicker">Evidence constrains the prediction</div>
+<h2>The observations constrain the weights</h2>
+<p class="small">Suppose the mean temperature at records is <strong>6°C</strong>.</p>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture08-maxent-constraint.png" alt="Toy distributions over four equal-area cells: equal weights imply 5°C, concentrating all weight on the 6°C cell gives a 6°C mean, and maximum-entropy weights also give a 6°C mean while retaining support across all four cells."></div>
+<p class="caption">The mean constrains the weights. It does not identify a temperature optimum.</p>
+<aside class="notes">Timing: 1.5 minutes. The equal-weight distribution misses our hypothetical 6°C constraint. Putting all weight on the 6°C cell matches the mean, but assumes the other temperatures have no support. The maximum-entropy solution also matches 6°C while remaining spread across all four cells. Its calculated weights are approximately 12%, 18%, 28%, and 42%. The 8°C cell has the greatest weight: knowing a mean of 6°C alone does not identify an optimum at 6°C. These are invented cells and an analytically constrained toy calculation, not results for pickerel frogs. This simplified example has one exact constraint; actual regularized models allow approximate agreement and use transformed predictors. Source: Phillips et al. 2006, https://doi.org/10.1016/j.ecolmodel.2005.03.026.</aside>
+</section>
+
+<section >
+<div class="kicker">Intuition</div>
+<h2>The mean is a balance point</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture08-mean-balance.png" alt="A level balance beam represents relative weights of 12%, 18%, 28%, and 42% at temperatures of 2, 4, 6, and 8°C. Its balance point is at 6°C. The extra weight at 8°C counterbalances the cooler cells."></div>
+<p class="callout">Keeping weight on cooler cells requires extra weight above 6°C to balance it.</p>
+<p class="caption">Many weights can match the mean. MaxEnt keeps them broadly distributed while respecting that balance.</p>
+<aside class="notes">Timing: 1–1.5 minutes. Think of the mean as the balance point of a beam. Relative to 6°C, the 2°C and 4°C cells pull left. Weight at 8°C pulls right; weight exactly at 6°C does not pull either way. The rounded illustrative weights 12%, 18%, 28%, and 42% sum to 100% and have weighted mean 6°C. The balance also follows from 12 × 4 + 18 × 2 = 42 × 2. Do not require students to calculate the equation; use it to check the illustration. The mean constraint alone does not force the largest weight onto 8°C: 5%, 10%, 65%, and 20% would also average 6°C, but have lower entropy. MaxEnt selects the maximum-entropy distribution among the distributions satisfying the constraint. The exact example is approximately 11.97%, 18.20%, 27.70%, and 42.14%. Thus the illustration explains the counterbalancing, while the maximum-entropy principle determines the particular solution. Knowing a mean alone does not identify a temperature optimum. Additional evidence about spread or transformed predictors can change the response shape. These are relative weights across four equally available cells, not occupancy probabilities or confidence intervals. Source: https://doi.org/10.1016/j.ecolmodel.2005.03.026. Generated illustration prompt: assets/Lecture08-artwork-notes.md.</aside>
+</section>
+
+<section>
+<div class="kicker">Two climate variables</div>
+<h2>Balance temperature and rainfall together</h2>
+<div class="two-col narrow-left"><div>
+<p class="small">At recorded sites, the averages are:</p>
+<p><strong>6°C</strong> temperature<br><strong>1,100 mm</strong> rainfall</p>
+<p class="callout">The same weights must balance both averages.</p>
+<p class="small muted">MaxEnt spreads weight as broadly as these constraints allow.</p>
+</div><img class="image-side" src="assets/Lecture08-two-dimensional-balance.png" alt="Four equally available climate combinations at 2 or 8 degrees Celsius and 800 or 1200 millimeters rainfall. Their relative weights are approximately 8.3%, 16.7%, 25%, and 50%. Their shared balance point is 6 degrees Celsius and 1100 millimeters, marked with a coral cross."></div>
+<p class="caption">Each circle represents a climate combination, not a map location. Circle area shows relative weight.</p>
+<aside class="notes">Timing: 1–1.5 minutes. Extend the beam analogy to balancing a flat tray: left/right is temperature, and up/down is rainfall. We now have two summaries of the occurrence records, and one set of weights has to reproduce both. Imagine four equally available cells with the climate combinations shown. Equal weights would average 5°C and 1,000 mm. The observed averages are warmer and wetter, so weight shifts toward the warm, wet corner while every combination retains some weight. The coral cross is the weighted center of all four circles; no cell needs to sit exactly at that center. The exact weights are 1/12, 1/6, 1/4, and 1/2, displayed as rounded percentages. They sum to one and give weighted means of exactly 6°C and 1,100 mm. Warm cells together carry two-thirds of the weight and wet cells carry three-quarters. For this complete four-combination grid, the maximum-entropy joint weights are the products of those marginal weights. These are normalized relative weights over equally available cells, not occupancy probabilities or evidence of a climate optimum. This teaching example constrains only two raw means, with no regularization or interaction constraint. Real landscapes may have correlated predictors and missing combinations, and real MaxEnt fits can constrain additional transformed features. Reproducible figure: assets/Lecture08-build-figures.py. Source for the maximum-entropy principle: https://doi.org/10.1016/j.ecolmodel.2005.03.026.</aside>
+</section>
+
+<section >
+<div class="kicker">A real MaxEnt fit</div>
+<h2>MaxEnt prediction projected across the landscape</h2>
+<div class="two-col narrow-left"><div>
+<p class="question">Just like our previous examples, the fitted MaxEnt model can be used to predict suitability at unobserved locations.</p>
+<p class="small">Internally, a penalty discourages unnecessarily complex responses.</p>
+</div><img class="image-side" src="assets/Lecture08-maxent-map.png" alt="Relative suitability map for pickerel frogs fitted with elapid MaxentModel using 19 climate rasters and weighted presence/background records."></div>
+<aside class="notes">Timing: 1 minute. Real MaxEnt constrains summaries of transformed climate variables, allowing bends and interactions rather than only a raw mean. Regularization trades closer agreement with sampled patterns against complexity. The map uses the 19-predictor weighted all-eligible-row fit in the reproducible lecture example, projected to the supplied Maine climate grid. Display scores are relative suitability under the sampling/model assumptions. They are not the normalized four-cell masses on the previous slides. Source for features, regularization and relative-background interpretation: Elith et al. 2011, https://doi.org/10.1111/j.1472-4642.2010.00725.x.</aside>
+</section>
+
+<section >
+<div class="kicker">Accounting for observation bias when sampling background points</div>
+<h2>The background can influence the predictions</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture08-backgrounds.png" alt="Two actual Maine background samples compare uniform sampling with sampling that favors warmer annual-mean-temperature cells."></div>
+<p class="caption">Observations will be biased toward where humans usually go (near roads, in parks, where they think the organism will be), so it's important to replicate this bias as much as possible when sampling background points.</p>
+<p class="caption">In the lab we will take mean annual temperature as a proxy for sampling bias, but in practice you might do something fancier.</p>
+<aside class="notes">Timing: 1 minute. The same occurrence records can imply different environmental associations against a different background distribution. A defensible bias layer should represent observation effort when the aim is to compensate for sampling bias. Favoring warm cells is a lab illustration, not evidence that this corrects amphibian sampling. The effect on both fitting and AUC depends on the comparison population. Source: https://earth-chris.github.io/elapid/module/geo/#elapid.geo.sample_bias_file and Elith et al. 2011, https://doi.org/10.1111/j.1472-4642.2010.00725.x.</aside>
+</section>
+
+<section >
+<div class="kicker">Geographic sample weights</div>
+<h2>Sample weights change a point’s influence</h2>
+<div class="two-col"><div>
+<p class="question">Many neighboring observations can repeat similar information.</p>
+<p class="small">Distance-based weights give relatively isolated records more influence.</p>
+</div><img class="image-side" src="assets/Lecture08-weights.png" alt="Pickerel-frog occurrences colored by distance-based sample weight, calculated in projected meters using elapid distance_weights."></div>
+<aside class="notes">Timing: 1 minute. This plot uses ela.distance_weights with n_neighbors=-1, meaning average distance to the other observations, calculated separately for presences and background. This is a heuristic that changes contributions to model fitting, not proof of corrected sampling or independent records. Distance calculations use EPSG:26919 in meters. Weights are not environmental predictor columns. Source: https://earth-chris.github.io/elapid/module/geo/#elapid.geo.distance_weights.</aside>
+</section>
+
+<section >
+<div class="kicker">Geographically aware splitting</div>
+<h2>Geographic splits withhold whole blocks</h2>
+<div class="two-col narrow-left"><div>
+<p class="question">Keep an entire square in training or testing.</p>
+<p class="small">Lab08 uses alternating <strong>50 km</strong> squares.</p>
+<p class="small muted">Teal training set. Coral test set. Nearby locations often share climate and sampling history.</p>
+</div><img class="image-side" src="assets/Lecture08-split-comparison.png" alt="Actual elapid checkerboard split of Maine modeling points, with entire 50 km blocks assigned to training in teal or testing in coral."></div>
+<aside class="notes">Timing: 1 minute. The geometry must use a projected CRS in meters before grid_size=50_000 means 50 km. The number is a teaching choice, not a measured autocorrelation distance or a universal recommendation. Ask students what would happen with much smaller squares. Keeping blocks together controls one type of leakage, but border neighbors and repeated climate conditions remain possible. Source: https://earth-chris.github.io/elapid/module/train_test_split/#elapid.train_test_split.checkerboard_split.</aside>
+</section>
+
+<section >
+<div class="kicker">Evaluating robustness of test/train splits</div>
+<h2>Cross-validation rotates the test group</h2>
+<p class="small">Presence/background points are split into 'K-fold' groups, and each group takes a turn as the withheld data. A new model is fit to each 'fold' of the data, and performance is evaluated as the average across N-folds.</p>
+<table class="fold-table"><thead><tr><th></th><th>Group A</th><th>Group B</th><th>Group C</th></tr></thead><tbody>
+<tr><th>Round 1</th><td class="test">Test</td><td>Train</td><td>Train</td></tr>
+<tr><th>Round 2</th><td>Train</td><td class="test">Test</td><td>Train</td></tr>
+<tr><th>Round 3</th><td>Train</td><td>Train</td><td class="test">Test</td></tr>
+</tbody></table>
+<p class="caption">A group is often called a “fold.”</p>
+<aside class="notes">Timing: 1 minute. This is an illustrative three-fold design. The groups are fixed before fitting; each model excludes its test group. Cross-validation is repeated evaluation on different withheld groups, not just calling fit several times on all rows. Inspect the individual scores as well as their summary. If cross-validation is used to choose predictors/settings, an additional independent evaluation or nested design is needed to judge that selection. Source: https://scikit-learn.org/stable/modules/cross_validation.html.</aside>
+</section>
+
+<section >
+<div class="kicker">Two-fold spatial cross-validation</div>
+<h2>The checkerboard groups can swap roles</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture08-swap-folds.png" alt="Two rounds swap the training and test roles of the same two checkerboard groups. The geometry and background sample stay fixed."></div>
+<p class="caption">Each model predicts the group of locations it did not use for learning.</p>
+<aside class="notes">Timing: 1 minute. Checkerboard splitting creates two complementary groups. The assignment first fits A and evaluates B, then fits a new model on B and evaluates A. It is two-fold spatial cross-validation when both directions are run. The two training sizes differ, and environmental coverage also differs, so expect potentially different scores. Keep predictors, model settings, and the original background draw fixed. Source: https://earth-chris.github.io/elapid/module/train_test_split/.</aside>
+</section>
+
+<section >
+<div class="kicker">Leave-one-out (LOO) cross-validation is the logical extreme of k-fold</div>
+<h2>Buffered LOO controls for spatial auto-correlation</h2>
+<div class="two-col narrow-left"><div>
+<p class="question">Hold out one observation as the test data.</p>
+<p class="small">Remove training points within <strong>50 km</strong>.</p>
+<p class="small">Fit the SDM to all the remaining points.</p>
+<p class="small">Evaluate prediction accuracy for the one held-out point.</p>
+<p class="small">Repeat for another observation.</p>
+</div><img class="image-side" src="assets/Lecture08-buffered.png" alt="A held-out presence in coral has a 50 km exclusion circle. Training points outside the circle remain teal and excluded points appear gray."></div>
+<aside class="notes">Timing: 1 minute. This is one actual buffered split from a seeded subset of the Maine modeling points. Distances use projected meters. Buffered leave-one-out asks about prediction away from observed sites and can be computationally expensive when repeated. One held-out presence alone cannot define ROC AUC because it supplies no comparison background group. Any evaluation combining such predictions with background scores needs to describe whether that background was used in fitting; it is not automatically equivalent to holding out both classes. Source: https://earth-chris.github.io/elapid/module/train_test_split/#elapid.train_test_split.BufferedLeaveOneOut.</aside>
+</section>
+
+<section class="auc-positive">
+<div class="kicker">Evaluating the frog model</div>
+<h2>Which sites does the model call suitable?</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture08-positive-predictions.png" alt="A cutoff at suitability score 0.5 separates predicted unsuitable from predicted suitable sites. Three recorded frogs lie above the cutoff, labeled TP, and one below, labeled FN. One background site lies above the cutoff, labeled FP, and three below, labeled TN."></div>
+<p class="small"><strong>True positives (TP):</strong> recorded frogs predicted suitable — 3 of 4.<br><span class="coral"><b>False positives (FP):</b></span> background sites predicted suitable — 1 of 4.</p>
+<p class="caption">*For presence/background AUC, background serves as the “negative” class. These are not confirmed absences.</p>
+<aside class="notes">Timing: 1.5 minutes. Lead with the figure. Each dot is a location and its horizontal position is the model’s predicted suitability, or score. Higher means more suitable under the model, not a calibrated probability of occurrence. The cutoff turns this continuous prediction into a positive (suitable) or negative (unsuitable) label. At 0.5, three of four recorded frogs qualify: true-positive rate 75%. One of four background sites qualifies: false-positive rate 25%, using background as the negative class. FN means a recorded frog predicted unsuitable, a missed presence. TN means a background site predicted unsuitable. Ask students to imagine sliding the dashed cutoff to the left: more sites qualify, increasing the fractions of true and false positives. This change traces the ROC curve on the next slide. These eight predictions are invented to teach the calculation. With confirmed absence data, a false positive would mean predicting suitable at an observed absence. Here background occupancy is unknown, so “false positive” is a conventional evaluation label, not a demonstrated ecological mistake. Source: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_curve.html.</aside>
+</section>
+
+<section class="auc-performance">
+<div class="kicker">Comparing models across all cutoffs</div>
+<h2>Good predictions find frogs with fewer false alarms</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture08-roc-performance.png" alt="Three illustrative ROC panels labeled Good, Medium and Bad (chance), with shaded AUC values 0.95, 0.75 and 0.50. Each plots true-positive rate against false-positive rate. The good curve approaches the upper-left corner, the medium curve bends moderately above the diagonal, and the bad curve follows the chance diagonal."></div>
+<p class="small">Moving the cutoff traces each <strong>ROC curve</strong>. Toward the upper left: more true positives, fewer false positives.</p>
+<p class="callout"><strong>AUC = area under the curve.</strong> Larger areas mean better separation of recorded frogs from background.</p>
+<p class="caption">Illustrative curves, not fitted results. “Good,” “medium” and “bad” describe these examples, not universal AUC thresholds.</p>
+<aside class="notes">Timing: 1.5 minutes. Lead with the three panels. The vertical axis is the fraction of recorded frogs predicted suitable (true-positive rate, TP divided by TP plus FN). The horizontal axis is the fraction of background sites predicted suitable (false-positive rate, FP divided by FP plus TN). Every cutoff supplies one pair of rates. A good curve rises steeply: we recover many frogs before labeling much background suitable. The medium model needs more false positives to recover the same fraction of frogs. The bad example follows the diagonal: its predictions separate recorded sites and background no better than chance. The shaded area summarizes the curve, ranging from zero to one. Perfect separation gives AUC 1; chance ordering gives 0.5; systematically reversed predictions can fall below 0.5. AUC does not mean the percent of sites correctly classified or the probability of finding a frog. These are smooth theoretical curves with analytically known AUCs of 0.95, 0.75 and 0.50, not the course model’s results or universal grading categories. AUC depends on the test locations and sampled background, leading into the next slide’s random/spatial comparison. Background serves as the negative class here, rather than confirmed absences. Reproducible figures: assets/Lecture08-build-figures.py. Source: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_curve.html.</aside>
+</section>
+
+<section>
+<div class="kicker">High AUC isn't always 'better'</div>
+<h2>Spatially/environmentally informed splits can improve model generalizability</h2>
+<table class="plain-table"><thead><tr><th>Evaluate using</th><th>AUC</th><th>What is the model predicting?</th></tr></thead><tbody>
+<tr><td>Training records</td><td>0.875</td><td>Locations it already learned from</td></tr>
+<tr><td>A random test split</td><td>0.798</td><td>Held-out points, often near training points</td></tr>
+<tr><td>A spatial test split</td><td>0.664</td><td>Entire withheld geographic blocks</td></tr>
+</tbody></table>
+<p class="callout">A higher random-test AUC can reflect an easier test, rather than better prediction in new areas.</p>
+<p class="small">Nearby points share climate and local patterns. Spatial splits reduce this overlap and help expose overfitting to those patterns.</p>
+<aside class="notes">Timing: 2 minutes. Distinguish suitability scores at individual sites from AUC, which summarizes how well a set of those scores separates recorded and background sites. The table contains actual fitted results, not the six-point teaching example. Training AUC uses the fitting data and can be optimistic. Random holdouts can remain spatially similar to training points, allowing a model to benefit from shared local conditions or sampling patterns. Withholding geographic blocks reduces this dependence and asks a harder question about prediction in other areas. A lower spatial AUC can expose reliance on local patterns that fails to generalize, including spatial overfitting. Spatial evaluation does not itself remove overfitting from the fitted model; using spatial validation to choose predictors or model complexity can help select models that generalize. Appropriate block size matters, and adjacent checkerboard blocks do not guarantee complete independence. Spatial splits can also withhold unfamiliar climates. Thus this AUC gap alone cannot identify its cause, prove overfitting, or establish that every spatial split is better for every prediction goal. Fit details: 1007 annotated presences, 908 biased-background points, distance weights and 19 predictors. Two checkerboard boundary rows are omitted. Random and checkerboard A-to-B fits use the same eligible pool and equal train/test sizes, 1136 and 777. The training-row fit uses all 1913 eligible rows and evaluates on them. Reverse checkerboard AUC is 0.789, illustrating regional variation. Full settings: assets/Lecture08-example-results.json. Sources: https://doi.org/10.1111/ecog.02881 and assets/Lecture08-build-figures.py.</aside>
+</section>
+
+<section >
+<div class="kicker">Sources and visual credits</div>
+<h2>Further reading</h2>
+<ul class="source-list">
+<li><a href="https://doi.org/10.1016/j.ecolmodel.2005.03.026">Phillips et al. (2006): MaxEnt for species distributions</a></li>
+<li><a href="https://doi.org/10.1111/j.1472-4642.2010.00725.x">Elith et al. (2011): a statistical explanation for ecologists</a></li>
+<li><a href="https://doi.org/10.1111/ecog.02881">Roberts et al. (2017): cross-validation with structured data</a></li>
+<li><a href="https://earth-chris.github.io/elapid/">elapid: MaxEnt and geographic tools</a></li>
+<li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html">Scikit-learn: ROC AUC</a></li>
+</ul>
+<aside class="notes">The historical MaxEnt paper is foundational, not evidence that SDMs began in 2006. The supplied data lack a complete download/acquisition manifest here, so no new GBIF DOI or collection-effort claim is inferred. The cover is a generated natural-history illustration. All other figures are scientific plots, reproduced by assets/Lecture08-build-figures.py. Source notes on individual slides distinguish fitted results from toy examples.</aside>
+</section>
+</div></div>
+<script src="reveal.js/dist/reveal.js"></script>
+<script src="reveal.js/dist/plugin/highlight.js"></script>
+<script src="reveal.js/dist/plugin/notes.js"></script>
+<script>
+Reveal.initialize({
+ hash:true, controls:true, progress:true, center:false, slideNumber:"c/t",
+ width:1440, height:810, margin:0.03, transition:"fade", transitionSpeed:"fast",
+ plugins:[RevealHighlight,RevealNotes]
+});
+</script></body></html>

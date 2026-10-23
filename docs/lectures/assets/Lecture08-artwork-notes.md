@@ -22,11 +22,13 @@ All `Lecture08-*.png` figures except `Lecture08-habitat.png` and `Lecture08-mean
 
 The script uses the supplied Maine amphibian occurrences and climate data, elapid 1.0.4, a seeded temperature-biased background, 19 climate predictors and geographic sample weights. The lecture uses *Lithobates palustris*, the pickerel frog. Numeric results, sample sizes and seeds are saved in `Lecture08-example-results.json`. Student results can differ.
 
-Three examples are explicitly illustrative rather than fitted ecological results:
+The following examples are explicitly illustrative rather than fitted ecological results:
 
 - The maximum-entropy example distributes relative weight across four equally available cells at 2, 4, 6 and 8°C, constrained to a weighted mean of 6°C. Its weights sum to one; they are not site occupancy probabilities.
 - The two-dimensional balance example uses four equally available combinations of 2 or 8°C and 800 or 1,200 mm rainfall. The exact maximum-entropy weights are 1/12, 1/6, 1/4 and 1/2, producing means of 6°C and 1,100 mm. The plotted percentages are rounded; circle area is proportional to weight. The coral cross is the weighted center in climate space. These are relative weights, not occupancy probabilities. The example constrains only the two raw means.
 - The ranking/ROC example uses presence scores 0.9, 0.8 and 0.6, and background scores 0.7, 0.4 and 0.2. Eight of nine pairs rank correctly, giving AUC 8/9.
+- The condensed ROC/AUC slides use `Lecture08-positive-predictions.png`: recorded-site scores 0.9, 0.8, 0.6, 0.3 and background scores 0.7, 0.4, 0.2, 0.1. At cutoff 0.5, TP = 3, FN = 1, FP = 1 and TN = 3. Background is the evaluation negative class, not confirmed absence.
+- `Lecture08-roc-performance.png` shows smooth illustrative ROC curves with exact population AUCs 0.95, 0.75 and 0.50. They derive from two equal-variance normal score populations, with mean separations chosen using AUC = Φ(separation / √2). Numerical integration checks the displayed areas. The good/medium/bad labels describe these examples, not general-purpose grading thresholds.
 
 To regenerate the scientific figures from the repository root, use the Lab08 Python environment and run:
 

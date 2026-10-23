@@ -200,13 +200,68 @@ save(fig,'buffered')
 assert (ela.nearest_point_distance(held,kept)>50_000).all()
 
 # Illustrative scores for explaining ranking and ROC geometry.
+def plot_auc_teaching_figures():
+    # One threshold, with deliberately imperfect predictions for both classes.
+    scores = np.array([.9, .8, .6, .3, .7, .4, .2, .1])
+    observed = np.array([1, 1, 1, 1, 0, 0, 0, 0])
+    positive = scores >= .5
+    assert ((positive & (observed == 1)).sum(),
+            (positive & (observed == 0)).sum()) == (3, 1)
+    fig, ax = plt.subplots(figsize=(12, 3.8))
+    ax.axvline(.5, color=INK, ls='--', lw=2)
+    ax.text(.5, 1.61, 'Cutoff = 0.5', ha='center', fontsize=19)
+    ax.text(.23, 1.36, 'Predicted unsuitable', ha='center', fontsize=18)
+    ax.text(.77, 1.36, 'Predicted suitable', ha='center', fontsize=18)
+    for label, y, color, name in [(1, 1, TEAL, 'Recorded frogs'),
+                                 (0, 0, CORAL, 'Background*')]:
+        mask = observed == label
+        ax.scatter(scores[mask], np.full(mask.sum(), y), s=260,
+                   color=color, zorder=3)
+        for x in scores[mask]:
+            category = ('TP' if x >= .5 else 'FN') if label else ('FP' if x >= .5 else 'TN')
+            ax.text(x, y + .17, category, ha='center', fontsize=18,
+                    color=color, fontweight='bold')
+    ax.set(xlim=(0, 1), ylim=(-.4, 1.78), yticks=[0, 1],
+           yticklabels=['Background*', 'Recorded frogs'],
+           xlabel='Model score = predicted suitability')
+    ax.spines['left'].set_visible(False)
+    ax.tick_params(axis='y', length=0)
+    fig.tight_layout()
+    save(fig, 'positive-predictions')
+
+    # Smooth illustrative ROC curves from equal-variance normal score populations.
+    # Their exact population AUC is Phi(separation / sqrt(2)).
+    from scipy.stats import norm
+    from scipy.integrate import trapezoid
+    fig, axes = plt.subplots(1, 3, figsize=(13.2, 4.1), sharex=True, sharey=True)
+    fpr = np.linspace(0, 1, 10001)
+    for ax, title, auc, color in zip(axes, ['Good', 'Medium', 'Bad (chance)'],
+                                   [.95, .75, .5], [TEAL, CORAL, '#52606d']):
+        separation = np.sqrt(2) * norm.ppf(auc)
+        tpr = norm.cdf(norm.ppf(fpr) + separation)
+        assert abs(trapezoid(tpr, fpr) - auc) < .0001
+        ax.fill_between(fpr, tpr, color=color, alpha=.16)
+        ax.plot(fpr, tpr, color=color, lw=3)
+        ax.plot([0, 1], [0, 1], '--', color=GRAY, lw=1.6)
+        ax.set(title=f'{title}\nAUC = {auc:.2f}', xlim=(0, 1), ylim=(0, 1),
+               xticks=[0, .5, 1], yticks=[0, .5, 1],
+               xlabel='False-positive rate')
+        ax.xaxis.set_major_formatter(matplotlib.ticker.PercentFormatter(xmax=1))
+        ax.yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter(xmax=1))
+        ax.set_aspect('equal')
+    axes[0].set_ylabel('True-positive rate')
+    fig.tight_layout(w_pad=2)
+    save(fig, 'roc-performance')
+
+plot_auc_teaching_figures()
+
 toy_y=np.array([1,1,1,0,0,0]); toy_scores=np.array([.9,.8,.6,.7,.4,.2])
 toy_auc=roc_auc_score(toy_y,toy_scores)
 fig,ax=plt.subplots(figsize=(9.6,3.6))
 ax.scatter(toy_scores[:3],np.ones(3),s=190,color=TEAL)
 ax.scatter(toy_scores[3:],np.zeros(3),s=190,facecolors='none',edgecolors=CORAL,lw=3)
 for x,y0 in zip(toy_scores,toy_y):ax.text(x,y0+.17,f'{x:.1f}',ha='center',fontsize=19)
-ax.set(xlim=(0,1),ylim=(-.4,1.5),yticks=[0,1],yticklabels=['Background','Presence'],xlabel='Predicted score')
+ax.set(xlim=(0,1),ylim=(-.4,1.5),yticks=[0,1],yticklabels=['Background','Recorded sites'],xlabel='Predicted suitability score (higher = more suitable)')
 ax.spines['left'].set_visible(False)
 ax.grid(axis='x',alpha=.2)
 fig.tight_layout();save(fig,'ranking-scores')
@@ -221,7 +276,9 @@ for cutoff,offset in [(.8,(.08,-.13)),(.5,(.12,-.12))]:
     ax.scatter([x],[y],s=80,color=CORAL,zorder=5)
     ax.annotate(f'Cutoff {cutoff:.1f}',(x,y),xytext=(x+offset[0],y+offset[1]),fontsize=16,
         arrowprops={'arrowstyle':'-','color':CORAL})
-ax.set(xlabel='Fraction of background scoring high',ylabel='Fraction of presence scoring high',xlim=(-.025,1.025),ylim=(-.025,1.08))
+ax.set(xlabel='Background predicted suitable',ylabel='Recorded sites predicted suitable',xlim=(-.025,1.025),ylim=(-.025,1.08))
+ax.xaxis.set_major_formatter(matplotlib.ticker.PercentFormatter(xmax=1))
+ax.yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter(xmax=1))
 ax.legend(loc='lower right',fontsize=13)
 save(fig,'roc-explained')
 assert abs(toy_auc-8/9)<1e-12
