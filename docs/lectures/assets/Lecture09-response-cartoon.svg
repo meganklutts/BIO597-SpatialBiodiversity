@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1296 500" role="img" aria-labelledby="title">
+<title id="title">The same climate axes can support occurrence labels or individual SNP dosages.</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<text x="320" y="40" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="700" fill="#18212b" text-anchor="middle">Where is the species recorded?</text>
+<text x="1000" y="40" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="700" fill="#18212b" text-anchor="middle">How do genotypes vary?</text>
+<line x1="95" y1="350" x2="95" y2="110" stroke="#18212b" stroke-width="2"/>
+<line x1="95" y1="350" x2="505" y2="350" stroke="#18212b" stroke-width="2"/>
+<text x="300.0" y="384" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="middle">Temperature →</text>
+<text x="68" y="230.0" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="middle" transform="rotate(-90 68 230.0)">Rainfall →</text>
+<circle cx="127.8" cy="306.8" r="15" fill="white" stroke="#52606d" stroke-width="2"/>
+<circle cx="152.4" cy="194.0" r="15" fill="white" stroke="#52606d" stroke-width="2"/>
+<circle cx="185.2" cy="258.8" r="15" fill="white" stroke="#52606d" stroke-width="2"/>
+<circle cx="218.0" cy="143.6" r="15" fill="#087e8b" stroke="#087e8b" stroke-width="2"/>
+<circle cx="250.8" cy="321.2" r="15" fill="white" stroke="#52606d" stroke-width="2"/>
+<circle cx="283.6" cy="210.8" r="15" fill="#087e8b" stroke="#087e8b" stroke-width="2"/>
+<circle cx="316.4" cy="263.6" r="15" fill="#087e8b" stroke="#087e8b" stroke-width="2"/>
+<circle cx="349.2" cy="153.20000000000002" r="15" fill="#087e8b" stroke="#087e8b" stroke-width="2"/>
+<circle cx="382.0" cy="306.8" r="15" fill="white" stroke="#52606d" stroke-width="2"/>
+<circle cx="414.8" cy="210.8" r="15" fill="#087e8b" stroke="#087e8b" stroke-width="2"/>
+<circle cx="447.6" cy="258.8" r="15" fill="white" stroke="#52606d" stroke-width="2"/>
+<circle cx="472.2" cy="138.8" r="15" fill="#087e8b" stroke="#087e8b" stroke-width="2"/>
+<line x1="800" y1="350" x2="800" y2="110" stroke="#18212b" stroke-width="2"/>
+<line x1="800" y1="350" x2="1210" y2="350" stroke="#18212b" stroke-width="2"/>
+<text x="1005.0" y="384" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="middle">Temperature →</text>
+<text x="773" y="230.0" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="middle" transform="rotate(-90 773 230.0)">Rainfall →</text>
+<circle cx="832.8" cy="306.8" r="13" fill="#ffffff" stroke="#18212b" stroke-width="2"/>
+<circle cx="857.4" cy="194.0" r="13" fill="#ffffff" stroke="#18212b" stroke-width="2"/>
+<circle cx="890.2" cy="258.8" r="13" fill="#ffffff" stroke="#18212b" stroke-width="2"/>
+<circle cx="923.0" cy="143.6" r="13" fill="#969696" stroke="#18212b" stroke-width="2"/>
+<circle cx="955.8" cy="321.2" r="13" fill="#ffffff" stroke="#18212b" stroke-width="2"/>
+<circle cx="988.6" cy="210.8" r="13" fill="#969696" stroke="#18212b" stroke-width="2"/>
+<circle cx="1021.4" cy="263.6" r="13" fill="#969696" stroke="#18212b" stroke-width="2"/>
+<circle cx="1054.2" cy="153.20000000000002" r="13" fill="#969696" stroke="#18212b" stroke-width="2"/>
+<circle cx="1087.0" cy="306.8" r="13" fill="#111111" stroke="#18212b" stroke-width="2"/>
+<circle cx="1119.8" cy="210.8" r="13" fill="#111111" stroke="#18212b" stroke-width="2"/>
+<circle cx="1152.6" cy="258.8" r="13" fill="#111111" stroke="#18212b" stroke-width="2"/>
+<circle cx="1177.2" cy="138.8" r="13" fill="#111111" stroke="#18212b" stroke-width="2"/>
+<line x1="565" y1="225" x2="705" y2="225" stroke="#087e8b" stroke-width="4" marker-end="url(#arrow)"/>
+<text x="635" y="195" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" fill="#087e8b" text-anchor="middle">Change y</text>
+<circle cx="130" cy="420" r="12" fill="#087e8b" stroke="#087e8b" stroke-width="2"/>
+<text x="152" y="427" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" fill="#18212b" text-anchor="start">Presence</text>
+<circle cx="330" cy="420" r="12" fill="white" stroke="#52606d" stroke-width="2"/>
+<text x="352" y="427" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" fill="#18212b" text-anchor="start">Background</text>
+<text x="900" y="427" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" fill="#52606d" text-anchor="end">Dosage</text>
+<circle cx="930" cy="420" r="13" fill="#ffffff" stroke="#18212b" stroke-width="2"/>
+<text x="952" y="427" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" fill="#18212b" text-anchor="start">0</text>
+<circle cx="1020" cy="420" r="13" fill="#969696" stroke="#18212b" stroke-width="2"/>
+<text x="1042" y="427" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" fill="#18212b" text-anchor="start">1</text>
+<circle cx="1110" cy="420" r="13" fill="#111111" stroke="#18212b" stroke-width="2"/>
+<text x="1132" y="427" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" fill="#18212b" text-anchor="start">2</text>
+<text x="320" y="480" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#087e8b" text-anchor="middle">Map relative suitability</text>
+<text x="1000" y="480" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#087e8b" text-anchor="middle">Map modeled turnover</text>
+</svg>

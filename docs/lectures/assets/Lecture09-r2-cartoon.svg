@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1296 500" role="img" aria-labelledby="title">
+<title id="title">Three toy prediction sets with R squared 1, 0 and minus 3, shown against observed genotypes.</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<text x="205" y="36" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#18212b" text-anchor="middle">Perfect prediction</text>
+<line x1="65" y1="296" x2="355" y2="296" stroke="#18212b" stroke-width="2"/>
+<line x1="65" y1="296" x2="65" y2="83" stroke="#18212b" stroke-width="2"/>
+<text x="49" y="292" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="end">0</text>
+<text x="49" y="206" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="end">1</text>
+<text x="49" y="120" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="end">2</text>
+<line x1="89" y1="282" x2="89" y2="282" stroke="#d95d39" stroke-width="4"/>
+<circle cx="89" cy="282" r="12" fill="#ffffff" stroke="#18212b" stroke-width="2"/>
+<line x1="81" y1="274" x2="97" y2="290" stroke="#087e8b" stroke-width="3"/>
+<line x1="81" y1="290" x2="97" y2="274" stroke="#087e8b" stroke-width="3"/>
+<line x1="138" y1="282" x2="138" y2="282" stroke="#d95d39" stroke-width="4"/>
+<circle cx="138" cy="282" r="12" fill="#ffffff" stroke="#18212b" stroke-width="2"/>
+<line x1="130" y1="274" x2="146" y2="290" stroke="#087e8b" stroke-width="3"/>
+<line x1="130" y1="290" x2="146" y2="274" stroke="#087e8b" stroke-width="3"/>
+<line x1="187" y1="196" x2="187" y2="196" stroke="#d95d39" stroke-width="4"/>
+<circle cx="187" cy="196" r="12" fill="#969696" stroke="#18212b" stroke-width="2"/>
+<line x1="179" y1="188" x2="195" y2="204" stroke="#087e8b" stroke-width="3"/>
+<line x1="179" y1="204" x2="195" y2="188" stroke="#087e8b" stroke-width="3"/>
+<line x1="236" y1="196" x2="236" y2="196" stroke="#d95d39" stroke-width="4"/>
+<circle cx="236" cy="196" r="12" fill="#969696" stroke="#18212b" stroke-width="2"/>
+<line x1="228" y1="188" x2="244" y2="204" stroke="#087e8b" stroke-width="3"/>
+<line x1="228" y1="204" x2="244" y2="188" stroke="#087e8b" stroke-width="3"/>
+<line x1="285" y1="110" x2="285" y2="110" stroke="#d95d39" stroke-width="4"/>
+<circle cx="285" cy="110" r="12" fill="#111111" stroke="#18212b" stroke-width="2"/>
+<line x1="277" y1="102" x2="293" y2="118" stroke="#087e8b" stroke-width="3"/>
+<line x1="277" y1="118" x2="293" y2="102" stroke="#087e8b" stroke-width="3"/>
+<line x1="334" y1="110" x2="334" y2="110" stroke="#d95d39" stroke-width="4"/>
+<circle cx="334" cy="110" r="12" fill="#111111" stroke="#18212b" stroke-width="2"/>
+<line x1="326" y1="102" x2="342" y2="118" stroke="#087e8b" stroke-width="3"/>
+<line x1="326" y1="118" x2="342" y2="102" stroke="#087e8b" stroke-width="3"/>
+<text x="205" y="330" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" fill="#52606d" text-anchor="middle">Individuals</text>
+<text x="205" y="401" font-family="Arial, Helvetica, sans-serif" font-size="41" font-weight="700" fill="#087e8b" text-anchor="middle">R² = 1</text>
+<text x="635" y="36" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#18212b" text-anchor="middle">Predict the mean</text>
+<line x1="495" y1="296" x2="785" y2="296" stroke="#18212b" stroke-width="2"/>
+<line x1="495" y1="296" x2="495" y2="83" stroke="#18212b" stroke-width="2"/>
+<text x="479" y="292" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="end">0</text>
+<text x="479" y="206" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="end">1</text>
+<text x="479" y="120" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="end">2</text>
+<line x1="519" y1="282" x2="519" y2="196" stroke="#d95d39" stroke-width="4"/>
+<circle cx="519" cy="282" r="12" fill="#ffffff" stroke="#18212b" stroke-width="2"/>
+<line x1="511" y1="188" x2="527" y2="204" stroke="#087e8b" stroke-width="3"/>
+<line x1="511" y1="204" x2="527" y2="188" stroke="#087e8b" stroke-width="3"/>
+<line x1="568" y1="282" x2="568" y2="196" stroke="#d95d39" stroke-width="4"/>
+<circle cx="568" cy="282" r="12" fill="#ffffff" stroke="#18212b" stroke-width="2"/>
+<line x1="560" y1="188" x2="576" y2="204" stroke="#087e8b" stroke-width="3"/>
+<line x1="560" y1="204" x2="576" y2="188" stroke="#087e8b" stroke-width="3"/>
+<line x1="617" y1="196" x2="617" y2="196" stroke="#d95d39" stroke-width="4"/>
+<circle cx="617" cy="196" r="12" fill="#969696" stroke="#18212b" stroke-width="2"/>
+<line x1="609" y1="188" x2="625" y2="204" stroke="#087e8b" stroke-width="3"/>
+<line x1="609" y1="204" x2="625" y2="188" stroke="#087e8b" stroke-width="3"/>
+<line x1="666" y1="196" x2="666" y2="196" stroke="#d95d39" stroke-width="4"/>
+<circle cx="666" cy="196" r="12" fill="#969696" stroke="#18212b" stroke-width="2"/>
+<line x1="658" y1="188" x2="674" y2="204" stroke="#087e8b" stroke-width="3"/>
+<line x1="658" y1="204" x2="674" y2="188" stroke="#087e8b" stroke-width="3"/>
+<line x1="715" y1="110" x2="715" y2="196" stroke="#d95d39" stroke-width="4"/>
+<circle cx="715" cy="110" r="12" fill="#111111" stroke="#18212b" stroke-width="2"/>
+<line x1="707" y1="188" x2="723" y2="204" stroke="#087e8b" stroke-width="3"/>
+<line x1="707" y1="204" x2="723" y2="188" stroke="#087e8b" stroke-width="3"/>
+<line x1="764" y1="110" x2="764" y2="196" stroke="#d95d39" stroke-width="4"/>
+<circle cx="764" cy="110" r="12" fill="#111111" stroke="#18212b" stroke-width="2"/>
+<line x1="756" y1="188" x2="772" y2="204" stroke="#087e8b" stroke-width="3"/>
+<line x1="756" y1="204" x2="772" y2="188" stroke="#087e8b" stroke-width="3"/>
+<text x="635" y="330" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" fill="#52606d" text-anchor="middle">Individuals</text>
+<text x="635" y="401" font-family="Arial, Helvetica, sans-serif" font-size="41" font-weight="700" fill="#52606d" text-anchor="middle">R² = 0</text>
+<text x="1065" y="36" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#18212b" text-anchor="middle">Larger errors</text>
+<line x1="925" y1="296" x2="1215" y2="296" stroke="#18212b" stroke-width="2"/>
+<line x1="925" y1="296" x2="925" y2="83" stroke="#18212b" stroke-width="2"/>
+<text x="909" y="292" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="end">0</text>
+<text x="909" y="206" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="end">1</text>
+<text x="909" y="120" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="end">2</text>
+<line x1="949" y1="282" x2="949" y2="110" stroke="#d95d39" stroke-width="4"/>
+<circle cx="949" cy="282" r="12" fill="#ffffff" stroke="#18212b" stroke-width="2"/>
+<line x1="941" y1="102" x2="957" y2="118" stroke="#087e8b" stroke-width="3"/>
+<line x1="941" y1="118" x2="957" y2="102" stroke="#087e8b" stroke-width="3"/>
+<line x1="998" y1="282" x2="998" y2="110" stroke="#d95d39" stroke-width="4"/>
+<circle cx="998" cy="282" r="12" fill="#ffffff" stroke="#18212b" stroke-width="2"/>
+<line x1="990" y1="102" x2="1006" y2="118" stroke="#087e8b" stroke-width="3"/>
+<line x1="990" y1="118" x2="1006" y2="102" stroke="#087e8b" stroke-width="3"/>
+<line x1="1047" y1="196" x2="1047" y2="196" stroke="#d95d39" stroke-width="4"/>
+<circle cx="1047" cy="196" r="12" fill="#969696" stroke="#18212b" stroke-width="2"/>
+<line x1="1039" y1="188" x2="1055" y2="204" stroke="#087e8b" stroke-width="3"/>
+<line x1="1039" y1="204" x2="1055" y2="188" stroke="#087e8b" stroke-width="3"/>
+<line x1="1096" y1="196" x2="1096" y2="196" stroke="#d95d39" stroke-width="4"/>
+<circle cx="1096" cy="196" r="12" fill="#969696" stroke="#18212b" stroke-width="2"/>
+<line x1="1088" y1="188" x2="1104" y2="204" stroke="#087e8b" stroke-width="3"/>
+<line x1="1088" y1="204" x2="1104" y2="188" stroke="#087e8b" stroke-width="3"/>
+<line x1="1145" y1="110" x2="1145" y2="282" stroke="#d95d39" stroke-width="4"/>
+<circle cx="1145" cy="110" r="12" fill="#111111" stroke="#18212b" stroke-width="2"/>
+<line x1="1137" y1="274" x2="1153" y2="290" stroke="#087e8b" stroke-width="3"/>
+<line x1="1137" y1="290" x2="1153" y2="274" stroke="#087e8b" stroke-width="3"/>
+<line x1="1194" y1="110" x2="1194" y2="282" stroke="#d95d39" stroke-width="4"/>
+<circle cx="1194" cy="110" r="12" fill="#111111" stroke="#18212b" stroke-width="2"/>
+<line x1="1186" y1="274" x2="1202" y2="290" stroke="#087e8b" stroke-width="3"/>
+<line x1="1186" y1="290" x2="1202" y2="274" stroke="#087e8b" stroke-width="3"/>
+<text x="1065" y="330" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" fill="#52606d" text-anchor="middle">Individuals</text>
+<text x="1065" y="401" font-family="Arial, Helvetica, sans-serif" font-size="41" font-weight="700" fill="#d95d39" text-anchor="middle">R² = −3</text>
+<circle cx="380" cy="467" r="11" fill="#969696" stroke="#18212b" stroke-width="2"/>
+<text x="401" y="474" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" fill="#18212b" text-anchor="start">Observed dosage</text>
+<line x1="647" y1="459" x2="663" y2="475" stroke="#087e8b" stroke-width="3"/>
+<line x1="647" y1="475" x2="663" y2="459" stroke="#087e8b" stroke-width="3"/>
+<text x="676" y="474" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" fill="#18212b" text-anchor="start">Prediction</text>
+<line x1="889" y1="457" x2="889" y2="478" stroke="#d95d39" stroke-width="4"/>
+<text x="906" y="474" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" fill="#18212b" text-anchor="start">Error</text>
+</svg>

@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A visual introduction to SNP-specific random forests, out-of-bag evaluation, environmental turnover curves and genomic maps for BIO597 Lab09.">
+<title>Lecture 09: Gradient Forest and Genomic Turnover</title>
+<link rel="stylesheet" href="reveal.js/dist/reset.css">
+<link rel="stylesheet" href="reveal.js/dist/reveal.css">
+<link rel="stylesheet" href="reveal.js/dist/plugin/highlight/monokai.css">
+<style>
+:root { --ink:#18212b; --muted:#52606d; --paper:#f7f8f6; --teal:#087e8b; --coral:#d95d39; --line:#ccd3d7; }
+body { background:var(--paper); }
+.reveal { color:var(--ink); font-family:Inter,"Avenir Next",Avenir,"Helvetica Neue",Arial,sans-serif; font-size:34px; }
+.reveal .slides { text-align:left; }
+.reveal .slides section { box-sizing:border-box; padding:48px 72px; height:810px; }
+.reveal h1,.reveal h2,.reveal h3 { color:var(--ink);font-family:inherit;letter-spacing:0;text-transform:none;font-weight:700; }
+.reveal h1 { font-size:2.05em;line-height:1.02;margin:0 0 .34em; }
+.reveal h2 { font-size:1.42em;line-height:1.08;margin:0 0 .55em; }
+.reveal p,.reveal li { line-height:1.35; }
+.reveal p { margin:0 0 .7em; }
+.reveal strong,.teal { color:var(--teal); }
+.coral { color:var(--coral); }
+.reveal a { color:var(--teal);text-decoration:underline;text-underline-offset:4px; }
+.reveal code { font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace; }
+.reveal pre { width:100%;margin:.4em 0 1em;box-shadow:none;font-size:.62em;line-height:1.6; }
+.reveal pre code { padding:26px 24px;border-left:7px solid var(--teal);max-height:430px; }
+.reveal .slide-number { right:24px;bottom:18px;color:var(--muted);background:transparent;font-size:18px; }
+.reveal .progress { color:var(--teal);height:5px; }
+.reveal .controls { color:var(--teal); }
+.kicker { color:var(--coral);font-size:.58em;font-weight:800;letter-spacing:.08em;margin-bottom:.75em;text-transform:uppercase; }
+.subtitle { color:var(--muted);font-size:.82em; }
+.course-mark { border-top:5px solid var(--teal);color:var(--muted);font-size:.54em;margin-top:2.2em;padding-top:.7em;max-width:460px; }
+.two-col { display:grid;grid-template-columns:1fr 1.15fr;gap:52px;align-items:center; }
+.two-col.narrow-left { grid-template-columns:.75fr 1.25fr; }
+.hero-image { width:100%;height:630px;object-fit:cover; }
+.cover .two-col { grid-template-columns:1fr 1.1fr; }
+.cover .kicker { margin-top:18px; }
+.image-side { width:100%;height:535px;object-fit:contain;display:block; }
+.image-wide { width:100%;height:490px;display:flex;align-items:center;justify-content:center; }
+.image-chart { max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block; }
+.question { font-size:1.05em;font-weight:700;line-height:1.25; }
+.small { font-size:.74em; }
+.caption { font-size:.58em;color:var(--muted);margin-top:16px!important; }
+.muted { color:var(--muted); }
+.callout { border-left:8px solid var(--coral);font-size:.78em;padding:.25em 0 .25em .75em;margin-top:18px!important; }
+.question-bottom { font-size:.84em;margin-top:15px!important; }
+.reveal table { border-collapse:collapse;width:100%;margin:20px 0 28px;font-size:.91em; }
+.reveal th,.reveal td { text-align:left;padding:22px 18px;border-bottom:2px solid var(--line); }
+.reveal th { font-size:.85em;color:var(--muted);font-weight:600; }
+.reveal td { font-variant-numeric:tabular-nums; }
+.reveal .error-table td:last-child { font-weight:800;font-size:1.2em; }
+.equation { font-size:1.06em;line-height:1.4; }
+.comparison-table td[colspan] { text-align:center;color:var(--teal); }
+.comparison-table td code { font-size:.83em; }
+.reveal .lab-steps { margin:30px 0 0 1.1em; }
+.reveal .lab-steps li { margin-bottom:32px;padding-left:14px; }
+.reveal .source-list { margin:32px 0 40px 1.1em;font-size:.86em; }
+.reveal .source-list li { margin-bottom:22px; }
+@media print { .reveal .slides section { overflow:visible; } }
+
+.cover .hero-image { object-fit:contain; }
+.mean-balance .image-wide { height:430px; }
+.auc-positive .image-wide { height:390px; }
+.auc-performance .image-wide { height:390px; }
+.reveal .plain-table { font-size:.84em; }
+.reveal .plain-table th,.reveal .plain-table td { padding:20px 16px; }
+.reveal .fold-table td { text-align:center; }
+.reveal .fold-table .test { color:var(--coral);font-weight:800; }
+.reveal .rank-table { font-size:.80em; }
+.reveal .rank-table th,.reveal .rank-table td { padding:18px 16px; }
+.reveal .rank-table td { text-align:center;color:var(--teal);font-weight:700; }
+.reveal .rank-table td.miss { color:var(--coral); }
+.score-number { font-size:3.8em;font-weight:800;line-height:1;color:var(--teal);margin-bottom:20px!important; }
+.reveal .question-list { margin:30px 0 0 1.1em; }
+.reveal .question-list li { margin-bottom:26px; }
+.reveal .source-list { font-size:.69em;margin:22px 0 30px 1.1em; }
+.reveal .source-list li { margin-bottom:15px; }
+.reveal .slim-note { font-size:.56em; }
+
+.reveal ul,.reveal ol { margin:12px 0 0 1.05em; }
+.reveal li { margin-bottom:20px; }
+.reveal .compact li { margin-bottom:14px; }
+.reveal .diagram { display:grid;grid-template-columns:1fr 72px 1fr;align-items:center;gap:12px;margin:30px 0; }
+.card { border:2px solid var(--line);padding:26px;background:#fff; }
+.card h3 { font-size:.92em;margin:0 0 16px; }
+.card p { font-size:.76em; }
+.arrow { text-align:center;font-size:1.8em;color:var(--teal); }
+.reveal .big-number { font-size:3em;line-height:1;font-weight:800;color:var(--teal); }
+.reveal .image-wide { height:465px; }
+.reveal .plot-tall { height:530px; }
+.reveal .code-slide pre { font-size:.58em; }
+.reveal .code-slide pre code { max-height:465px;line-height:1.5; }
+.reveal .source-list { font-size:.7em; }
+.reveal .source-list li { margin-bottom:18px; }
+.reveal .concept-table { font-size:.72em; }
+.reveal .concept-table td,.reveal .concept-table th { padding:17px 15px; }
+.reveal .formula { background:#e8f0ef;padding:26px;font-size:1.1em;margin:25px 0; }
+
+/* Figure-centered teaching slides: short interpretation on screen, detail in notes. */
+.reveal .visual-slide h2 { font-size:1.30em;margin-bottom:.35em; }
+.reveal .visual-slide .image-wide { height:495px; }
+.reveal .visual-takeaway { font-size:.78em;line-height:1.25;margin:12px 0 0; }
+.reveal .visual-slide .caption { font-size:.54em;line-height:1.3;margin-top:10px!important; }
+</style></head><body>
+<div class="reveal"><div class="slides">
+<section id="title" class="cover">
+<div class="two-col"><div>
+<div class="kicker">Lab 09 · October 30, 2026</div>
+<h1>Gradient Forest</h1>
+<p class="subtitle">From species distributions to genomic turnover</p>
+<p class="small">Where along an environmental gradient does genetic composition change?</p>
+<div class="course-mark">BIO597 Spatial Analysis of Biodiversity</div>
+</div><div><div class="image-wide"><img class="image-chart" src="assets/Lecture09-sites.png" alt="Longitude and latitude of the 36 P. guttatus individuals in the pyGF example. These points describe sampling, not the species range."></div><p class="caption">Points are sampled individuals.</p></div></div>
+<aside class="notes">Allow about 35–40 minutes including discussion. Students have seen random forests, climate rasters, and spatial model evaluation in Lectures 07–08. Connect those ideas to a different biological response. The example contains 36 individuals, 19 climate variables, and up to 256 filtered SNPs. Figures were rebuilt from the local pyGF example with the course notebook's settings; provenance and input hashes are in assets/Lecture09-example-results.json. No inferred range polygon is drawn.</aside>
+</section>
+
+
+<section id="response" class="visual-slide">
+<div class="kicker">Correlations between environmental predictors and genetic data</div>
+<h2>Same climate (predictor) but a different response (SNPs).</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture09-response-cartoon.svg" alt="Two environmental scatterplots contrast presence/background labels with white, gray and black individual SNP dosages."></div>
+<p class="visual-takeaway">Keep the environmental predictors; replace occurrence labels with SNP dosages.</p>
+<aside class="notes">Timing: 1 minute. We are borrowing the environmental prediction framework. All example rows are sampled individuals of the focal species, so background points and occurrence AUC are not part of this workflow. Gradient Forest originally summarized community turnover; the genomic application substitutes genetic responses for species responses. Sources: course Lab09 and Ellis et al. 2012, https://doi.org/10.1890/11-0252.1. Visual explanation: both panels use invented locations. The left labels refer to occurrence/background status; the right shades are individual SNP dosages. The diagrams introduce the response change, rather than comparing fitted models.</aside>
+</section>
+
+<section id="dosage" class="visual-slide">
+<div class="kicker">Encoding genotype data into a compact format</div>
+<h2>Count the alternate copies</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture09-dosage-cartoon.svg" alt="Paired chromosome cartoons show reference/reference, reference/alternate and alternate/alternate becoming white zero, gray one and black two. Missing calls use a dashed box and question mark."></div>
+<p class="visual-takeaway">Two chromosome copies give a dosage of 0, 1, or 2.</p>
+<aside class="notes">Timing: 1 minute. A SNP is a single nucleotide polymorphism. The slashes separate the two chromosome copies; the same dosage mapping works for phased calls using a vertical bar. The pyGF reader handles diploid biallelic SNP GT fields and treats missing or partial calls as NaN. Do not encode a missing genotype as zero: zero is an observed homozygous reference genotype. Source: pyGF README, https://github.com/isaacovercast/pygf. The allele pairs and sample symbols are schematic. The color key is repeated on subsequent SNP diagrams. Alternate does not mean beneficial or derived.</aside>
+</section>
+
+<section id="filtering" class="visual-slide">
+<div class="kicker">Thinking about filtering/QC</div>
+<h2>Filter for missingness, sufficiently variable sites, LD, and take a subset so it runs faster.</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture09-filtering-cartoon.svg" alt="Four cartoons illustrate eight called samples out of ten, one minor allele among twenty called copies, one highlighted SNP per RAD contig, and a repeatable subset of loci."></div>
+<p class="visual-takeaway">Filtering chooses which genetic variation enters the analysis.</p>
+<aside class="notes">Timing: 1.5 minutes. Call rate and MAF are computed among selected samples. For diploid calls, alternate frequency is sum of called dosages divided by twice the called sample count; MAF is the smaller of that frequency and its complement. One_per_contig takes the first eligible SNP within each RAD contig before sampling across eligible contigs; this is not formal LD pruning and would be inappropriate as one-per-chromosome filtering. Changing the filters or subset can change the biological summary. Source: course Lab09 and pyGF README. The call-rate cartoon shows 8 of 10 samples, not the real 36-sample dataset. The minor allele panel shows 1 of 20 called allele copies, exactly 5%. The final dot array symbolizes a subset and is not an exact count of 256. These are thresholds, not additional filtering results.</aside>
+</section>
+
+<section id="forests" class="visual-slide">
+<div class="kicker">The gradient forest model</div>
+<h2>One random forest for each SNP</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture09-snp-forests.svg" alt="Three temperature–rainfall plots show the same twelve samples A through L at identical environmental positions. White, gray and black points encode dosages zero, one and two at SNP A, B and C. Each SNP panel feeds its own separate random forest."></div>
+<p class="visual-takeaway">Each forest sees the same environments and learns one SNP’s dosage pattern.</p>
+<aside class="notes">Timing: 1 minute. Recall that each tree partitions climate space and predicts a mean response within a leaf. Trees receive bootstrap resamples of the observed rows for their SNP. Missing y values are excluded per SNP rather than imputed. This is a collection of separate single-response forests, whose useful information will be synthesized. Source: pyGF README Method section. Walk through one individual, such as A, across all three panels: its position never changes, while its dosage may change by locus. Then compare SNP A, which mainly tracks temperature, with SNP B, which mainly tracks rainfall, and SNP C, which has a different pattern. All twelve samples, coordinates and dosages are invented; this is a two-predictor cartoon of the 19-predictor lab workflow. Each tree glyph symbolizes a tree within the SNP-specific ensemble, not an additional response. Missing calls are omitted per SNP in the real fit.</aside>
+</section>
+
+<section id="oob-mechanism" class="visual-slide">
+<div class="kicker">"Out of bag" prediction error</div>
+<h2>Evaluating ability to predict genotype of holdout set of samples</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture09-oob-cartoon.svg" alt="Three bootstrap samples feed three trees. The first includes A and is skipped; two exclude A and predict 0.8 and 1.2, averaging to an OOB dosage prediction of one."></div>
+<p class="visual-takeaway">Average predictions from trees that never learned from individual A.</p>
+<aside class="notes">Timing: 1.5 minutes. OOB is internal resampling, not a separately collected dataset. Each SNP can have different missing calls and hence a different set of observed rows. Other trees in the full forest can contain individual A, but its OOB prediction uses only trees that did not. Source: scikit-learn OOB example, https://scikit-learn.org/stable/auto_examples/ensemble/plot_ensemble_oob.html. Connect to Lab08: this does not enforce geographic separation. This cartoon shows only three trees for clarity; the actual forest uses 100. Bootstrap rows contain repeated IDs, illustrating sampling with replacement. The two eligible invented predictions average to 1.0, matching A’s observed dosage here. Other individuals contribute to A’s prediction, including spatial neighbors.</aside>
+</section>
+
+<section id="oob-r2" class="visual-slide">
+<div class="kicker">Evaluating model fit</div>
+<h2>Aggregating OOB prediction error across all Trees/SNPs</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture09-r2-cartoon.svg" alt="Observed genotype dots and prediction crosses compare perfect predictions, constant-mean predictions, and reversed predictions. Their R squared values are one, zero, and minus three."></div>
+<p class="visual-takeaway">R² = 0 matches the mean-only benchmark; positive scores improve on it.</p>
+<aside class="notes">Timing: 1 minute. The exact formula is 1 minus sum((y - yhat_OOB)^2) divided by sum((y - mean(y))^2), over rows with OOB predictions. The reference mean is calculated over the scored observations. Constant responses are skipped; sparse responses and inadequate OOB coverage are also diagnostic concerns. Positive R² is a predictive screening rule, not a significance test for adaptation. Source: pyGF forest.py and https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html. In all three panels the six observed dosages are 0, 0, 1, 1, 2, 2, whose mean is 1 and total squared variation is 4. Predictions equal to the observations have SSE 0 and R² 1. Constant-one predictions have SSE 4 and R² 0. Reversed predictions have SSE 16 and R² −3. These scores are exact for the toy points, not additional results from pyGF.</aside>
+</section>
+
+<section id="oob-results" class="visual-slide">
+<div class="kicker">The fitted example</div>
+<h2>Some SNPs contribute; others do not</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture09-oob.png" alt="Histogram of fitted SNP OOB R squared values. Gray marks excluded responses and teal marks responses retained in the turnover summary; the dashed line marks zero."></div>
+<p class="small">pyGF retains SNPs with <strong>positive OOB R²</strong> and positive permutation importance.</p>
+<aside class="notes">Timing: 1 minute. Inspect both excluded and retained SNPs. A weakly predicted SNP can still be biologically meaningful; it simply does not supply positive modeled skill to this turnover summary. Conversely, a retained SNP is not automatically an adaptive locus. The histogram shows real fitted results; exact counts and score range are recorded in assets/Lecture09-example-results.json and assets/Lecture09-snp-scores.csv.</aside>
+</section>
+
+<section id="permutation" class="visual-slide">
+<div class="kicker">Evaluating climate variable importance</div>
+<h2>Shuffle climate; see what breaks</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture09-permutation-cartoon.svg" alt="The same six individuals have unchanged dosage values but shuffled temperature values. A fixed step prediction rule then makes larger errors, increasing mean squared error from zero to 1.33."></div>
+<p class="visual-takeaway">If prediction error grows, the fitted forest relied on that variable.</p>
+<aside class="notes">Timing: 1 minute. The forest is not refitted after shuffling. We break part of its predictive information at evaluation time. pyGF stores raw OOB MSE increases in permutation_importances_. This differs from the impurity decrease importance we saw in a simple random forest: both appear in the GF algorithm, but serve different roles. Source: pyGF README Method section; general principle at https://scikit-learn.org/stable/modules/permutation_importance.html. The original temperatures are 5, 7, 9, 11, 13, 15; observed dosages are 0, 0, 1, 1, 2, 2. The fixed toy rule returns 0 below 8, 1 from 8 to below 12, and 2 from 12 onward. The shuffled temperatures yield squared errors totaling 8 across 6 observations, MSE 1.33. Individual labels and dosage colors do not move vertically. This is an exact marginal-shuffle illustration, not a fitted SNP result; the next slide introduces the lab’s approximate conditional permutation.</aside>
+</section>
+
+
+<section id="allocation" class="visual-slide">
+<div class="kicker">Combining the forests</div>
+<h2>Share useful signal among the predictors</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture09-allocation-cartoon.svg" alt="A bar totaling OOB R squared 0.4 is divided into temperature 0.3 and rainfall 0.1. Separate bars for other SNPs are combined by averaging each predictor allocation."></div>
+<p class="visual-takeaway">Give predictors a share of each SNP’s OOB prediction accuracy, then average over contributing SNPs.</p>
+<aside class="notes">Timing: 1.5 minutes. Normalize positive permutation MSE increases to sum to one for each retained response, then multiply by its positive OOB R². The allocations sum to that response score. Importance_ reports their mean across contributing responses, not a mean across all attempted SNPs and not a fraction summing to one. Across predictors, endpoints sum to mean retained OOB R². This normalization rule is specific to the implementation used in the lab. Source: pyGF README Method steps 3–5. The stack lengths are invented allocations. Temperature is teal and rainfall is coral; these are predictor categories, distinct from the grayscale dosage key. The lower bars illustrate additional retained SNPs and do not report real pyGF loci.</aside>
+</section>
+
+<section id="importance-results" class="visual-slide">
+<div class="kicker">The fitted example</div>
+<h2>Which gradients carry the most modeled signal?</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture09-importance.png" alt="The six highest-ranked climate predictors by mean allocated out-of-bag R squared in the actual P. guttatus example fit."></div>
+<p class="visual-takeaway">BIO18 leads: precipitation of the warmest quarter.</p>
+<aside class="notes">Timing: 1 minute. Ask students to name the leading predictor from the graph rather than presenting it as a universal driver. Check bioclim layer definitions and units before biological interpretation. Actual numeric rankings are exported in assets/Lecture09-predictor-importance.csv. BIO18 is precipitation of the warmest quarter; BIO19 is precipitation of the coldest quarter; BIO12 is annual precipitation; BIO9 is mean temperature of the driest quarter. Definitions: https://www.worldclim.org/data/bioclim.html. A high importance means the variable carries predictive information in these forests, not that its effect is experimentally isolated.</aside>
+</section>
+
+<section id="turnover-mechanism" class="visual-slide">
+<div class="kicker">From trees to gradients</div>
+<h2>From useful splits to a turnover curve</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture09-splits-cartoon.svg" alt="Three aligned environmental axes show useful split locations clustering in the middle, a smoothed density-corrected turnover peak, and a cumulative curve rising most steeply over the same interval."></div>
+<p class="visual-takeaway">A cluster of informative splits becomes a steep part of the cumulative curve.</p>
+<p class="caption">Schematic shapes. Smoothing and density correction account for where samples fall along the gradient.</p>
+<aside class="notes">Timing: 1.5 minutes. Distinguish two uses of importance: OOB permutation importance allocates predictive skill among predictors, while decreases in tree squared-error impurity distribute that allocation along each predictor. With the default density_correction=True, the smoothed split mass is divided by the smoothed observed predictor density for each response, with a floor on the denominator. This corrects uneven environmental coverage in curve construction; it does not remove observation bias, population structure, or spatial dependence. Gaussian smoothing and conditional permutations differ from R gradientForest. Sources: pyGF README Method; general synthesis principle in Ellis et al. 2012. The curves are conceptual rather than numeric transformations of the displayed rug. Coral dashed lines track the same interval through the diagram. Useful split mass is smoothed, corrected for sampling density, integrated, and scaled to allocated importance before averaging across contributing SNPs. Keep the detailed normalization in narration; use the image to explain the transition from a local peak to a cumulative rise.</aside>
+</section>
+
+<section id="curves-results" class="visual-slide">
+<div class="kicker">The fitted example</div>
+<h2>Read the location and magnitude of turnover</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture09-curves.png" alt="Cumulative turnover curves for the four most important fitted climate variables. Each curve has a nondecreasing shape and an endpoint equal to its mean allocated importance."></div>
+<p class="caption">Steep segment: faster modeled turnover. Endpoint: total predictor importance. X axes retain each raster’s units.</p>
+<aside class="notes">Timing: 1.5 minutes. Choose one visible steep segment and ask students to describe its environmental interval. All panels share a y limit to aid magnitude comparison. Do not call the x units degrees Celsius without checking temperature raster scaling; the source layers determine units. A sharp segment is a model-derived change zone that can be sensitive to environmental sampling and smoothing. It is not automatically a physiological threshold or a statistical change-point test.</aside>
+</section>
+
+<section id="transform" class="visual-slide">
+<div class="kicker">A new environmental coordinate system</div>
+<h2>Stretch climate space where turnover is fastest</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture09-transform-cartoon.svg" alt="Two equal differences on an environmental ruler pass through a cumulative curve. A and B remain close on the transformed scale, while C and D span the steep rise and become widely separated."></div>
+<p class="visual-takeaway">The same raw climate difference can become a small or large turnover distance.</p>
+<p class="caption">Illustration. In pyGF, transform() and predict() return these turnover coordinates.</p>
+<aside class="notes">Timing: 1 minute. Each fitted monotone curve transforms its predictor independently. Differences are larger when two raw values straddle a steep portion of that curve. The resulting coordinate differences summarize model-weighted environmental differences associated with genetic variation; they are not a direct estimate of pairwise sequence divergence. Keep the distinction from scikit-learn forest.predict, which would return dosage predictions. Source: pyGF README Python API. The toy raw intervals A–B and C–D are both 0.2 units wide. The first becomes 0.05 turnover units and the second becomes 0.70. Their distances follow interpolation through the displayed piecewise linear curve. This is one environmental coordinate; the real transformation applies each predictor’s own curve and retains one column per predictor.</aside>
+</section>
+
+<section id="map" class="visual-slide">
+<div class="kicker">Project across the landscape</div>
+<h2>A turnover layer is a transformed climate surface</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture09-turnover-map.png" alt="Regional map of the highest-ranked predictor after transformation through its cumulative turnover curve, with sampled individuals overlaid."></div>
+<p class="caption"><code>gf.plot_turnover()</code> selects the leading predictor. High values mark cumulative position along that gradient.</p>
+<aside class="notes">Timing: 1 minute. This actual fit map uses the same buffered raster region as the lab, at every fourth cell for plotting. The sites are overlays, not validation data. The map is one predictor coordinate, not total local turnover rate. Flat high values can be cumulative plateaus. A boundary in transformed values can highlight a geographic transition associated with modeled environmental differences. Source: course Lab09 and pyGF spatial/plotting methods.</aside>
+</section>
+
+
+<section id="pca" class="visual-slide">
+<div class="kicker">Summarizing nineteen turnover coordinates</div>
+<h2>PCA gives the map and biplot a shared color key</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture09-biplot.png" alt="Actual regional map and PCA biplot of GF-transformed environments. Map locations and ordination points share RGB colors derived from the first three principal components."></div>
+<p class="caption">PC1/2 locate biplot points. PC1/2/3 supply RGB colors. Similar colors indicate similar displayed coordinates.</p>
+<aside class="notes">Timing: 2 minutes. PCA rotates the centered GF-transformed coordinates toward axes capturing their largest variance. In this call the PCA basis is the complete raster cells in the buffered, downsampled region, not just sampled individuals. The first three scores become RGB channels, scaled using regional 2nd–98th percentiles; the scatter displays PC1 and PC2. pyGF does not standardize columns to unit variance, preserving the GF weighting. Similar colors are a compressed model summary, not measured genetic identity or a calibrated distance. Additional PCs and clipping can hide differences. Source: pyGF README Spatial biplots.</aside>
+</section>
+
+<section id="arrows" class="visual-slide">
+<div class="kicker">Reading the biplot</div>
+<h2>Read the biplot as an environmental compass</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture09-arrows-cartoon.svg" alt="An enlarged PCA scatterplot shows nearby similarly colored points and two environmental arrows starting at the origin, with annotations for direction and contribution."></div>
+<p class="visual-takeaway">Follow an arrow toward increasing transformed values; compare its contribution to PC1/2.</p>
+<p class="caption">Schematic PCA scores and covariance arrows. Nearby points share similar scores on the displayed axes.</p>
+<aside class="notes">Timing: 1 minute. pyGF computes components transposed times the square root of explained variance, then applies a common arrow display multiplier. Only the largest n_vectors are labeled. A variable can carry information outside PC1/2, so short arrows need not mean unimportant in the full transformed space. Return to the previous plot and ask which way to move to increase one labeled predictor. PCA is unsupervised here, but its input transformation was learned from SNPs. Source: pyGF README Spatial biplots. The ordination, colors and arrows are invented to enlarge the reading task. Arrow length concerns the displayed PC1/2 pattern, not causal effect or necessarily overall importance. The full dimensional turnover space can contain differences that this two-dimensional view hides.</aside>
+</section>
+
+<section id="single-snp" class="visual-slide">
+<div class="kicker">Aggregate versus one locus</div>
+<h2>A single SNP can emphasize a different pattern</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture09-snp-biplot.png" alt="PCA map and biplot based on turnover curves of the SNP with the highest fitted OOB R squared, using its own PCA and RGB calibration."></div>
+<p class="caption">Single-SNP view: <code>response=snp</code>. Each view has its own PCA basis and color scale.</p>
+<aside class="notes">Timing: 1.5 minutes. The notebook selects the best OOB SNP with gf.response_scores_.oob_r2.idxmax(). The figure was rebuilt from that response, with keep_response_curves=True. Compare geographic organization and arrows; matching red between this plot and the aggregate has no shared genetic meaning. A high-scoring selected SNP is not independent confirmation and need not be representative of the full set. For the course notebook, reuse the same shared bioclim directory for both biplot calls; its single-SNP cell currently uses ../envs, a path inherited from the upstream example.</aside>
+</section>
+
+<section id="inference" class="visual-slide">
+<div class="kicker">Biological interpretation</div>
+<h2>The same pattern can have different explanations</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture09-inference-cartoon.svg" alt="Two identical white-to-gray-to-black genotype gradients illustrate local adaptation as one hypothesis and shared geography and ancestry as another route to the same observed association."></div>
+<p class="visual-takeaway">A climate–genotype association gives us a hypothesis to test.</p>
+<p class="caption">Conceptual alternatives. Fitness measurements and population-history evidence help distinguish them.</p>
+<aside class="notes">Timing: 1.5 minutes. This is inferential reasoning, not additional evidence collected in the lab. Spatially structured ancestry can align with spatially structured climate without climate causing the genetic pattern. This is especially relevant for only 36 individuals and 19 related predictors. For a spatial prediction claim, refit and evaluate SNP responses in geographic holdouts, with filtering and tuning confined to training information. Genotype prediction error can be evaluated there; the turnover map itself has no directly observed ground-truth color. OOB internal prediction and spatial transfer are different questions. Source for the implementation limits: pyGF README Data and interpretation. Both genotype strips are intentionally identical. The left proposes climate affecting genotype patterns through selection. The right proposes geography relating to climate and ancestry, with ancestry explaining genotype patterns. These are simplified candidate causal structures, not inferred causal graphs. Spatial sampling and correlated environmental variables remain additional alternatives; discuss them using the previous notes.</aside>
+</section>
+
+
+<section id="sources" class="">
+<div class="kicker">Sources and figure provenance</div>
+<h2>Further reading</h2>
+
+<ul class="source-list">
+<li><a href="../labs/Lab09-GradientForest.ipynb">Lab09: the course workflow and API examples</a></li>
+<li><a href="https://doi.org/10.1890/11-0252.1">Ellis, Smith &amp; Pitcher (2012): the original Gradient Forest method</a></li>
+<li><a href="https://github.com/isaacovercast/pygf">pyGF: implementation, genomic inputs, and interpretation limits</a></li>
+<li><a href="https://scikit-learn.org/stable/auto_examples/ensemble/plot_ensemble_oob.html">Scikit-learn: out-of-bag evaluation</a> · <a href="https://scikit-learn.org/stable/modules/permutation_importance.html">permutation importance</a></li>
+<li>Figure sources: <a href="assets/Lecture09-build-diagrams.py">conceptual diagrams</a> · <a href="assets/Lecture09-build-figures.py">fitted figures</a> · <a href="assets/Lecture09-example-results.json">fit settings</a></li>
+</ul>
+<p class="caption">pyGF is an independent implementation; conditional permutations and smoothing differ from R gradientForest.</p>
+<aside class="notes">Fitted figures use the pyGF P. guttatus example VCF, coordinates and 19 bioclim rasters with the lab settings. No AI-generated artwork is used. The schematic SVGs and the turnover-intuition PNG are explicitly invented for teaching; the remaining PNGs show the documented fitted example. The rebuild script and provenance notes distinguish those from fitted results. The lecture does not claim a new genomic dataset citation, adaptive-locus discovery, or R numerical parity.</aside>
+</section>
+</div></div>
+<script src="reveal.js/dist/reveal.js"></script>
+<script src="reveal.js/dist/plugin/highlight.js"></script>
+<script src="reveal.js/dist/plugin/notes.js"></script>
+<script>
+Reveal.initialize({
+ hash:true, controls:true, progress:true, center:false, slideNumber:"c/t",
+ width:1440, height:810, margin:0.03, transition:"fade", transitionSpeed:"fast",
+ plugins:[RevealHighlight,RevealNotes]
+});
+</script></body></html>

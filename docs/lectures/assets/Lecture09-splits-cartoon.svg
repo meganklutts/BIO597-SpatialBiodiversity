@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1296 500" role="img" aria-labelledby="title">
+<title id="title">Tree split locations are smoothed and density corrected, then integrated into a cumulative turnover curve.</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<text x="205" y="45" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" fill="#18212b" text-anchor="middle">Useful tree splits</text>
+<line x1="65" y1="356" x2="65" y2="126" stroke="#18212b" stroke-width="2"/>
+<line x1="65" y1="356" x2="350" y2="356" stroke="#18212b" stroke-width="2"/>
+<text x="207.5" y="390" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="middle">Environmental value →</text>
+<text x="38" y="241.0" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="middle" transform="rotate(-90 38 241.0)">Split improvement</text>
+<line x1="79.0" y1="352" x2="79.0" y2="317" stroke="#087e8b" stroke-width="4"/>
+<line x1="115.4" y1="352" x2="115.4" y2="294" stroke="#087e8b" stroke-width="4"/>
+<line x1="151.8" y1="352" x2="151.8" y2="271" stroke="#087e8b" stroke-width="4"/>
+<line x1="177.0" y1="352" x2="177.0" y2="248" stroke="#087e8b" stroke-width="4"/>
+<line x1="185.39999999999998" y1="352" x2="185.39999999999998" y2="317" stroke="#087e8b" stroke-width="4"/>
+<line x1="193.8" y1="352" x2="193.8" y2="294" stroke="#087e8b" stroke-width="4"/>
+<line x1="199.4" y1="352" x2="199.4" y2="271" stroke="#087e8b" stroke-width="4"/>
+<line x1="202.2" y1="352" x2="202.2" y2="248" stroke="#087e8b" stroke-width="4"/>
+<line x1="207.8" y1="352" x2="207.8" y2="317" stroke="#087e8b" stroke-width="4"/>
+<line x1="213.4" y1="352" x2="213.4" y2="294" stroke="#087e8b" stroke-width="4"/>
+<line x1="216.20000000000002" y1="352" x2="216.20000000000002" y2="271" stroke="#087e8b" stroke-width="4"/>
+<line x1="221.8" y1="352" x2="221.8" y2="248" stroke="#087e8b" stroke-width="4"/>
+<line x1="230.2" y1="352" x2="230.2" y2="317" stroke="#087e8b" stroke-width="4"/>
+<line x1="255.4" y1="352" x2="255.4" y2="294" stroke="#087e8b" stroke-width="4"/>
+<line x1="291.8" y1="352" x2="291.8" y2="271" stroke="#087e8b" stroke-width="4"/>
+<line x1="328.2" y1="352" x2="328.2" y2="248" stroke="#087e8b" stroke-width="4"/>
+<line x1="177" y1="110" x2="177" y2="356" stroke="#d95d39" stroke-width="1.5" stroke-dasharray="5 5"/>
+<line x1="235" y1="110" x2="235" y2="356" stroke="#d95d39" stroke-width="1.5" stroke-dasharray="5 5"/>
+<text x="643" y="45" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" fill="#18212b" text-anchor="middle">Smooth and density-correct</text>
+<line x1="503" y1="356" x2="503" y2="126" stroke="#18212b" stroke-width="2"/>
+<line x1="503" y1="356" x2="788" y2="356" stroke="#18212b" stroke-width="2"/>
+<text x="645.5" y="390" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="middle">Environmental value →</text>
+<text x="476" y="241.0" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="middle" transform="rotate(-90 476 241.0)">Turnover mass</text>
+<polyline points="503.00,350.00 505.80,350.00 508.60,350.00 511.40,349.99 514.20,349.99 517.00,349.98 519.80,349.98 522.60,349.96 525.40,349.95 528.20,349.92 531.00,349.89 533.80,349.84 536.60,349.77 539.40,349.68 542.20,349.56 545.00,349.39 547.80,349.16 550.60,348.86 553.40,348.46 556.20,347.94 559.00,347.28 561.80,346.43 564.60,345.36 567.40,344.02 570.20,342.36 573.00,340.33 575.80,337.88 578.60,334.93 581.40,331.42 584.20,327.31 587.00,322.53 589.80,317.04 592.60,310.80 595.40,303.80 598.20,296.02 601.00,287.50 603.80,278.26 606.60,268.40 609.40,257.99 612.20,247.18 615.00,236.11 617.80,224.97 620.60,213.95 623.40,203.28 626.20,193.16 629.00,183.83 631.80,175.51 634.60,168.39 637.40,162.65 640.20,158.44 643.00,155.86 645.80,155.00 648.60,155.86 651.40,158.44 654.20,162.65 657.00,168.39 659.80,175.51 662.60,183.83 665.40,193.16 668.20,203.28 671.00,213.95 673.80,224.97 676.60,236.11 679.40,247.18 682.20,257.99 685.00,268.40 687.80,278.26 690.60,287.50 693.40,296.02 696.20,303.80 699.00,310.80 701.80,317.04 704.60,322.53 707.40,327.31 710.20,331.42 713.00,334.93 715.80,337.88 718.60,340.33 721.40,342.36 724.20,344.02 727.00,345.36 729.80,346.43 732.60,347.28 735.40,347.94 738.20,348.46 741.00,348.86 743.80,349.16 746.60,349.39 749.40,349.56 752.20,349.68 755.00,349.77 757.80,349.84 760.60,349.89 763.40,349.92 766.20,349.95 769.00,349.96 771.80,349.98 774.60,349.98 777.40,349.99 780.20,349.99 783.00,350.00" fill="none" stroke="#087e8b" stroke-width="4" stroke-linejoin="round"/>
+<line x1="615" y1="110" x2="615" y2="356" stroke="#d95d39" stroke-width="1.5" stroke-dasharray="5 5"/>
+<line x1="673" y1="110" x2="673" y2="356" stroke="#d95d39" stroke-width="1.5" stroke-dasharray="5 5"/>
+<text x="1081" y="45" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" fill="#18212b" text-anchor="middle">Accumulate change</text>
+<line x1="941" y1="356" x2="941" y2="126" stroke="#18212b" stroke-width="2"/>
+<line x1="941" y1="356" x2="1226" y2="356" stroke="#18212b" stroke-width="2"/>
+<text x="1083.5" y="390" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="middle">Environmental value →</text>
+<text x="914" y="241.0" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="middle" transform="rotate(-90 914 241.0)">Cumulative importance</text>
+<polyline points="941.00,349.83 943.80,349.80 946.60,349.77 949.40,349.74 952.20,349.70 955.00,349.66 957.80,349.61 960.60,349.55 963.40,349.48 966.20,349.40 969.00,349.31 971.80,349.21 974.60,349.09 977.40,348.95 980.20,348.80 983.00,348.62 985.80,348.41 988.60,348.17 991.40,347.90 994.20,347.59 997.00,347.23 999.80,346.82 1002.60,346.35 1005.40,345.82 1008.20,345.20 1011.00,344.50 1013.80,343.70 1016.60,342.78 1019.40,341.74 1022.20,340.55 1025.00,339.20 1027.80,337.68 1030.60,335.94 1033.40,333.99 1036.20,331.79 1039.00,329.31 1041.80,326.54 1044.60,323.45 1047.40,320.02 1050.20,316.22 1053.00,312.04 1055.80,307.47 1058.60,302.49 1061.40,297.11 1064.20,291.33 1067.00,285.17 1069.80,278.66 1072.60,271.84 1075.40,264.75 1078.20,257.45 1081.00,250.01 1083.80,242.50 1086.60,234.99 1089.40,227.55 1092.20,220.25 1095.00,213.16 1097.80,206.34 1100.60,199.83 1103.40,193.67 1106.20,187.89 1109.00,182.51 1111.80,177.53 1114.60,172.96 1117.40,168.78 1120.20,164.98 1123.00,161.55 1125.80,158.46 1128.60,155.69 1131.40,153.21 1134.20,151.01 1137.00,149.06 1139.80,147.32 1142.60,145.80 1145.40,144.45 1148.20,143.26 1151.00,142.22 1153.80,141.30 1156.60,140.50 1159.40,139.80 1162.20,139.18 1165.00,138.65 1167.80,138.18 1170.60,137.77 1173.40,137.41 1176.20,137.10 1179.00,136.83 1181.80,136.59 1184.60,136.38 1187.40,136.20 1190.20,136.05 1193.00,135.91 1195.80,135.79 1198.60,135.69 1201.40,135.60 1204.20,135.52 1207.00,135.45 1209.80,135.39 1212.60,135.34 1215.40,135.30 1218.20,135.26 1221.00,135.23" fill="none" stroke="#087e8b" stroke-width="4" stroke-linejoin="round"/>
+<line x1="1053" y1="110" x2="1053" y2="356" stroke="#d95d39" stroke-width="1.5" stroke-dasharray="5 5"/>
+<line x1="1111" y1="110" x2="1111" y2="356" stroke="#d95d39" stroke-width="1.5" stroke-dasharray="5 5"/>
+<line x1="377" y1="240" x2="421" y2="240" stroke="#087e8b" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="815" y1="240" x2="859" y2="240" stroke="#087e8b" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="648" y="446" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="400" fill="#52606d" text-anchor="middle">The same environmental interval carries the strongest change through each step.</text>
+</svg>

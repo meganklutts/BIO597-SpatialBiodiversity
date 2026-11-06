@@ -100,6 +100,7 @@ body { background:var(--paper); }
 <aside class="notes">Timing: 1 minute. MaxEnt is a classic and influential presence-background method; it was not the first species distribution model. The foundational species-distribution paper is Phillips et al. 2006, https://doi.org/10.1016/j.ecolmodel.2005.03.026. We will use elapid’s Python implementation. It shares the presence/background problem with last week’s forest, but learns the relationship in a different way. This lecture emphasizes mechanism and evaluation rather than model tuning.</aside>
 </section>
 
+<!--
 <section >
 <div class="kicker">The inputs</div>
 <h2>What information does MaxEnt receive?</h2>
@@ -162,7 +163,7 @@ body { background:var(--paper); }
 <p class="caption">Each circle represents a climate combination, not a map location. Circle area shows relative weight.</p>
 <aside class="notes">Timing: 1–1.5 minutes. Extend the beam analogy to balancing a flat tray: left/right is temperature, and up/down is rainfall. We now have two summaries of the occurrence records, and one set of weights has to reproduce both. Imagine four equally available cells with the climate combinations shown. Equal weights would average 5°C and 1,000 mm. The observed averages are warmer and wetter, so weight shifts toward the warm, wet corner while every combination retains some weight. The coral cross is the weighted center of all four circles; no cell needs to sit exactly at that center. The exact weights are 1/12, 1/6, 1/4, and 1/2, displayed as rounded percentages. They sum to one and give weighted means of exactly 6°C and 1,100 mm. Warm cells together carry two-thirds of the weight and wet cells carry three-quarters. For this complete four-combination grid, the maximum-entropy joint weights are the products of those marginal weights. These are normalized relative weights over equally available cells, not occupancy probabilities or evidence of a climate optimum. This teaching example constrains only two raw means, with no regularization or interaction constraint. Real landscapes may have correlated predictors and missing combinations, and real MaxEnt fits can constrain additional transformed features. Reproducible figure: assets/Lecture08-build-figures.py. Source for the maximum-entropy principle: https://doi.org/10.1016/j.ecolmodel.2005.03.026.</aside>
 </section>
-
+-->
 <section >
 <div class="kicker">A real MaxEnt fit</div>
 <h2>MaxEnt prediction projected across the landscape</h2>

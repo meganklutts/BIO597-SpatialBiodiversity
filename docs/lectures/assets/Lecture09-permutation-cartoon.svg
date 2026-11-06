@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1296 500" role="img" aria-labelledby="title">
+<title id="title">Shuffle temperature among six OOB individuals while keeping their observed dosages and the fitted prediction rule fixed.</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<text x="215" y="42" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#18212b" text-anchor="middle">Original climate</text>
+<line x1="60" y1="335" x2="60" y2="110" stroke="#18212b" stroke-width="2"/>
+<line x1="60" y1="335" x2="380" y2="335" stroke="#18212b" stroke-width="2"/>
+<text x="220.0" y="369" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="middle">Temperature →</text>
+<text x="33" y="222.5" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="middle" transform="rotate(-90 33 222.5)">Dosage</text>
+<polyline points="80.00,315.00 164.00,315.00 164.00,223.00 276.00,223.00 276.00,131.00 360.00,131.00" fill="none" stroke="#087e8b" stroke-width="3" stroke-linejoin="round"/>
+<line x1="80" y1="315" x2="80" y2="315" stroke="#d95d39" stroke-width="4"/>
+<circle cx="80" cy="315" r="14" fill="#ffffff" stroke="#18212b" stroke-width="2"/>
+<text x="97" y="321" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#52606d" text-anchor="start">A</text>
+<line x1="136" y1="315" x2="136" y2="315" stroke="#d95d39" stroke-width="4"/>
+<circle cx="136" cy="315" r="14" fill="#ffffff" stroke="#18212b" stroke-width="2"/>
+<text x="153" y="321" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#52606d" text-anchor="start">B</text>
+<line x1="192" y1="223" x2="192" y2="223" stroke="#d95d39" stroke-width="4"/>
+<circle cx="192" cy="223" r="14" fill="#969696" stroke="#18212b" stroke-width="2"/>
+<text x="209" y="229" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#52606d" text-anchor="start">C</text>
+<line x1="248" y1="223" x2="248" y2="223" stroke="#d95d39" stroke-width="4"/>
+<circle cx="248" cy="223" r="14" fill="#969696" stroke="#18212b" stroke-width="2"/>
+<text x="265" y="229" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#52606d" text-anchor="start">D</text>
+<line x1="304" y1="131" x2="304" y2="131" stroke="#d95d39" stroke-width="4"/>
+<circle cx="304" cy="131" r="14" fill="#111111" stroke="#18212b" stroke-width="2"/>
+<text x="321" y="137" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#52606d" text-anchor="start">E</text>
+<line x1="360" y1="131" x2="360" y2="131" stroke="#d95d39" stroke-width="4"/>
+<circle cx="360" cy="131" r="14" fill="#111111" stroke="#18212b" stroke-width="2"/>
+<text x="377" y="137" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#52606d" text-anchor="start">F</text>
+<text x="215" y="410" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="700" fill="#087e8b" text-anchor="middle">MSE = 0.00</text>
+<text x="669" y="42" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#18212b" text-anchor="middle">Shuffle temperature</text>
+<line x1="514" y1="335" x2="514" y2="110" stroke="#18212b" stroke-width="2"/>
+<line x1="514" y1="335" x2="834" y2="335" stroke="#18212b" stroke-width="2"/>
+<text x="674.0" y="369" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="middle">Temperature →</text>
+<text x="487" y="222.5" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#52606d" text-anchor="middle" transform="rotate(-90 487 222.5)">Dosage</text>
+<polyline points="534.00,315.00 618.00,315.00 618.00,223.00 730.00,223.00 730.00,131.00 814.00,131.00" fill="none" stroke="#087e8b" stroke-width="3" stroke-linejoin="round"/>
+<line x1="758" y1="315" x2="758" y2="131" stroke="#d95d39" stroke-width="4"/>
+<circle cx="758" cy="315" r="14" fill="#ffffff" stroke="#18212b" stroke-width="2"/>
+<text x="775" y="321" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#52606d" text-anchor="start">A</text>
+<line x1="534" y1="315" x2="534" y2="315" stroke="#d95d39" stroke-width="4"/>
+<circle cx="534" cy="315" r="14" fill="#ffffff" stroke="#18212b" stroke-width="2"/>
+<text x="551" y="321" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#52606d" text-anchor="start">B</text>
+<line x1="814" y1="223" x2="814" y2="131" stroke="#d95d39" stroke-width="4"/>
+<circle cx="814" cy="223" r="14" fill="#969696" stroke="#18212b" stroke-width="2"/>
+<text x="831" y="229" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#52606d" text-anchor="start">C</text>
+<line x1="590" y1="223" x2="590" y2="315" stroke="#d95d39" stroke-width="4"/>
+<circle cx="590" cy="223" r="14" fill="#969696" stroke="#18212b" stroke-width="2"/>
+<text x="607" y="229" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#52606d" text-anchor="start">D</text>
+<line x1="702" y1="131" x2="702" y2="223" stroke="#d95d39" stroke-width="4"/>
+<circle cx="702" cy="131" r="14" fill="#111111" stroke="#18212b" stroke-width="2"/>
+<text x="719" y="137" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#52606d" text-anchor="start">E</text>
+<line x1="646" y1="131" x2="646" y2="223" stroke="#d95d39" stroke-width="4"/>
+<circle cx="646" cy="131" r="14" fill="#111111" stroke="#18212b" stroke-width="2"/>
+<text x="663" y="137" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#52606d" text-anchor="start">F</text>
+<text x="669" y="410" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="700" fill="#d95d39" text-anchor="middle">MSE = 1.33</text>
+<line x1="419" y1="230" x2="476" y2="230" stroke="#d95d39" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="1137" y="166" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#18212b" text-anchor="middle">Error</text>
+<text x="1137" y="206" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#18212b" text-anchor="middle">increases</text>
+<text x="1137" y="285" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700" fill="#d95d39" text-anchor="middle">+1.33</text>
+<text x="648" y="482" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="400" fill="#52606d" text-anchor="middle">Same individuals and dosages. Same fitted rule. Only temperature is shuffled.</text>
+</svg>
