@@ -236,6 +236,14 @@ def save(fig,name):
     plt.close(fig)
 
 
+def occurrence_map(maine, records):
+    fig, ax = plt.subplots(figsize=(6.5, 6), layout='constrained')
+    maine.plot(ax=ax, color='#e9ece5', edgecolor='#8b9696', linewidth=.8)
+    records.plot(ax=ax, markersize=2, color=TEAL, alpha=.4)
+    ax.set_axis_off()
+    save(fig, 'occurrences')
+
+
 def toy_curves():
     x=np.linspace(2,16,300)
     g=lambda value:1.5/(1+np.exp(-(np.asarray(value)-9)/1.2))
@@ -291,6 +299,7 @@ def main():
     maine=gpd.read_file(maine_path).to_crs(CRS).dissolve()
     records=gpd.read_file(records_path).to_crs(CRS).dropna(subset=['species'])
     records=gpd.clip(records[records.species!=''],maine)
+    occurrence_map(maine, records)
     sites_by_grain={};communities={};pairs_by_grain={};bands_by_grain={}
     Xs={};ys={};models={};climate_sites={};summary={};importance={}
 

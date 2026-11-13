@@ -27,6 +27,10 @@ in `Lecture11-example-results.json`.
 - **Sampling:** occurrence points, record counts and richness describe the
   archive's observation pattern. Repeated locations are retained. A missing
   cell is not a surveyed absence or an empty community.
+- **Opening occurrence map:** `Lecture11-occurrences.png` shows the 14,466
+  named-species records within the Maine boundary before defining grid sites.
+  It introduces the question "How do we delineate communities?" without adding
+  community boundaries or aggregating the records.
 - **Distance decay:** Jaccard uses presence/absence. Each pair is calculated
   once. Black lines and comparison curves are arithmetic means in 50 km bands,
   not fitted regressions, confidence intervals or independent-pair tests.
