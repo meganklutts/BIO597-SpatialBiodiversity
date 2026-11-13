@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1296 500" role="img" aria-labelledby="title">
+<title id="title">Random pair splits reuse sites, while holding out a geographic group of sites tests predictions for new places.</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#087e8b"/></marker></defs>
+<text x="290" y="40" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="33" font-weight="700" text-anchor="middle">Random pairs</text>
+<line x1="110" y1="140" x2="280" y2="140" stroke="#d95d39" stroke-width="4"/>
+<line x1="110" y1="140" x2="110" y2="340" stroke="#087e8b" stroke-width="4"/>
+<line x1="110" y1="140" x2="280" y2="340" stroke="#087e8b" stroke-width="4"/>
+<line x1="280" y1="140" x2="450" y2="140" stroke="#d95d39" stroke-width="4"/>
+<line x1="280" y1="140" x2="280" y2="340" stroke="#087e8b" stroke-width="4"/>
+<line x1="450" y1="140" x2="450" y2="340" stroke="#087e8b" stroke-width="4"/>
+<line x1="110" y1="340" x2="280" y2="340" stroke="#d95d39" stroke-width="4"/>
+<line x1="280" y1="340" x2="450" y2="340" stroke="#087e8b" stroke-width="4"/>
+<ellipse cx="110" cy="140" rx="30" ry="30" fill="white" stroke="#18212b" stroke-width="3"/>
+<text x="110" y="150" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" text-anchor="middle">A</text>
+<ellipse cx="280" cy="140" rx="30" ry="30" fill="white" stroke="#18212b" stroke-width="3"/>
+<text x="280" y="150" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" text-anchor="middle">B</text>
+<ellipse cx="450" cy="140" rx="30" ry="30" fill="white" stroke="#18212b" stroke-width="3"/>
+<text x="450" y="150" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" text-anchor="middle">C</text>
+<ellipse cx="110" cy="340" rx="30" ry="30" fill="white" stroke="#18212b" stroke-width="3"/>
+<text x="110" y="350" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" text-anchor="middle">D</text>
+<ellipse cx="280" cy="340" rx="30" ry="30" fill="white" stroke="#18212b" stroke-width="3"/>
+<text x="280" y="350" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" text-anchor="middle">E</text>
+<ellipse cx="450" cy="340" rx="30" ry="30" fill="white" stroke="#18212b" stroke-width="3"/>
+<text x="450" y="350" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" text-anchor="middle">F</text>
+<text x="280" y="465" fill="#52606d" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="400" text-anchor="middle">Same sites leak across splits</text>
+<text x="960" y="40" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="33" font-weight="700" text-anchor="middle">Hold out places</text>
+<rect x="715" y="230" width="485" height="190" fill="#f6e4dd" stroke="none" stroke-width="2" rx="12"/>
+<line x1="780" y1="140" x2="950" y2="140" stroke="#087e8b" stroke-width="4"/>
+<line x1="780" y1="140" x2="1120" y2="140" stroke="#087e8b" stroke-width="4"/>
+<line x1="950" y1="140" x2="1120" y2="140" stroke="#087e8b" stroke-width="4"/>
+<line x1="780" y1="340" x2="950" y2="340" stroke="#d95d39" stroke-width="4"/>
+<line x1="780" y1="340" x2="1120" y2="340" stroke="#d95d39" stroke-width="4"/>
+<line x1="950" y1="340" x2="1120" y2="340" stroke="#d95d39" stroke-width="4"/>
+<ellipse cx="780" cy="140" rx="30" ry="30" fill="white" stroke="#18212b" stroke-width="3"/>
+<text x="780" y="150" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" text-anchor="middle">A</text>
+<ellipse cx="950" cy="140" rx="30" ry="30" fill="white" stroke="#18212b" stroke-width="3"/>
+<text x="950" y="150" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" text-anchor="middle">B</text>
+<ellipse cx="1120" cy="140" rx="30" ry="30" fill="white" stroke="#18212b" stroke-width="3"/>
+<text x="1120" y="150" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" text-anchor="middle">C</text>
+<ellipse cx="780" cy="340" rx="30" ry="30" fill="white" stroke="#d95d39" stroke-width="3"/>
+<text x="780" y="350" fill="#d95d39" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" text-anchor="middle">D</text>
+<ellipse cx="950" cy="340" rx="30" ry="30" fill="white" stroke="#d95d39" stroke-width="3"/>
+<text x="950" y="350" fill="#d95d39" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" text-anchor="middle">E</text>
+<ellipse cx="1120" cy="340" rx="30" ry="30" fill="white" stroke="#d95d39" stroke-width="3"/>
+<text x="1120" y="350" fill="#d95d39" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" text-anchor="middle">F</text>
+<text x="950" y="465" fill="#52606d" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="400" text-anchor="middle">Held-out sites are genuinely new</text>
+</svg>

@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1296 500" role="img" aria-labelledby="title">
+<title id="title">Environmental gradients, dispersal barriers and uneven observations can each contribute to distance decay.</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#087e8b"/></marker></defs>
+<text x="205" y="45" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" text-anchor="middle">Environment</text>
+<text x="640" y="45" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" text-anchor="middle">Dispersal / history</text>
+<text x="1075" y="45" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" text-anchor="middle">Observation</text>
+<rect x="20" y="85" width="32" height="325" fill="rgb(230,235,200)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="52" y="85" width="32" height="325" fill="rgb(225,232,203)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="84" y="85" width="32" height="325" fill="rgb(220,229,206)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="116" y="85" width="32" height="325" fill="rgb(215,226,209)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="148" y="85" width="32" height="325" fill="rgb(210,223,212)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="180" y="85" width="32" height="325" fill="rgb(205,220,215)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="212" y="85" width="32" height="325" fill="rgb(200,217,218)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="244" y="85" width="32" height="325" fill="rgb(195,214,221)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="276" y="85" width="32" height="325" fill="rgb(190,211,224)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="308" y="85" width="32" height="325" fill="rgb(185,208,227)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="340" y="85" width="32" height="325" fill="rgb(180,205,230)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="372" y="85" width="32" height="325" fill="rgb(175,202,233)" stroke="none" stroke-width="2" rx="0"/>
+<ellipse cx="210" cy="170" rx="100" ry="63" fill="#dcecef" stroke="#9bbdc4" stroke-width="3"/>
+<g transform="translate(150.0 170) scale(0.7)" fill="#087e8b" stroke="#087e8b" stroke-width="3" stroke-linecap="round">
+<path d="M-12 2 L-25 14 L-30 7 M12 2 L25 14 L30 7 M-9 -7 L-21 -14 M9 -7 L21 -14" fill="none"/>
+<ellipse cy="1" rx="15" ry="17"/><ellipse cy="-14" rx="14" ry="9"/>
+<circle cx="-8" cy="-18" r="3" fill="white" stroke="none"/><circle cx="8" cy="-18" r="3" fill="white" stroke="none"/>
+</g>
+<text x="150.0" y="200.8" fill="#087e8b" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" text-anchor="middle">A</text>
+<g transform="translate(210.0 170) scale(0.7)" fill="#c48d21" stroke="#c48d21" stroke-width="3" stroke-linecap="round">
+<path d="M0 14 Q26 26 30 3 Q18 18 3 7" stroke="none"/>
+<path d="M-6 -8 L-20 -16 M6 -8 L20 -16 M-6 9 L-20 17 M6 9 L20 17" fill="none"/>
+<ellipse rx="8" ry="19"/><ellipse cy="-22" rx="10" ry="9"/>
+<circle cx="-4" cy="-24" r="2" fill="white" stroke="none"/><circle cx="4" cy="-24" r="2" fill="white" stroke="none"/>
+</g>
+<text x="210.0" y="200.8" fill="#c48d21" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" text-anchor="middle">B</text>
+<g transform="translate(270.0 170) scale(0.7)" fill="#8660a4" stroke="#8660a4" stroke-width="3" stroke-linecap="round">
+<path d="M0 14 Q26 26 30 3 Q18 18 3 7" stroke="none"/>
+<path d="M-6 -8 L-20 -16 M6 -8 L20 -16 M-6 9 L-20 17 M6 9 L20 17" fill="none"/>
+<ellipse rx="8" ry="19"/><ellipse cy="-22" rx="10" ry="9"/>
+<circle cx="-4" cy="-24" r="2" fill="white" stroke="none"/><circle cx="4" cy="-24" r="2" fill="white" stroke="none"/>
+</g>
+<text x="270.0" y="200.8" fill="#8660a4" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" text-anchor="middle">C</text>
+<text x="210" y="275" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" text-anchor="middle">Cool / wet</text>
+<ellipse cx="210" cy="340" rx="100" ry="63" fill="#dcecef" stroke="#9bbdc4" stroke-width="3"/>
+<g transform="translate(150.0 340) scale(0.7)" fill="#d95d39" stroke="#d95d39" stroke-width="3" stroke-linecap="round">
+<path d="M-12 2 L-25 14 L-30 7 M12 2 L25 14 L30 7 M-9 -7 L-21 -14 M9 -7 L21 -14" fill="none"/>
+<ellipse cy="1" rx="15" ry="17"/><ellipse cy="-14" rx="14" ry="9"/>
+<circle cx="-8" cy="-18" r="3" fill="white" stroke="none"/><circle cx="8" cy="-18" r="3" fill="white" stroke="none"/>
+</g>
+<text x="150.0" y="370.8" fill="#d95d39" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" text-anchor="middle">D</text>
+<g transform="translate(210.0 340) scale(0.7)" fill="#3f6ca8" stroke="#3f6ca8" stroke-width="3" stroke-linecap="round">
+<path d="M0 14 Q26 26 30 3 Q18 18 3 7" stroke="none"/>
+<path d="M-6 -8 L-20 -16 M6 -8 L20 -16 M-6 9 L-20 17 M6 9 L20 17" fill="none"/>
+<ellipse rx="8" ry="19"/><ellipse cy="-22" rx="10" ry="9"/>
+<circle cx="-4" cy="-24" r="2" fill="white" stroke="none"/><circle cx="4" cy="-24" r="2" fill="white" stroke="none"/>
+</g>
+<text x="210.0" y="370.8" fill="#3f6ca8" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" text-anchor="middle">E</text>
+<g transform="translate(270.0 340) scale(0.7)" fill="#527b3d" stroke="#527b3d" stroke-width="3" stroke-linecap="round">
+<path d="M0 14 Q26 26 30 3 Q18 18 3 7" stroke="none"/>
+<path d="M-6 -8 L-20 -16 M6 -8 L20 -16 M-6 9 L-20 17 M6 9 L20 17" fill="none"/>
+<ellipse rx="8" ry="19"/><ellipse cy="-22" rx="10" ry="9"/>
+<circle cx="-4" cy="-24" r="2" fill="white" stroke="none"/><circle cx="4" cy="-24" r="2" fill="white" stroke="none"/>
+</g>
+<text x="270.0" y="370.8" fill="#527b3d" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" text-anchor="middle">F</text>
+<text x="210" y="445" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" text-anchor="middle">Warmer / drier</text>
+<rect x="455" y="85" width="380" height="325" fill="#edf0e5" stroke="none" stroke-width="2" rx="0"/>
+<ellipse cx="650" cy="155" rx="100" ry="63" fill="#dcecef" stroke="#9bbdc4" stroke-width="3"/>
+<g transform="translate(590.0 155) scale(0.7)" fill="#087e8b" stroke="#087e8b" stroke-width="3" stroke-linecap="round">
+<path d="M-12 2 L-25 14 L-30 7 M12 2 L25 14 L30 7 M-9 -7 L-21 -14 M9 -7 L21 -14" fill="none"/>
+<ellipse cy="1" rx="15" ry="17"/><ellipse cy="-14" rx="14" ry="9"/>
+<circle cx="-8" cy="-18" r="3" fill="white" stroke="none"/><circle cx="8" cy="-18" r="3" fill="white" stroke="none"/>
+</g>
+<text x="590.0" y="185.8" fill="#087e8b" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" text-anchor="middle">A</text>
+<g transform="translate(650.0 155) scale(0.7)" fill="#c48d21" stroke="#c48d21" stroke-width="3" stroke-linecap="round">
+<path d="M0 14 Q26 26 30 3 Q18 18 3 7" stroke="none"/>
+<path d="M-6 -8 L-20 -16 M6 -8 L20 -16 M-6 9 L-20 17 M6 9 L20 17" fill="none"/>
+<ellipse rx="8" ry="19"/><ellipse cy="-22" rx="10" ry="9"/>
+<circle cx="-4" cy="-24" r="2" fill="white" stroke="none"/><circle cx="4" cy="-24" r="2" fill="white" stroke="none"/>
+</g>
+<text x="650.0" y="185.8" fill="#c48d21" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" text-anchor="middle">B</text>
+<g transform="translate(710.0 155) scale(0.7)" fill="#8660a4" stroke="#8660a4" stroke-width="3" stroke-linecap="round">
+<path d="M0 14 Q26 26 30 3 Q18 18 3 7" stroke="none"/>
+<path d="M-6 -8 L-20 -16 M6 -8 L20 -16 M-6 9 L-20 17 M6 9 L20 17" fill="none"/>
+<ellipse rx="8" ry="19"/><ellipse cy="-22" rx="10" ry="9"/>
+<circle cx="-4" cy="-24" r="2" fill="white" stroke="none"/><circle cx="4" cy="-24" r="2" fill="white" stroke="none"/>
+</g>
+<text x="710.0" y="185.8" fill="#8660a4" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" text-anchor="middle">C</text>
+<ellipse cx="650" cy="350" rx="100" ry="63" fill="#dcecef" stroke="#9bbdc4" stroke-width="3"/>
+<g transform="translate(590.0 350) scale(0.7)" fill="#d95d39" stroke="#d95d39" stroke-width="3" stroke-linecap="round">
+<path d="M-12 2 L-25 14 L-30 7 M12 2 L25 14 L30 7 M-9 -7 L-21 -14 M9 -7 L21 -14" fill="none"/>
+<ellipse cy="1" rx="15" ry="17"/><ellipse cy="-14" rx="14" ry="9"/>
+<circle cx="-8" cy="-18" r="3" fill="white" stroke="none"/><circle cx="8" cy="-18" r="3" fill="white" stroke="none"/>
+</g>
+<text x="590.0" y="380.8" fill="#d95d39" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" text-anchor="middle">D</text>
+<g transform="translate(650.0 350) scale(0.7)" fill="#3f6ca8" stroke="#3f6ca8" stroke-width="3" stroke-linecap="round">
+<path d="M0 14 Q26 26 30 3 Q18 18 3 7" stroke="none"/>
+<path d="M-6 -8 L-20 -16 M6 -8 L20 -16 M-6 9 L-20 17 M6 9 L20 17" fill="none"/>
+<ellipse rx="8" ry="19"/><ellipse cy="-22" rx="10" ry="9"/>
+<circle cx="-4" cy="-24" r="2" fill="white" stroke="none"/><circle cx="4" cy="-24" r="2" fill="white" stroke="none"/>
+</g>
+<text x="650.0" y="380.8" fill="#3f6ca8" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" text-anchor="middle">E</text>
+<g transform="translate(710.0 350) scale(0.7)" fill="#527b3d" stroke="#527b3d" stroke-width="3" stroke-linecap="round">
+<path d="M0 14 Q26 26 30 3 Q18 18 3 7" stroke="none"/>
+<path d="M-6 -8 L-20 -16 M6 -8 L20 -16 M-6 9 L-20 17 M6 9 L20 17" fill="none"/>
+<ellipse rx="8" ry="19"/><ellipse cy="-22" rx="10" ry="9"/>
+<circle cx="-4" cy="-24" r="2" fill="white" stroke="none"/><circle cx="4" cy="-24" r="2" fill="white" stroke="none"/>
+</g>
+<text x="710.0" y="380.8" fill="#527b3d" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" text-anchor="middle">F</text>
+<path d="M470 275 L530 220 L585 275 L660 215 L735 275 L790 230 L825 275" fill="none" stroke="#9ca69c" stroke-width="18"/>
+<rect x="890" y="85" width="380" height="325" fill="#edf0e5" stroke="none" stroke-width="2" rx="0"/>
+<ellipse cx="1080" cy="160" rx="100" ry="63" fill="#dcecef" stroke="#9bbdc4" stroke-width="3"/>
+<g transform="translate(1020.0 160) scale(0.7)" fill="#087e8b" stroke="#087e8b" stroke-width="3" stroke-linecap="round">
+<path d="M-12 2 L-25 14 L-30 7 M12 2 L25 14 L30 7 M-9 -7 L-21 -14 M9 -7 L21 -14" fill="none"/>
+<ellipse cy="1" rx="15" ry="17"/><ellipse cy="-14" rx="14" ry="9"/>
+<circle cx="-8" cy="-18" r="3" fill="white" stroke="none"/><circle cx="8" cy="-18" r="3" fill="white" stroke="none"/>
+</g>
+<text x="1020.0" y="190.8" fill="#087e8b" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" text-anchor="middle">A</text>
+<g transform="translate(1080.0 160) scale(0.7)" fill="#c48d21" stroke="#c48d21" stroke-width="3" stroke-linecap="round">
+<path d="M0 14 Q26 26 30 3 Q18 18 3 7" stroke="none"/>
+<path d="M-6 -8 L-20 -16 M6 -8 L20 -16 M-6 9 L-20 17 M6 9 L20 17" fill="none"/>
+<ellipse rx="8" ry="19"/><ellipse cy="-22" rx="10" ry="9"/>
+<circle cx="-4" cy="-24" r="2" fill="white" stroke="none"/><circle cx="4" cy="-24" r="2" fill="white" stroke="none"/>
+</g>
+<text x="1080.0" y="190.8" fill="#c48d21" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" text-anchor="middle">B</text>
+<g transform="translate(1140.0 160) scale(0.7)" fill="#8660a4" stroke="#8660a4" stroke-width="3" stroke-linecap="round">
+<path d="M0 14 Q26 26 30 3 Q18 18 3 7" stroke="none"/>
+<path d="M-6 -8 L-20 -16 M6 -8 L20 -16 M-6 9 L-20 17 M6 9 L20 17" fill="none"/>
+<ellipse rx="8" ry="19"/><ellipse cy="-22" rx="10" ry="9"/>
+<circle cx="-4" cy="-24" r="2" fill="white" stroke="none"/><circle cx="4" cy="-24" r="2" fill="white" stroke="none"/>
+</g>
+<text x="1140.0" y="190.8" fill="#8660a4" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" text-anchor="middle">C</text>
+<ellipse cx="1080" cy="340" rx="100" ry="63" fill="#dcecef" stroke="#9bbdc4" stroke-width="3"/>
+<g transform="translate(1080.0 340) scale(0.7)" fill="#087e8b" stroke="#087e8b" stroke-width="3" stroke-linecap="round">
+<path d="M-12 2 L-25 14 L-30 7 M12 2 L25 14 L30 7 M-9 -7 L-21 -14 M9 -7 L21 -14" fill="none"/>
+<ellipse cy="1" rx="15" ry="17"/><ellipse cy="-14" rx="14" ry="9"/>
+<circle cx="-8" cy="-18" r="3" fill="white" stroke="none"/><circle cx="8" cy="-18" r="3" fill="white" stroke="none"/>
+</g>
+<text x="1080.0" y="370.8" fill="#087e8b" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" text-anchor="middle">A</text>
+<text x="1080" y="252" fill="#d95d39" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" text-anchor="middle">Less reporting ↓</text>
+<text x="648" y="480" fill="#087e8b" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="700" text-anchor="middle">A geographic pattern alone does not identify its cause.</text>
+</svg>

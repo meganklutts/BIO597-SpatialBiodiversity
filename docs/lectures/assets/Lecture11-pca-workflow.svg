@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1296 500" role="img" aria-labelledby="title">
+<title id="title">Nineteen site climate predictors are GDM transformed, then compressed to two PCA coordinates for a shared color key.</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#087e8b"/></marker></defs>
+<text x="160" y="55" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="700" text-anchor="middle">Site climate</text>
+<rect x="32" y="290" width="9" height="60" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<rect x="45" y="267" width="9" height="83" fill="#c48d21" stroke="none" stroke-width="2" rx="0"/>
+<rect x="58" y="244" width="9" height="106" fill="#8660a4" stroke="none" stroke-width="2" rx="0"/>
+<rect x="71" y="221" width="9" height="129" fill="#d95d39" stroke="none" stroke-width="2" rx="0"/>
+<rect x="84" y="198" width="9" height="152" fill="#3f6ca8" stroke="none" stroke-width="2" rx="0"/>
+<rect x="97" y="175" width="9" height="175" fill="#527b3d" stroke="none" stroke-width="2" rx="0"/>
+<rect x="110" y="152" width="9" height="198" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<rect x="123" y="129" width="9" height="221" fill="#c48d21" stroke="none" stroke-width="2" rx="0"/>
+<rect x="136" y="286" width="9" height="64" fill="#8660a4" stroke="none" stroke-width="2" rx="0"/>
+<rect x="149" y="263" width="9" height="87" fill="#d95d39" stroke="none" stroke-width="2" rx="0"/>
+<rect x="162" y="240" width="9" height="110" fill="#3f6ca8" stroke="none" stroke-width="2" rx="0"/>
+<rect x="175" y="217" width="9" height="133" fill="#527b3d" stroke="none" stroke-width="2" rx="0"/>
+<rect x="188" y="194" width="9" height="156" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<rect x="201" y="171" width="9" height="179" fill="#c48d21" stroke="none" stroke-width="2" rx="0"/>
+<rect x="214" y="148" width="9" height="202" fill="#8660a4" stroke="none" stroke-width="2" rx="0"/>
+<rect x="227" y="125" width="9" height="225" fill="#d95d39" stroke="none" stroke-width="2" rx="0"/>
+<rect x="240" y="282" width="9" height="68" fill="#3f6ca8" stroke="none" stroke-width="2" rx="0"/>
+<rect x="253" y="259" width="9" height="91" fill="#527b3d" stroke="none" stroke-width="2" rx="0"/>
+<rect x="266" y="236" width="9" height="114" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<text x="160" y="420" fill="#52606d" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="400" text-anchor="middle">19 original variables</text>
+<line x1="297" y1="245" x2="342" y2="245" stroke="#087e8b" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="485" y="55" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="700" text-anchor="middle">GDM transforms</text>
+<rect x="357" y="325" width="9" height="25" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<rect x="370" y="278" width="9" height="72" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<rect x="383" y="231" width="9" height="119" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<rect x="396" y="184" width="9" height="166" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<rect x="409" y="137" width="9" height="213" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<rect x="422" y="310" width="9" height="40" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<rect x="435" y="263" width="9" height="87" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<rect x="448" y="216" width="9" height="134" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<rect x="461" y="169" width="9" height="181" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<rect x="474" y="122" width="9" height="228" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<rect x="487" y="295" width="9" height="55" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<rect x="500" y="248" width="9" height="102" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<rect x="513" y="201" width="9" height="149" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<rect x="526" y="154" width="9" height="196" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<rect x="539" y="107" width="9" height="243" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<rect x="552" y="280" width="9" height="70" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<rect x="565" y="233" width="9" height="117" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<rect x="578" y="186" width="9" height="164" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<rect x="591" y="139" width="9" height="211" fill="#087e8b" stroke="none" stroke-width="2" rx="0"/>
+<text x="485" y="420" fill="#52606d" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="400" text-anchor="middle">19 weighted columns</text>
+<line x1="622" y1="245" x2="667" y2="245" stroke="#087e8b" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="810" y="55" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="700" text-anchor="middle">PCA</text>
+<line x1="695" y1="340" x2="930" y2="340" stroke="#52606d" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="695" y1="340" x2="695" y2="110" stroke="#52606d" stroke-width="2" marker-end="url(#arrow)"/>
+<circle cx="715" cy="130" r="8" fill="#087e8b"/>
+<circle cx="772" cy="161" r="8" fill="#087e8b"/>
+<circle cx="829" cy="192" r="8" fill="#087e8b"/>
+<circle cx="886" cy="223" r="8" fill="#087e8b"/>
+<circle cx="743" cy="254" r="8" fill="#087e8b"/>
+<circle cx="800" cy="285" r="8" fill="#087e8b"/>
+<circle cx="857" cy="316" r="8" fill="#087e8b"/>
+<circle cx="914" cy="157" r="8" fill="#087e8b"/>
+<circle cx="771" cy="188" r="8" fill="#087e8b"/>
+<circle cx="828" cy="219" r="8" fill="#087e8b"/>
+<circle cx="885" cy="250" r="8" fill="#087e8b"/>
+<circle cx="742" cy="281" r="8" fill="#087e8b"/>
+<circle cx="799" cy="312" r="8" fill="#087e8b"/>
+<circle cx="856" cy="153" r="8" fill="#087e8b"/>
+<circle cx="913" cy="184" r="8" fill="#087e8b"/>
+<circle cx="770" cy="215" r="8" fill="#087e8b"/>
+<circle cx="827" cy="246" r="8" fill="#087e8b"/>
+<circle cx="884" cy="277" r="8" fill="#087e8b"/>
+<circle cx="741" cy="308" r="8" fill="#087e8b"/>
+<circle cx="798" cy="149" r="8" fill="#087e8b"/>
+<text x="810" y="420" fill="#52606d" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="400" text-anchor="middle">2 displayed axes</text>
+<line x1="947" y1="245" x2="992" y2="245" stroke="#087e8b" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="1135" y="55" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="700" text-anchor="middle">Map + biplot</text>
+<rect x="1015" y="120" width="43" height="43" fill="rgb(50,50,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1058" y="120" width="43" height="43" fill="rgb(95,50,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1101" y="120" width="43" height="43" fill="rgb(140,50,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1144" y="120" width="43" height="43" fill="rgb(185,50,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1187" y="120" width="43" height="43" fill="rgb(230,50,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1015" y="163" width="43" height="43" fill="rgb(50,95,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1058" y="163" width="43" height="43" fill="rgb(95,95,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1101" y="163" width="43" height="43" fill="rgb(140,95,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1144" y="163" width="43" height="43" fill="rgb(185,95,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1187" y="163" width="43" height="43" fill="rgb(230,95,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1015" y="206" width="43" height="43" fill="rgb(50,140,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1058" y="206" width="43" height="43" fill="rgb(95,140,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1101" y="206" width="43" height="43" fill="rgb(140,140,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1144" y="206" width="43" height="43" fill="rgb(185,140,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1187" y="206" width="43" height="43" fill="rgb(230,140,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1015" y="249" width="43" height="43" fill="rgb(50,185,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1058" y="249" width="43" height="43" fill="rgb(95,185,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1101" y="249" width="43" height="43" fill="rgb(140,185,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1144" y="249" width="43" height="43" fill="rgb(185,185,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1187" y="249" width="43" height="43" fill="rgb(230,185,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1015" y="292" width="43" height="43" fill="rgb(50,230,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1058" y="292" width="43" height="43" fill="rgb(95,230,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1101" y="292" width="43" height="43" fill="rgb(140,230,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1144" y="292" width="43" height="43" fill="rgb(185,230,128)" stroke="none" stroke-width="2" rx="0"/>
+<rect x="1187" y="292" width="43" height="43" fill="rgb(230,230,128)" stroke="none" stroke-width="2" rx="0"/>
+<text x="1135" y="420" fill="#52606d" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="400" text-anchor="middle">One shared color key</text>
+<text x="648" y="490" fill="#087e8b" font-family="Arial,Helvetica,sans-serif" font-size="29" font-weight="700" text-anchor="middle">Keep GDM weights: do not standardize the transformed columns.</text>
+</svg>

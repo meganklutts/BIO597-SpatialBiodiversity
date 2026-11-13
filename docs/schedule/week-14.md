@@ -1,5 +1,9 @@
 # Week 14: Synthesis: Biodiversity Under Environmental Change
 
+## Student Evaluation of Teaching
+
+[Please fill the course evaluation form.](https://go.blueja.io/t0ktF96UTUCHFATR_rtPDQ)
+
 ## Core Questions
 
 - How can spatial biodiversity analysis support inference about environmental change?
