@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1296 500" role="img" aria-labelledby="title">
+<title id="title">Pairs AB and AC share site A. Three sites yield three pairs, not three independent ecological replicates.</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#087e8b"/></marker></defs>
+<ellipse cx="185" cy="240" rx="48" ry="48" fill="white" stroke="#d95d39" stroke-width="3"/>
+<text x="185" y="252" fill="#d95d39" font-family="Arial,Helvetica,sans-serif" font-size="37" font-weight="700" text-anchor="middle">A</text>
+<ellipse cx="550" cy="100" rx="48" ry="48" fill="white" stroke="#087e8b" stroke-width="3"/>
+<text x="550" y="112" fill="#087e8b" font-family="Arial,Helvetica,sans-serif" font-size="37" font-weight="700" text-anchor="middle">B</text>
+<ellipse cx="550" cy="380" rx="48" ry="48" fill="white" stroke="#087e8b" stroke-width="3"/>
+<text x="550" y="392" fill="#087e8b" font-family="Arial,Helvetica,sans-serif" font-size="37" font-weight="700" text-anchor="middle">C</text>
+<line x1="235" y1="220" x2="495" y2="115" stroke="#d95d39" stroke-width="6"/>
+<line x1="235" y1="260" x2="495" y2="365" stroke="#d95d39" stroke-width="6"/>
+<line x1="550" y1="150" x2="550" y2="325" stroke="#ccd3d7" stroke-width="3"/>
+<text x="990" y="145" fill="#d95d39" font-family="Arial,Helvetica,sans-serif" font-size="43" font-weight="700" text-anchor="middle">A–B</text>
+<text x="990" y="255" fill="#d95d39" font-family="Arial,Helvetica,sans-serif" font-size="43" font-weight="700" text-anchor="middle">A–C</text>
+<text x="990" y="370" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="700" text-anchor="middle">Both reuse site A</text>
+<text x="648" y="485" fill="#52606d" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="400" text-anchor="middle">More pairs do not create more independent sampled sites.</text>
+</svg>

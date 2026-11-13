@@ -1,0 +1,8 @@
+{
+  "source": "https://www2.census.gov/geo/tiger/GENZ2024/shp/cb_2024_us_state_500k.zip",
+  "retrieved_utc": "2026-11-11T22:32:18.843941+00:00",
+  "description": "2024 Census cartographic state boundary, 1:500,000; STUSPS=CA",
+  "archive_sha256": "3e81cbb6cf5f60d9b01ef3e730afa14d61ce5f784252a0b33a696135e71447bc",
+  "output_crs": "EPSG:4326",
+  "includes_islands": true
+}

@@ -35,6 +35,7 @@ nav = [
     {"Week 8 (10/23) - elapid - A python SDM package" = "lectures/Lecture08-SDM-Software.html"},
     {"Week 9 (10/30) - GradientForest - SDM for genetics" = "lectures/Lecture09-GradientForest.html"},
     {"Week 10 (11/06) - Community composition" = "lectures/Lecture10-CommunityComposition.html"},
+    {"Week 11 (11/13) - Spatial community composition" = "lectures/Lecture11-SpatialCommunityComposition.html"},
   ]},
   {"Labs" = [
     {"Week 1 (09/04) - Intro & Geopandas" = [
@@ -50,6 +51,7 @@ nav = [
     {"Week 8 (10/23) - SDM software" = "labs/Lab08-SDM-Software.ipynb"},
     {"Week 9 (10/30) - Gradient Forest" = "labs/Lab09-GradientForest.ipynb"},
     {"Week 10 (11/06) - Community composition and SLOSS" = "labs/Lab10-CommunityComposition.ipynb"},
+    {"Week 11 (11/13) - Spatial community composition" = "labs/Lab11-SpatialCommunityComposition.ipynb"},
   ]},
   {"Assignments" = [
     {"Overview" = "assignments/index.md"},
@@ -62,7 +64,8 @@ nav = [
     {"Week 7 (10/16) - Machine learning SDMs" = "assignments/Assignment-07-MachineLearningSDM.ipynb"},
     {"Week 8 (10/23) - SDM software" = "assignments/Assignment-08-SDM-Software.ipynb"},
     {"Week 9 (10/30) - Gradient Forest" = "assignments/Assignment-09-GradientForest.ipynb"},
-    {"Assignment 11 - Blob versus stripe parks" = "assignments/Assignment-11-SpatialCommunityComposition.ipynb"},
+    {"Week 10 (11/06) - Community composition and SLOSS" = "assignments/Assignment-10-SpatialCommunityComposition.ipynb"},
+    {"Week 11 (11/13)  - Spatial Community Compostion (CA)" = "assignments/Assignment-11-SpatialCommunityComposition.ipynb"},
   ]},
   {"Final Projects" = "project/projects.md"},
   {"Software and Data" = "software-data.md"},

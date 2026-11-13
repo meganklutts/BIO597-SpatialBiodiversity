@@ -1,0 +1,207 @@
+{
+  "description": "Original Maine occurrence data; all 19 predictors, not Lab10 synthetic parks or California answer-key data",
+  "n_records": 14466,
+  "n_species": 21,
+  "crs": "EPSG:26919",
+  "origin_m": [
+    320000,
+    4720000
+  ],
+  "grains_km": [
+    10,
+    20,
+    40
+  ],
+  "min_records": 1,
+  "gdm": {
+    "geo": true,
+    "knots": 0
+  },
+  "climate_layers": {
+    "wc2.1_2.5m_bio_1.tif": "temperature_c",
+    "wc2.1_2.5m_bio_2.tif": "diurnal_range_c",
+    "wc2.1_2.5m_bio_3.tif": "isothermality",
+    "wc2.1_2.5m_bio_4.tif": "temp_seasonality",
+    "wc2.1_2.5m_bio_5.tif": "max_temp_warmest",
+    "wc2.1_2.5m_bio_6.tif": "min_temperature_coldest",
+    "wc2.1_2.5m_bio_7.tif": "temp_range",
+    "wc2.1_2.5m_bio_8.tif": "temp_wettest_q",
+    "wc2.1_2.5m_bio_9.tif": "temp_driest_q",
+    "wc2.1_2.5m_bio_10.tif": "temp_warmest_q",
+    "wc2.1_2.5m_bio_11.tif": "temp_coldest_q",
+    "wc2.1_2.5m_bio_12.tif": "precip",
+    "wc2.1_2.5m_bio_13.tif": "precip_wettest_m",
+    "wc2.1_2.5m_bio_14.tif": "precip_driest_m",
+    "wc2.1_2.5m_bio_15.tif": "precip_seasonality",
+    "wc2.1_2.5m_bio_16.tif": "precip_wettest_q",
+    "wc2.1_2.5m_bio_17.tif": "precip_driest_q",
+    "wc2.1_2.5m_bio_18.tif": "precip_warmest_q",
+    "wc2.1_2.5m_bio_19.tif": "precip_coldest_q"
+  },
+  "summary": {
+    "10": {
+      "n_sites": 641,
+      "n_model_sites": 638,
+      "n_pairs": 203203,
+      "mean_richness": 4.798751950078003,
+      "distance_similarity_rho": -0.16534438813720256,
+      "geography_deviance_pct": 3.128040916584074,
+      "all19_deviance_pct": 10.058279203651654
+    },
+    "20": {
+      "n_sites": 223,
+      "n_model_sites": 223,
+      "n_pairs": 24753,
+      "mean_richness": 7.026905829596412,
+      "distance_similarity_rho": -0.19915421649070567,
+      "geography_deviance_pct": 4.186600155047371,
+      "all19_deviance_pct": 18.910493731428623
+    },
+    "40": {
+      "n_sites": 69,
+      "n_model_sites": 69,
+      "n_pairs": 2346,
+      "mean_richness": 10.44927536231884,
+      "distance_similarity_rho": -0.3221511885665817,
+      "geography_deviance_pct": 8.600627831481589,
+      "all19_deviance_pct": 39.59980401476094
+    }
+  },
+  "predictor_importance": {
+    "10": {
+      "temperature_c": 0.1911873145221339,
+      "diurnal_range_c": 0.0,
+      "isothermality": 0.0,
+      "temp_seasonality": 0.0,
+      "max_temp_warmest": 0.575494316643252,
+      "min_temperature_coldest": 0.0,
+      "temp_range": 0.0,
+      "temp_wettest_q": 0.3082493015956592,
+      "temp_driest_q": 0.0,
+      "temp_warmest_q": 0.0,
+      "temp_coldest_q": 0.0665937003979378,
+      "precip": 0.0,
+      "precip_wettest_m": 0.0,
+      "precip_driest_m": 0.0,
+      "precip_seasonality": 0.12043945598549298,
+      "precip_wettest_q": 0.11279638311632426,
+      "precip_driest_q": 0.818681486076915,
+      "precip_warmest_q": 0.384263284232683,
+      "precip_coldest_q": 0.0,
+      "geo": 0.06394544382619861
+    },
+    "20": {
+      "temperature_c": 0.0,
+      "diurnal_range_c": 0.0,
+      "isothermality": 0.10739424016859724,
+      "temp_seasonality": 0.0,
+      "max_temp_warmest": 0.6836040360336473,
+      "min_temperature_coldest": 0.0,
+      "temp_range": 0.0,
+      "temp_wettest_q": 0.0,
+      "temp_driest_q": 0.0,
+      "temp_warmest_q": 0.0,
+      "temp_coldest_q": 0.33474130608193237,
+      "precip": 0.0,
+      "precip_wettest_m": 0.0,
+      "precip_driest_m": 0.19141857908382923,
+      "precip_seasonality": 0.28073760744647297,
+      "precip_wettest_q": 0.0,
+      "precip_driest_q": 0.4448798352175202,
+      "precip_warmest_q": 0.3634064900090756,
+      "precip_coldest_q": 0.0,
+      "geo": 0.05536185989929431
+    },
+    "40": {
+      "temperature_c": 0.0,
+      "diurnal_range_c": 0.0,
+      "isothermality": 0.6638915469702773,
+      "temp_seasonality": 0.0,
+      "max_temp_warmest": 0.3659727881783727,
+      "min_temperature_coldest": 0.0,
+      "temp_range": 0.0,
+      "temp_wettest_q": 0.0,
+      "temp_driest_q": 0.0,
+      "temp_warmest_q": 0.0,
+      "temp_coldest_q": 0.06088872047271426,
+      "precip": 0.0893871582743936,
+      "precip_wettest_m": 0.0,
+      "precip_driest_m": 0.0,
+      "precip_seasonality": 0.1551239748559191,
+      "precip_wettest_q": 0.0,
+      "precip_driest_q": 0.0012497854254403965,
+      "precip_warmest_q": 0.5467544074151636,
+      "precip_coldest_q": 0.0,
+      "geo": 0.4833418420103316
+    }
+  },
+  "sensitivity_min5": {
+    "10": {
+      "n_sites": 357,
+      "mean_richness": 7.182072829131653,
+      "distance_similarity_rho": -0.2030427916081145
+    },
+    "20": {
+      "n_sites": 165,
+      "mean_richness": 8.83030303030303,
+      "distance_similarity_rho": -0.26689762529676025
+    },
+    "40": {
+      "n_sites": 65,
+      "mean_richness": 11.015384615384615,
+      "distance_similarity_rho": -0.3378255628880511
+    }
+  },
+  "pca_grain_km": 20,
+  "pca_standardized": false,
+  "pca_variance_ratio": [
+    0.6515709886953551,
+    0.2652954042581782
+  ],
+  "pca_top_predictors": [
+    "max_temp_warmest",
+    "precip_driest_q"
+  ],
+  "pca_loading_selection": "Euclidean loading-vector length in PC1/PC2 plane",
+  "top_climate_curves": [
+    "max_temp_warmest",
+    "precip_driest_q",
+    "precip_warmest_q"
+  ],
+  "input_sha256": {
+    "docs/data/amphibians.geojson": "0c029bb9db74efe2dfd5396b259042e2afb15e3b93ee16f6fd171d86971f0a78",
+    "docs/labs/ME_ShapeFiles/Maine_State_Boundary.cpg": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824",
+    "docs/labs/ME_ShapeFiles/Maine_State_Boundary.dbf": "f9af359de3d2fded374210ee27e84b5cd34d53cd989cf1ff80b452a950a9fdb9",
+    "docs/labs/ME_ShapeFiles/Maine_State_Boundary.prj": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4",
+    "docs/labs/ME_ShapeFiles/Maine_State_Boundary.shp": "71cc5c61a2c25e5308a6749196850e7d3e6d2e0739597c06933028ab0afaca8c",
+    "docs/labs/ME_ShapeFiles/Maine_State_Boundary.shx": "63ac43a7998b2a3233a9daf452683530aa1c10d8757aa8b46434a092a617b527",
+    "docs/data/bioclim_ME/wc2.1_2.5m_bio_1.tif": "3c8dc81258cd43ef591c56cda54a3fbb9b1658b82794c6896f56ac3d017e1b0d",
+    "docs/data/bioclim_ME/wc2.1_2.5m_bio_2.tif": "1df84ebd9b00280cf5a97673964dd826c9b6c2e0beddc57f002fc44ccd39adfb",
+    "docs/data/bioclim_ME/wc2.1_2.5m_bio_3.tif": "5150b29067a6be6c741367b9a84a97825e2bfb0095c567db82b353450460961d",
+    "docs/data/bioclim_ME/wc2.1_2.5m_bio_4.tif": "0feddd453499de6a72a56cf6e40177b9afac8ecf266d6231f60a30695678a39f",
+    "docs/data/bioclim_ME/wc2.1_2.5m_bio_5.tif": "61c57ed4d68169ebf42f6706570b5b849f79fd54df885938f66a0135f29363cc",
+    "docs/data/bioclim_ME/wc2.1_2.5m_bio_6.tif": "f24aa558c1fee1d907f184238f7c70ecfa26a5a1dafe70b233576374325d7c8a",
+    "docs/data/bioclim_ME/wc2.1_2.5m_bio_7.tif": "8b44c82061b60a74baf8360995121a060d2c0841b6c8eaaada75671a6019711c",
+    "docs/data/bioclim_ME/wc2.1_2.5m_bio_8.tif": "93a44d3c981b107163ca5b17b8b71e42211d2f23e05f4808e695531d81f7323f",
+    "docs/data/bioclim_ME/wc2.1_2.5m_bio_9.tif": "1251730a08495f9915dccfc7fbe233d09017caf7fb4c5908a0ed20245ce4b855",
+    "docs/data/bioclim_ME/wc2.1_2.5m_bio_10.tif": "fe8aa8d636aac8360a21a831d14843e793e80ee58336aa69e7ec511704d8ab38",
+    "docs/data/bioclim_ME/wc2.1_2.5m_bio_11.tif": "494bbfb78c6bc7600e379d6b032cd6ba29f3afb20785e8e21904d333e35fe7a7",
+    "docs/data/bioclim_ME/wc2.1_2.5m_bio_12.tif": "a37f672bb75ced0fbbbb2a71c7f26eedbe7de953004e72155cdd0650daef63b2",
+    "docs/data/bioclim_ME/wc2.1_2.5m_bio_13.tif": "02e385bdb1e890a9a251a02109d1ffdb465cbb0cc49aaf34840a915275475a2e",
+    "docs/data/bioclim_ME/wc2.1_2.5m_bio_14.tif": "d34b28f34f59048af305a5e064be6dcb62b73a4cfb8806299435b1293fd37f17",
+    "docs/data/bioclim_ME/wc2.1_2.5m_bio_15.tif": "090180ce44b0743416b7810a5402b602ba8d13d8d0c03014255d1069656be47e",
+    "docs/data/bioclim_ME/wc2.1_2.5m_bio_16.tif": "82ac3a70ed78639b911d6dc88cb2b37380156e5b8ebbe889673df5aad038ae97",
+    "docs/data/bioclim_ME/wc2.1_2.5m_bio_17.tif": "5e7bc1632136825dc5e6dc8bdbe29b76c5b14ce860cd2a98590795ecea8611f4",
+    "docs/data/bioclim_ME/wc2.1_2.5m_bio_18.tif": "747c593f8ae8b7c7d3bb7afa458750856bedad6ef68676528587f78567ede722",
+    "docs/data/bioclim_ME/wc2.1_2.5m_bio_19.tif": "f76830d192dac0aa5798e0ed2aa3ff0f134d89f316f0aaa7333ffb91d1ee0af2"
+  },
+  "toy_jaccard": {
+    "AB": 0.5,
+    "BC": 0.8,
+    "AC": 1.0
+  },
+  "toy_pooling_mean_richness": 1.75,
+  "toy_local_mean_dissimilarity": 0.5714285714285714,
+  "toy_gdm_total_distance": 1.4,
+  "toy_gdm_expected_dissimilarity": 0.7534030360583935
+}

@@ -1,40 +1,54 @@
 # Week 11: Community Composition Across Space
 
+## Icebreaker
+
+What is your favorite [emoji](https://getemoji.com/) and why?
+
+## Paper discussion
+
+- This week Eliza will be leading the discussion of Chao & Jost 2012 
+[Coverage-based rarefaction and extrapolation: standardizing samples by 
+completeness rather than size.](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1890/11-1952.1)
+
 ## Core Questions
 
-- How can multispecies community composition be represented spatially?
-- Where does community composition change most rapidly across geographic space?
+- Where does community composition change most rapidly across geographic 
+and environmental space?
+- How can we represent multispecies community composition spatially?
 - How do turnover, nestedness, and distance decay describe beta diversity?
 - How do grid grain and spatial aggregation change biodiversity surfaces?
 
 ## Concepts
 
-- Site-by-species matrices.
-- Beta diversity.
-- Bray-Curtis and Jaccard dissimilarity.
-- Community turnover and nestedness.
-- Distance-decay relationships.
-- Community composition across space.
-- Moving-window diversity.
-- Spatial aggregation and scale sensitivity.
+- Site-by-species matrices
+- Beta diversity
+- Distance-decay of similarity
+- Generalized dissimilarity modeling
 
 ## Python Tools
 
-- pandas.
-- scipy.
-- scikit-learn.
-- GeoPandas.
+- GeoPandas
+- [gdmbayes](https://github.com/butterman0/gdmbayes/tree/main)
 
 ## Applied Lab
 
 Students aggregate species observations to grids and compare biodiversity maps at
-multiple grains and moving-window sizes. They also calculate community
-dissimilarity among sites, map spatial turnover, and test a distance-decay
-relationship between community dissimilarity and geographic distance.
+multiple spatial grains. They also calculate community dissimilarity among sites, 
+map spatial turnover, and test a distance-decay relationship between community 
+dissimilarity and geographic distance. Students also run generalized dissimilarity 
+modeling with the `gdmbayes` package using grids of different grain size.
 
-## Deliverable
+- [Lecture11: Spatial Analysis of Community Composition](../lectures/Lecture11-SpatialCommunityComposition.html)
+- [Lab11: Spatial Community Composition & GDM](../labs/Lab11-SpatialCommunityComposition.ipynb)
 
-Submit biodiversity maps at multiple grains with an interpretation of scale
-sensitivity and metric choice, along with a community composition analysis
-including a site-by-species matrix, dissimilarity metric, map, and distance-decay
-figure.
+
+## Assignment
+
+Repeat the Lab11 worfklow with amphibian community occurrence data and environmental
+rasters for the state of California.
+
+- [Assignment11: Spatial Analysis of Community Composition & GDM](../assignments/Assignment-11-SpatialCommunityComposition.ipynb)
+
+**Paper discussion leader next week:** **Andrea!** Please select a paper for the
+group to discuss before Sunday 11/15 6pm and send it around to the class email
+list: bio597-fall2026-group@maine.edu

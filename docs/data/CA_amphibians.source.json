@@ -1,0 +1,29 @@
+{
+  "created_utc": "2026-11-11T22:59:12.627676+00:00",
+  "source": "User-provided GBIF occurrence CSV",
+  "source_file": "0002705-261110092616502.csv",
+  "download_key": "0002705-261110092616502",
+  "source_sha256": "1351e3bc09e2bbc31ae3f4ebfcbeff1139cc92c275ed10dc52afe7051e4141cd",
+  "source_records": 352239,
+  "eligible_california_records": 344263,
+  "sample_records": 71578,
+  "sample_species": 89,
+  "eligible_species": 107,
+  "sampling": "Uniform random records without replacement; no species or spatial stratification",
+  "random_seed": 11,
+  "target_bytes": 20000000,
+  "output_bytes": 20004584,
+  "output_sha256": "e01f8f138ca8b1706c9c2059c74ac3de7c929fc7647f461d9ae8da280f512b04",
+  "filters": "Amphibia; PRESENT or DETECTED; valid coordinates inside or on California boundary; unidentified species retained as null",
+  "sample_unidentified_species_records": 8749,
+  "schema_reference": "docs/data/amphibians.geojson",
+  "fields": [
+    "gbifID",
+    "species",
+    "decimalLongitude",
+    "decimalLatitude",
+    "coordinateUncertaintyInMeters",
+    "year"
+  ],
+  "crs": "OGC:CRS84 (longitude, latitude)"
+}

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1296 500" role="img" aria-labelledby="title">
+<title id="title">Lab11 follows occurrences to nested grids, Jaccard differences, GDM at every grain, and PCA composition maps.</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#087e8b"/></marker></defs>
+<ellipse cx="130" cy="210" rx="90" ry="90" fill="#e6eeed" stroke="#087e8b" stroke-width="3"/>
+<text x="130" y="225" fill="#087e8b" font-family="Arial,Helvetica,sans-serif" font-size="57" font-weight="700" text-anchor="middle">1</text>
+<text x="130" y="365" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" text-anchor="middle">Records</text>
+<text x="130" y="410" fill="#52606d" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="400" text-anchor="middle">Map sampling</text>
+<line x1="225" y1="210" x2="275" y2="210" stroke="#087e8b" stroke-width="4" marker-end="url(#arrow)"/>
+<ellipse cx="390" cy="210" rx="90" ry="90" fill="#e6eeed" stroke="#087e8b" stroke-width="3"/>
+<text x="390" y="225" fill="#087e8b" font-family="Arial,Helvetica,sans-serif" font-size="57" font-weight="700" text-anchor="middle">2</text>
+<text x="390" y="365" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" text-anchor="middle">10 / 20 / 40 km</text>
+<text x="390" y="410" fill="#52606d" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="400" text-anchor="middle">Build communities</text>
+<line x1="485" y1="210" x2="535" y2="210" stroke="#087e8b" stroke-width="4" marker-end="url(#arrow)"/>
+<ellipse cx="650" cy="210" rx="90" ry="90" fill="#e6eeed" stroke="#087e8b" stroke-width="3"/>
+<text x="650" y="225" fill="#087e8b" font-family="Arial,Helvetica,sans-serif" font-size="57" font-weight="700" text-anchor="middle">3</text>
+<text x="650" y="365" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" text-anchor="middle">Site pairs</text>
+<text x="650" y="410" fill="#52606d" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="400" text-anchor="middle">Jaccard + distance</text>
+<line x1="745" y1="210" x2="795" y2="210" stroke="#087e8b" stroke-width="4" marker-end="url(#arrow)"/>
+<ellipse cx="910" cy="210" rx="90" ry="90" fill="#e6eeed" stroke="#087e8b" stroke-width="3"/>
+<text x="910" y="225" fill="#087e8b" font-family="Arial,Helvetica,sans-serif" font-size="57" font-weight="700" text-anchor="middle">4</text>
+<text x="910" y="365" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" text-anchor="middle">GDM at each grain</text>
+<text x="910" y="410" fill="#52606d" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="400" text-anchor="middle">Geography + 19 layers</text>
+<line x1="1005" y1="210" x2="1055" y2="210" stroke="#087e8b" stroke-width="4" marker-end="url(#arrow)"/>
+<ellipse cx="1170" cy="210" rx="90" ry="90" fill="#e6eeed" stroke="#087e8b" stroke-width="3"/>
+<text x="1170" y="225" fill="#087e8b" font-family="Arial,Helvetica,sans-serif" font-size="57" font-weight="700" text-anchor="middle">5</text>
+<text x="1170" y="365" fill="#18212b" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" text-anchor="middle">Composition map</text>
+<text x="1170" y="410" fill="#52606d" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="400" text-anchor="middle">PCA + two arrows</text>
+</svg>

@@ -11,6 +11,9 @@ docs/labs/bioclim
 !docs/data/amphibians.geojson
 !docs/data/ME_ImaginaryParks.geojson
 !docs/data/ME_BlobStripeParks.geojson
+!docs/data/CA_amphibians.geojson
 docs/labs/_*.ipynb
 docs/labs/EasternSnakes/*
 docs/labs/outputs/Lab10/
+docs/labs/outputs/Lab11/
+docs/assignments/outputs/Assignment11/

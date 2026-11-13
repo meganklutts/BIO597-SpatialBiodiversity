@@ -1,0 +1,277 @@
+{
+  "created_utc": "2026-11-11T22:32:19.910027+00:00",
+  "source_directory": "docs/labs/bioclim",
+  "source": "https://www.worldclim.org/data/worldclim21.html",
+  "climate_period": "1970\u20132000",
+  "version": "WorldClim 2.1, 2.5 arc-minutes",
+  "boundary": "docs/data/CA_ShapeFiles/California_State_Boundary.shp",
+  "method": "Crop and mask using native raster pixel centers; no resampling or reprojection",
+  "layers": [
+    {
+      "file": "wc2.1_2.5m_bio_1.tif",
+      "shape": [
+        229,
+        247
+      ],
+      "crs": "EPSG:4326",
+      "resolution": [
+        0.041666666666666664,
+        0.041666666666666664
+      ],
+      "valid_pixels": 24002,
+      "sha256": "940309025de2da2843198bba38bb5c2a1c21ad108c21414fe8ec00f1689083d6"
+    },
+    {
+      "file": "wc2.1_2.5m_bio_2.tif",
+      "shape": [
+        229,
+        247
+      ],
+      "crs": "EPSG:4326",
+      "resolution": [
+        0.041666666666666664,
+        0.041666666666666664
+      ],
+      "valid_pixels": 24002,
+      "sha256": "faf8d5deef80d0522da9b3e78e6b4108acfa65710a3fece168b9126251475e43"
+    },
+    {
+      "file": "wc2.1_2.5m_bio_3.tif",
+      "shape": [
+        229,
+        247
+      ],
+      "crs": "EPSG:4326",
+      "resolution": [
+        0.041666666666666664,
+        0.041666666666666664
+      ],
+      "valid_pixels": 24002,
+      "sha256": "3f22f38610f9a37226f471f2609ff08280f0a2818324faeffcde30a3e222b929"
+    },
+    {
+      "file": "wc2.1_2.5m_bio_4.tif",
+      "shape": [
+        229,
+        247
+      ],
+      "crs": "EPSG:4326",
+      "resolution": [
+        0.041666666666666664,
+        0.041666666666666664
+      ],
+      "valid_pixels": 24002,
+      "sha256": "db1455be4b0165e593b71adac0264bd281eee7555c9921c41d40981968e0f32c"
+    },
+    {
+      "file": "wc2.1_2.5m_bio_5.tif",
+      "shape": [
+        229,
+        247
+      ],
+      "crs": "EPSG:4326",
+      "resolution": [
+        0.041666666666666664,
+        0.041666666666666664
+      ],
+      "valid_pixels": 24002,
+      "sha256": "8ef4baf5a6413b68eeb0ec07e4e98460fc8a375a0161890bb94cf2d8c2b0d6a9"
+    },
+    {
+      "file": "wc2.1_2.5m_bio_6.tif",
+      "shape": [
+        229,
+        247
+      ],
+      "crs": "EPSG:4326",
+      "resolution": [
+        0.041666666666666664,
+        0.041666666666666664
+      ],
+      "valid_pixels": 24002,
+      "sha256": "4adc9e83ee11e17584b39090989f6cd272154d9f9113e080eae5ec9adb6693ec"
+    },
+    {
+      "file": "wc2.1_2.5m_bio_7.tif",
+      "shape": [
+        229,
+        247
+      ],
+      "crs": "EPSG:4326",
+      "resolution": [
+        0.041666666666666664,
+        0.041666666666666664
+      ],
+      "valid_pixels": 24002,
+      "sha256": "b0f3a68d7dd2770d9cbdb5645341e9299c0af2b341dad73495ba779d3296f835"
+    },
+    {
+      "file": "wc2.1_2.5m_bio_8.tif",
+      "shape": [
+        229,
+        247
+      ],
+      "crs": "EPSG:4326",
+      "resolution": [
+        0.041666666666666664,
+        0.041666666666666664
+      ],
+      "valid_pixels": 24002,
+      "sha256": "d3dfe33d031630a623d0a7a4ef3a09a37066afd690cd283906db15220bc18c37"
+    },
+    {
+      "file": "wc2.1_2.5m_bio_9.tif",
+      "shape": [
+        229,
+        247
+      ],
+      "crs": "EPSG:4326",
+      "resolution": [
+        0.041666666666666664,
+        0.041666666666666664
+      ],
+      "valid_pixels": 24002,
+      "sha256": "4a3e9c0260c4cb437efb8318e2e111309d923c8e4f82409df0600f66fc3ac25d"
+    },
+    {
+      "file": "wc2.1_2.5m_bio_10.tif",
+      "shape": [
+        229,
+        247
+      ],
+      "crs": "EPSG:4326",
+      "resolution": [
+        0.041666666666666664,
+        0.041666666666666664
+      ],
+      "valid_pixels": 24002,
+      "sha256": "1ba37d1fb811472c550e696b0ff59f8680af14acdcd5c5a64bf7a432dcba2880"
+    },
+    {
+      "file": "wc2.1_2.5m_bio_11.tif",
+      "shape": [
+        229,
+        247
+      ],
+      "crs": "EPSG:4326",
+      "resolution": [
+        0.041666666666666664,
+        0.041666666666666664
+      ],
+      "valid_pixels": 24002,
+      "sha256": "a91739ecc851351b298948937f705659d349e30d0911ed665fea7714b8ed4c36"
+    },
+    {
+      "file": "wc2.1_2.5m_bio_12.tif",
+      "shape": [
+        229,
+        247
+      ],
+      "crs": "EPSG:4326",
+      "resolution": [
+        0.041666666666666664,
+        0.041666666666666664
+      ],
+      "valid_pixels": 24002,
+      "sha256": "b29d974a96a3e485794796a7bd612a835863337b86320276c0c59ce23e6178c6"
+    },
+    {
+      "file": "wc2.1_2.5m_bio_13.tif",
+      "shape": [
+        229,
+        247
+      ],
+      "crs": "EPSG:4326",
+      "resolution": [
+        0.041666666666666664,
+        0.041666666666666664
+      ],
+      "valid_pixels": 24002,
+      "sha256": "446b6ac28b75aa18d6cbefd969c1fe70732e5d9e45d1325322b161aba2eb3e77"
+    },
+    {
+      "file": "wc2.1_2.5m_bio_14.tif",
+      "shape": [
+        229,
+        247
+      ],
+      "crs": "EPSG:4326",
+      "resolution": [
+        0.041666666666666664,
+        0.041666666666666664
+      ],
+      "valid_pixels": 24002,
+      "sha256": "a4db10b4c2bf19c9e10798bee6c67ee9c2420805c568ec0e7381fc2955ac92fd"
+    },
+    {
+      "file": "wc2.1_2.5m_bio_15.tif",
+      "shape": [
+        229,
+        247
+      ],
+      "crs": "EPSG:4326",
+      "resolution": [
+        0.041666666666666664,
+        0.041666666666666664
+      ],
+      "valid_pixels": 24002,
+      "sha256": "a919f045743e8b16a75ea27a398b4c63988c3f21ab8d8847efd3a5caad3b6dc9"
+    },
+    {
+      "file": "wc2.1_2.5m_bio_16.tif",
+      "shape": [
+        229,
+        247
+      ],
+      "crs": "EPSG:4326",
+      "resolution": [
+        0.041666666666666664,
+        0.041666666666666664
+      ],
+      "valid_pixels": 24002,
+      "sha256": "3e9fba3b98b9793ff3215e4779f247bbac3bc91f96bf87d78714e992bba264e9"
+    },
+    {
+      "file": "wc2.1_2.5m_bio_17.tif",
+      "shape": [
+        229,
+        247
+      ],
+      "crs": "EPSG:4326",
+      "resolution": [
+        0.041666666666666664,
+        0.041666666666666664
+      ],
+      "valid_pixels": 24002,
+      "sha256": "45ce29c5cc7f57356a3814d2293db7a1fb2ea9e56f5a277772e60f1e6302d2c9"
+    },
+    {
+      "file": "wc2.1_2.5m_bio_18.tif",
+      "shape": [
+        229,
+        247
+      ],
+      "crs": "EPSG:4326",
+      "resolution": [
+        0.041666666666666664,
+        0.041666666666666664
+      ],
+      "valid_pixels": 24002,
+      "sha256": "223eabcea03d9e33e862b2e0ea4a90f7f55277fb4a54737b0b4108fe1cb31ff3"
+    },
+    {
+      "file": "wc2.1_2.5m_bio_19.tif",
+      "shape": [
+        229,
+        247
+      ],
+      "crs": "EPSG:4326",
+      "resolution": [
+        0.041666666666666664,
+        0.041666666666666664
+      ],
+      "valid_pixels": 24002,
+      "sha256": "4d5cc07237d16894f46a48e51775206d4d2c906f146862f66eeff3de48fccca4"
+    }
+  ]
+}

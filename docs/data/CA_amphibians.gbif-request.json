@@ -1,0 +1,23 @@
+{
+  "sendNotification": true,
+  "format": "SIMPLE_CSV",
+  "predicate": {
+    "type": "and",
+    "predicates": [
+      {
+        "type": "equals",
+        "key": "TAXON_KEY",
+        "value": "131"
+      },
+      {
+        "type": "equals",
+        "key": "HAS_COORDINATE",
+        "value": "true"
+      },
+      {
+        "type": "within",
+        "geometry": "POLYGON((-124.409591 32.534435,-114.131211 32.534435,-114.131211 42.009485,-124.409591 42.009485,-124.409591 32.534435))"
+      }
+    ]
+  }
+}

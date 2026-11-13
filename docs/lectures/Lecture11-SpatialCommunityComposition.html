@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Visual background for BIO597 Lab11: grid grain, richness, beta diversity, distance decay, generalized dissimilarity modeling with 19 bioclimatic predictors, and PCA maps of expected community composition.">
+<title>Lecture 11: Spatial Community Composition</title>
+<link rel="stylesheet" href="reveal.js/dist/reset.css">
+<link rel="stylesheet" href="reveal.js/dist/reveal.css">
+<link rel="stylesheet" href="reveal.js/dist/plugin/highlight/monokai.css">
+<style>
+:root { --ink:#18212b; --muted:#52606d; --paper:#f7f8f6; --teal:#087e8b; --coral:#d95d39; --line:#ccd3d7; }
+body { background:var(--paper); }
+.reveal { color:var(--ink); font-family:Inter,"Avenir Next",Avenir,"Helvetica Neue",Arial,sans-serif; font-size:34px; }
+.reveal .slides { text-align:left; }
+.reveal .slides section { box-sizing:border-box; padding:48px 72px; height:810px; }
+.reveal h1,.reveal h2,.reveal h3 { color:var(--ink);font-family:inherit;letter-spacing:0;text-transform:none;font-weight:700; }
+.reveal h1 { font-size:2.05em;line-height:1.04;margin:0 0 .4em; }
+.reveal h2 { font-size:1.36em;line-height:1.1;margin:0 0 .48em; }
+.reveal p,.reveal li { line-height:1.35; }
+.reveal p { margin:0 0 .7em; }
+.reveal strong,.teal { color:var(--teal); }
+.coral { color:var(--coral); }
+.reveal a { color:var(--teal);text-decoration:underline;text-underline-offset:4px; }
+.reveal code { font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace; }
+.reveal pre { width:100%;margin:24px 0;box-shadow:none;font-size:.64em;line-height:1.5; }
+.reveal pre code { padding:24px;border-left:7px solid var(--teal);max-height:350px; }
+.reveal .slide-number { right:24px;bottom:18px;color:var(--muted);background:transparent;font-size:18px; }
+.reveal .progress { color:var(--teal);height:5px; }
+.reveal .controls { color:var(--teal); }
+.kicker { color:var(--coral);font-size:.58em;font-weight:800;letter-spacing:.08em;margin-bottom:.65em;text-transform:uppercase; }
+.subtitle { color:var(--muted);font-size:.85em; }
+.course-mark { border-top:5px solid var(--teal);color:var(--muted);font-size:.54em;margin-top:2em;padding-top:.7em;max-width:470px; }
+.two-col { display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center; }
+.cover .two-col { grid-template-columns:.95fr 1.05fr; }
+.image-wide { width:100%;height:445px;display:flex;align-items:center;justify-content:center; }
+.image-chart { max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block; }
+.cover .image-wide { height:590px; }
+.visual-takeaway { font-size:.82em;line-height:1.3!important;margin:15px 0 0!important; }
+.caption { font-size:.57em;color:var(--muted);line-height:1.3!important;margin-top:12px!important; }
+.small { font-size:.79em; }
+.muted { color:var(--muted); }
+.formula { background:#e8f0ef;padding:25px 30px;font-size:1.08em;margin:26px 0; }
+.callout { border-left:8px solid var(--coral);font-size:.85em;padding:.25em 0 .25em .8em;margin-top:24px!important; }
+.question { font-size:1.1em;font-weight:700;line-height:1.3!important; }
+.reveal ul,.reveal ol { margin:15px 0 0 1.05em; }
+.reveal li { margin-bottom:23px; }
+.reveal table { width:100%;border-collapse:collapse;font-size:.85em;margin:24px 0; }
+.reveal th,.reveal td { text-align:left;padding:19px 17px;border-bottom:2px solid var(--line);font-variant-numeric:tabular-nums; }
+.reveal th { color:var(--muted);font-size:.86em; }
+.reveal .compact-table { font-size:.76em; }
+.reveal .compact-table td,.reveal .compact-table th { padding:16px; }
+.card { padding:28px 32px;background:#ffffff;border:2px solid var(--line); }
+.card h3 { font-size:1em;margin:0 0 22px; }
+.card p { font-size:.82em; }
+.big-number { color:var(--teal);font-size:2.7em;font-weight:800;line-height:1.1!important; }
+.reveal .source-list { font-size:.72em; }
+.reveal .source-list li { margin-bottom:24px; }
+.reveal .lab-steps { font-size:.92em; }
+.reveal .lab-steps li { margin-bottom:27px; }
+@media print { .reveal .slides section { overflow:visible; } }
+
+.reveal .slides section { padding:42px 64px; }
+.reveal h2 { font-size:1.30em; }
+.image-wide { height:430px; }
+.visual-takeaway { font-size:.80em; }
+.caption { font-size:.55em; }
+.cover .image-wide { height:580px; }
+.metric-line { display:flex;gap:35px;font-size:.66em;color:var(--muted);margin:14px 0; }
+.metric-line strong { font-size:1.4em; }
+.reveal .source-list {font-size:.68em;}
+.reveal .source-list li {margin-bottom:23px;}
+</style></head><body>
+<div class="reveal"><div class="slides">
+<section id="title" class="cover">
+<div class="two-col"><div>
+<div class="kicker">Lab 11 · November 13, 2026</div>
+<h1>Spatial Analysis of Community Composition</h1>
+<p class="subtitle">How can we quantify change in community composition as a function of geography and environment?</p>
+<p class="small">From aggregated occurrence records to spatial community turnover, how do we get there?</p>
+<div class="course-mark">BIO597 Spatial Analysis of Biodiversity</div>
+</div><div><div class="image-wide"><img class="image-chart" src="assets/Lecture11-pca-map.png" alt="Maine 20 kilometer cells colored by the first two principal components of all 19 GDM-transformed bioclimatic predictors. Similar colors summarize similar transformed environments in the displayed plane."></div><p class="caption">Amphibian community similarity as a function of environment (similar colors indicate more similar communities)</p></div></div>
+<aside class="notes">Allow about 45–50 minutes with discussion. Begin by asking what the colors could mean: richness, a species distribution, or community identity? We will build the interpretation rather than start with a model equation. Lab10 compared communities in imaginary parks; Lab11 defines sites using nested grids across Maine and uses the original occurrence records. This map is rebuilt with all 19 predictors from the revised lab, not the earlier two-variable model. Gray cells have no modeled site. The figures are original teaching diagrams or analyses of the course data; conceptual examples are explicitly labeled. Press S for presenter notes.</aside>
+</section>
+
+<section id="identity">
+<div class="kicker">How do communities change across the landscape?</div>
+<h2>Well, how do we quantify community change? Richness is one dimension. Community composition another.</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture11-identity.svg" alt="Four hypothetical ponds each contain three species. Two contain A B C, and two contain D E F; richness is identical while identities differ."></div>
+<p class="visual-takeaway">A richness map can remain constant while <strong>community composition changes completely</strong>.</p>
+<aside class="notes">Ask students to count species in every pond, then ask which pair of ponds would be most similar. The same richness of three cannot distinguish ABC from DEF. Composition retains identities. Occurrence counts are useful for recording the data, but the Jaccard comparisons today use presence/absence. A color used for composition is a location in a multivariate summary, rather than a scale from low to high biodiversity. The species letters are invented labels; the animal symbols are schematic amphibians.</aside>
+</section>
+
+<section id="delineate-communities">
+<div class="kicker">From observations to communities</div>
+<h2>How do we delineate communities?</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture11-occurrences.png" alt="The Maine state boundary with 14,466 original amphibian occurrence records shown as teal points, without grid cells or assigned community boundaries."></div>
+<p class="visual-takeaway">The points locate observations; we still need to define the sites we compare.</p>
+<p class="caption">Original Maine data · amphibian occurrence records used in Lab11.</p>
+<aside class="notes">Pause before introducing any grid. Ask students where they would draw the boundary of a community on this map. Would they group records around a pond, within a watershed, by habitat, or simply by proximity? Different definitions can answer different biological questions. These are the 14,466 original named-species records within Maine used in Lab11, rather than the imaginary-park dataset. The points show where observations were recorded; their density also reflects sampling and reporting. No community boundaries have been imposed here. The following slides distinguish species richness from composition and then introduce a spatial grid as one explicit, repeatable way to define comparable sites.</aside>
+</section>
+
+<section id="grain">
+<div class="kicker">If we have spatially continuous samples, how do we determine 'communities'?</div>
+<h2>The same points can form different communities</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture11-grain.svg" alt="Identical invented occurrence points in the same 80 kilometer landscape, divided into 10, 20, and 40 kilometer cells."></div>
+<p class="visual-takeaway">A simple way is to partition the landscape into grid cells with a given <strong>grain</strong> (grid cell size)</p>
+<p class="visual-takeaway">The size of the gridcell will determine community composition.</p>
+<aside class="notes">The physical extent and every point are unchanged. Only the grain changes. In the lab, 10 km cells nest within 20 km cells, which nest within 40 km cells because the origin is fixed. Projected coordinates let the cell widths have meter units. A larger cell combines records from locations that might represent different ponds, elevations or habitats. A grid is a practical definition of a sampled community, not a claim that every species interacts uniformly throughout that square. Wiens develops the distinction between grain and extent and the ecological consequences of scale.</aside>
+</section>
+
+<section id="pooling">
+<div class="kicker">What aggregation does</div>
+<h2>A larger cell pool more species</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture11-pooling.svg" alt="Four 10 kilometer cells have species lists AB, BC, CD and D. Their mean richness is 1.75, while the enclosing 20 kilometer cell has pooled richness four."></div>
+<p class="visual-takeaway">Increasing grain may (or may not) increase species richness of a grid cell.</p>
+<p class="caption">This may (or may not) have consequences for downstream analysis, and this is one of the things we will explore in the lab today.</p>
+<aside class="notes">Count each small list: two, two, two and one species. Their mean is 1.75, while the union contains four distinct species. Neither summing richness to seven nor averaging to 1.75 gives the richness of the pooled cell. Counts of repeated species are combined in the community matrix; presence/absence is then calculated from the pooled counts. Some small cells could have no records. Pooling does not prove that every species occupies every habitat within the larger square. Ask whether the ecological meaning of a site changes even if the underlying animals do not.</aside>
+</section>
+
+<section id="maine-grains">
+<div class="kicker">Species richness as a function of grid cell size for ME amphibians</div>
+<h2>How do richness patterns change as a function of spatial grain?</p>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture11-richness.png" alt="Maine recorded-richness maps at 10, 20, and 40 kilometers share the same color scale and show 641, 223, and 69 sampled sites."></div>
+<p class="visual-takeaway">Larger cells contain more pooled species.</p>
+<p class="caption">Are these patterns largely concordant or discordant as grain size increases?</p>
+<aside class="notes">These maps use 14,466 original Maine records and 21 supplied species labels after clipping and selecting named species. There are 641, 223 and 69 sampled cells at 10, 20 and 40 km. Mean recorded richness is 4.80, 7.03 and 10.45, respectively. The common color scale keeps equal colors tied to equal richness. Ask which broad patterns persist and which appear only after pooling. Clipped coastal cells contain less land than interior squares. Gray areas have no sampled cell, not a measured richness of zero.</aside>
+</section>
+
+<section id="nestedness">
+<div class="kicker">Quantifying community difference</div>
+<h2>Two patterns can determine community difference</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture10-nestedness.svg" alt="AB compared with ABCD is a subset pattern, while ABC compared with ACD shows replacement. Both have Jaccard dissimilarity 0.5."></div>
+<p class="visual-takeaway">Jaccard dissimilarity (difference in community composition) can include <strong>replacement and nestedness</strong>.</p>
+<p class="caption">Nestedness means one community is a subset of another</p>
+<aside class="notes">Count the unions and shared species in both comparisons. AB versus ABCD has two shared of four, while ABC versus ACD also has two shared of four. The same total difference therefore does not establish the same biological process. A subset might represent environmental filtering, local loss, or incomplete detection; a replacement pattern might reflect sorting or dispersal history. Lab11 calculates total Jaccard, not a formal partition of its components. Avoid labeling every high-Jaccard cell as high species replacement. This is a repeated toy figure from Lecture10 so students can connect the metric to its spatial use.</aside>
+</section>
+
+<section id="pairs">
+<div class="kicker">Pairwise dissimilarity for all communities</div>
+<h2>Each comparison needs two species lists</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture11-pairs.svg" alt="Sites A, B, C contain ABC, ABD, DEF. Distances AB, BC, AC are 30, 40, 50 kilometers; Jaccard dissimilarities are 0.5, 0.8, 1.0."></div>
+<p class="visual-takeaway">Keep site order aligned when pairing <strong>species differences</strong> with geographic distances.</p>
+<p class="caption">Worked example · Jaccard = 1 − shared / union; schematic distances, not to scale.</p>
+<aside class="notes">AB shares A and B out of four species in its union, giving dissimilarity 0.5. BC shares D out of five, giving 0.8. AC shares none and has dissimilarity one. The three geographic distances form a 30–40–50 triangle and are illustrative, not Maine measurements. Similarity is one minus dissimilarity. The matrix and coordinates must use the same site ordering; otherwise the response for one pair could be attached to the predictors of another. If sites without climate are removed later, the pairs must be calculated again.</aside>
+</section>
+
+<section id="distance-decay">
+<div class="kicker">Distance decay of similarity</div>
+<h2>Do distant sites share fewer recorded species?</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture11-distance-decay.png" alt="Actual Maine 20 kilometer Jaccard similarity versus distance, with 50 kilometer band means, alongside band curves at all three grains."></div>
+<p class="visual-takeaway">Distance decay summarizes a pattern. Its strength and shape can change with grain.</p>
+<p class="caption">Original Maine data · points = pairs; lines = means in 50 km distance bands.</p>
+<aside class="notes">The left panel shows every 20 km pair and the mean in each 50 km band. The right panel compares the same band procedure among grains. Descriptive distance–similarity correlations are -0.165, -0.199, and -0.322. The negative association is broad rather than a rule for every pair. Check pair counts before interpreting the longest-distance bins: they involve fewer possible site combinations and particular corners of Maine. Coarser grids pool species and change the site and pair distributions. The line is a descriptive average, not a fitted GDM or a confidence interval.</aside>
+</section>
+
+<section id="mechanisms">
+<div class="kicker">Community change over the landscape</div>
+<h2>Several processes can produce distance decay</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture11-mechanisms.svg" alt="Three hypothetical scenarios show changing environments, a dispersal barrier between similar habitats, and reduced reporting of the same underlying community."></div>
+<p class="visual-takeaway">Environment, dispersal, history, and observation can act together.</p>
+<aside class="notes">In the first cartoon, increasingly different climates can favor different species. In the second, similar-looking habitats can support different communities because of a barrier or different colonization histories. In the third, fewer observations produce a shorter recorded list even if the underlying list is the same. These are possible explanations, not mechanisms estimated separately by the cartoon or established from a scatterplot. Ask what extra information would distinguish them: habitat measurements, repeated detection surveys, movement data, historical context, or independent site samples.</aside>
+</section>
+
+
+<section id="local-neighbors">
+<div class="kicker">Neighborhood similarity</div>
+<h2>Which recorded communities differ nearby?</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture11-local.svg" alt="A focal ABC cell is compared with seven sampled neighbors: three identical lists and four disjoint DEF lists. The mean dissimilarity is four sevenths; an unsampled gray cell is excluded."></div>
+<p class="visual-takeaway">Mean neighbor Jaccard describes <strong>local compositional difference</strong>.</p>
+<p class="caption">Worked example · same-radius comparisons are made within each grain.</p>
+<aside class="notes">Walk through the seven comparisons rather than beginning with an array operation. Three neighbors match ABC exactly, contributing zero. Four contain only DEF and contribute one. The gray neighbor is not a sampled empty community and is excluded. The mean is four sevenths, approximately 0.57. The lab includes sampled cell centers within 1.5 cell widths, which includes diagonal neighbors. That threshold is 15, 30 or 60 km as grain increases. This is not a replacement-only measure, nor is it divided by geographic distance. A focal cell with no sampled neighbors receives a missing value.</aside>
+</section>
+
+<section id="local-map">
+<div class="kicker">Richness and difference answer different questions</div>
+<h2>A rich site need not be the most distinctive</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture11-local-map.png" alt="Two actual Maine 20 kilometer maps compare recorded richness with mean neighboring-site Jaccard dissimilarity on separate appropriate scales."></div>
+<p class="visual-takeaway">Use the species lists and record totals to interpret a high local difference.</p>
+<p class="caption">Original Maine data · gray indicates no mapped value, not zero difference.</p>
+<aside class="notes">The maps use the same sampled 20 km cells but different metrics and color scales. High richness asks how many species were recorded in a cell. High neighbor dissimilarity asks how different the recorded list is from nearby lists. A species-poor cell can appear highly different because its list is a subset or because it was poorly sampled. High local difference is therefore not automatically a conservation priority or proof of a transition zone. Ask students to nominate a cell they would inspect in the matrix before explaining it biologically.</aside>
+</section>
+
+<section id="climate">
+<div class="kicker">Add environmental context</div>
+<h2>A site has an environmental setting</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture11-climate.png" alt="Maine 20 kilometer site means for annual temperature and annual precipitation illustrate two gradients; the full analysis uses all 19 bioclimatic variables."></div>
+<p class="visual-takeaway"><strong>All 19 bioclimatic variables</strong> enter GDM; these two maps orient us to the landscape.</p>
+<p class="caption">Original Maine data · <a href="https://www.worldclim.org/data/bioclim.html">WorldClim variable definitions</a>.</p>
+<aside class="notes">Each climate value averages valid raster pixels intersecting the cell land area, rather than extracting climate only where records happen to be concentrated. Edge pixels are included equally, so this is an approximate zonal mean. BIO1 and BIO12 are displayed as recognizable temperature and precipitation examples; the fitted full models also use seasonality, extremes and quarterly summaries. Many of the 19 variables are correlated because they derive from the same monthly climate. WorldClim 2.1 summarizes 1970–2000, while the records span multiple years. Climate does not directly measure wetland hydroperiod, canopy, disease or detectability.</aside>
+</section>
+
+<section id="gdm-inputs">
+<div class="kicker">Generalized dissimilarity modeling</div>
+<h2>Relate community differences to site differences</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture11-gdm-inputs.svg" alt="Two hypothetical sites have different species lists, temperature and precipitation values plus 17 other predictors, and a geographic separation. The observed pairwise Jaccard response is 0.5."></div>
+<p class="visual-takeaway">GDM predicts the expected <strong>difference between communities</strong>.</p>
+<p class="caption">Illustrated inputs · method: <a href="https://doi.org/10.1111/j.1472-4642.2007.00341.x">Ferrier et al. (2007)</a>.</p>
+<aside class="notes">We have one climate vector per site and one observed dissimilarity per pair. GDM uses environmental differences and optionally geographic separation to model the expected community difference. It does not produce a presence probability for a specific amphibian or a richness prediction. The numeric climate values are illustrative; two variables are written out to keep the figure readable, but the core lab uses all 19. The geographic term uses straight-line projected distance, not a measured route or dispersal mechanism. Compare geography alone with geography plus climate, using the same retained sites in both models.</aside>
+</section>
+
+<section id="stretch">
+<div class="kicker">The main nonlinear intuition</div>
+<h2>Equal climate steps need not mean equal change</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture11-stretching.png" alt="A hypothetical monotone temperature transformation compares 3–5 and 8–10 degrees Celsius. The equal two-degree intervals have different transformed distances."></div>
+<p class="visual-takeaway">GDM <strong>stretches</strong> parts of a climate gradient where communities change more.</p>
+<p class="caption">Illustrated transformation · this curve is not a fitted lab result.</p>
+<aside class="notes">Both temperature intervals are two degrees wide. In the flat lower segment, their transformed values remain close. In the steep segment, the same temperature step has a much larger transformed difference. Fitted smooth increasing transformations allow this rate to vary along the gradient. The curve is invented to explain the operation, not a fitted Maine threshold or an amphibian physiological limit. An increasing cumulative transformation is not a claim that richness increases with temperature. Its difference between the two site values contributes to predicted dissimilarity.</aside>
+</section>
+
+<section id="curves">
+<div class="kicker">Environmental correlates of community turnover</div>
+<h2>Steep segments identify intervals of modeled change</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture11-curves.png" alt="Actual Maine fitted transformations for the three climate predictors with highest 20 kilometer transformation heights, showing each grain on the same predictor panel."></div>
+<p class="visual-takeaway">Read the <strong>slope and climate interval</strong>, then compare grains.</p>
+<p class="caption">Original Maine data · all curves come from models using all 19 predictors.</p>
+<aside class="notes">These are fitted Maine curves, unlike the earlier stretching cartoon. The plotted predictors are selected by their 20 km transformation heights; the full model still uses all 19. The x axis stays in the original WorldClim scale for that predictor; the y axis is partial ecological distance. The helper varies one climate variable, holds other inputs fixed, and subtracts the starting transformed value. Steep sections indicate more fitted community change within a particular interval. Flat sections indicate little additional change conditional on the model. Neither a steep interval nor a flat curve establishes a physiological mechanism or a species optimum.</aside>
+</section>
+
+<section id="ordination">
+<div class="kicker">Projecting estimated community turnover across the landscape</div>
+<h2>Summarize the transformed environments</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture11-pca-workflow.svg" alt="A workflow transforms 19 site climate variables with GDM, sums weighted spline components per predictor, runs PCA, and assigns the same colors to map and biplot."></div>
+<p class="visual-takeaway">Transform first, then use PCA to display the major axes of expected compositional variation.</p>
+<p class="caption">Method: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html">PCA</a> · implementation: <a href="https://github.com/butterman0/gdmbayes">gdmbayes</a>.</p>
+<aside class="notes">The package supplies several weighted spline columns for each environmental predictor. Sum them within each predictor to obtain 19 transformed columns, one row per modeled site. These transformed values already contain the fitted GDM weights. PCA is centered but we do not standardize every column to unit variance, because doing so would give a very weak transformed predictor the same variance as a strong one. Retain two components for the plot, report their explained variance, and recognize that remaining components are omitted. The geographic term is pairwise and does not form a site-level transformation in this map.</aside>
+</section>
+
+<section id="pca">
+<div class="kicker">One color key in two spaces</div>
+<h2>Nearby colors summarize similar expected composition</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture11-pca.png" alt="Actual Maine 20 kilometer map and PCA scatter use identical RGB colors for each modeled site. Two arrows identify the longest climate loading vectors in PC1 and PC2."></div>
+<p class="visual-takeaway">PC1 + PC2 retain <strong>91.7%</strong> of the GDM-transformed variation.</p>
+<p class="caption">Original Maine data · first two PCs; geographic-distance effects are excluded from the site colors.</p>
+<aside class="notes">Red and green encode separately rescaled PC1 and PC2 scores; blue is held constant. The very same site has the very same color in map and scatterplot. The components explain 65.2% and 26.5%, leaving 8.3% outside the display. Similar colors indicate similar values in this two-axis summary of expected composition associated with climate; they do not establish identical species lists or calibrated Jaccard distances. Colors are not a scale from poor to rich biodiversity. Gray areas have no modeled site. A separate model or grain gets its own PCA orientation and color scale, so matching colors across runs are not a common biological legend.</aside>
+</section>
+
+<section id="arrows">
+<div class="kicker">Connect the ordination to environmental biology</div>
+<h2>Which gradients align with the displayed change?</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture11-pca-gradients.png" alt="Maps of the two original climate variables selected by longest loading-vector length in the actual Maine PC1–PC2 biplot."></div>
+<p class="visual-takeaway">Two longest arrows: <strong>BIO5</strong> and <strong>BIO17</strong>.</p>
+<p class="caption">Original Maine data · select by length in the PC1–PC2 plane; display only two arrows.</p>
+<aside class="notes">The selected variables are BIO5: max temp warmest and BIO17: precip driest q. Loadings are computed as component directions multiplied by the square root of component variance. Rank the two-dimensional vector lengths, sqrt(PC1² + PC2²), rather than the signed sum, which can cancel contributions or change when an axis flips. Plot only those two arrows to keep the biplot readable. Arrow direction represents increasing transformed predictor value. Their lengths describe contributions in the displayed plane, not total GDM importance over all dimensions. The maps show original climate values so the spatial gradients can be related to the biological setting. An arrow does not demonstrate causation.</aside>
+</section>
+
+<section id="three-questions">
+<div class="kicker">Choose the map for the biological question</div>
+<h2>Three maps, three different kinds of evidence</h2>
+<div class="image-wide"><img class="image-chart" src="assets/Lecture11-three-questions.png" alt="Maine 20 kilometer maps show recorded richness, neighbor Jaccard differences, and the PCA summary of climate-associated expected composition."></div>
+<p class="visual-takeaway">Which map would help locate a richness hotspot, a local contrast, or an environmental transition?</p>
+<p class="caption">Original Maine data · each panel answers a different question; colors are not interchangeable.</p>
+<aside class="notes">Have students answer each question before naming the map. Richness counts recorded species. Neighbor dissimilarity measures differences among observed lists in a defined neighborhood. The PCA map summarizes model-transformed environmental variation among sites. They need not select the same locations, and none alone establishes long-term conservation value. A change in color on the composition map is not automatically a decline in biodiversity, and a high local contrast might reflect nestedness or sampling. Ask students which additional field data would make a proposed interpretation testable.</aside>
+</section>
+
+<section id="sources">
+<div class="kicker">Readings and figure provenance</div>
+<h2>Methods behind the pictures</h2>
+<ul class="source-list">
+<li><a href="https://doi.org/10.2307/2389612">Wiens (1989). Spatial scaling in ecology.</a><br>Why grain and extent affect the ecological pattern.</li>
+<li><a href="https://doi.org/10.1111/j.1466-8238.2009.00490.x">Baselga (2010). Partitioning the turnover and nestedness components of beta diversity.</a><br>Why total dissimilarity is not a replacement-only measure.</li>
+<li><a href="https://doi.org/10.1111/j.1472-4642.2007.00341.x">Ferrier et al. (2007). Using generalized dissimilarity modelling to analyse and predict patterns of beta diversity in regional biodiversity assessment.</a></li>
+<li><a href="https://www.worldclim.org/data/bioclim.html">WorldClim bioclimatic variables</a> · <a href="https://github.com/butterman0/gdmbayes">gdmbayes</a> · <a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html">PCA documentation</a>.</li>
+<li><a href="assets/Lecture11-figure-notes.md">Figure notes and rebuild instructions</a> · <a href="assets/Lecture11-example-results.json">settings, numerical results, and input hashes</a>.</li>
+</ul>
+<aside class="notes">The diagrams are original teaching illustrations, with invented lists and values explicitly marked. No artwork or fitted results are copied from the cited papers. Empirical figures use the original Maine occurrence GeoJSON, the Maine state boundary and the 19 clipped bioclimatic rasters. The rebuild script fits the models directly without relying on older notebook exports or the instructor answer key. It records the exact input hashes, settings, fitted summaries, and PCA selection in the results JSON. The figure notes distinguish empirical panels from hypothetical ones and document the sample and model limitations.</aside>
+</section>
+</div></div>
+<script src="reveal.js/dist/reveal.js"></script>
+<script src="reveal.js/dist/plugin/highlight.js"></script>
+<script src="reveal.js/dist/plugin/notes.js"></script>
+<script>
+Reveal.initialize({
+ hash:true, controls:true, progress:true, center:false, slideNumber:"c/t",
+ width:1440, height:810, margin:0.03, transition:"fade", transitionSpeed:"fast",
+ plugins:[RevealHighlight,RevealNotes]
+});
+</script></body></html>
