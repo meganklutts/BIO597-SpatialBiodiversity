@@ -136,7 +136,7 @@ body { background:var(--paper); }
 </section>
 
 <section id="pairs">
-<div class="kicker">From sites to a pairwise response</div>
+<div class="kicker">Pairwise dissimilarity for all communities</div>
 <h2>Each comparison needs two species lists</h2>
 <div class="image-wide"><img class="image-chart" src="assets/Lecture11-pairs.svg" alt="Sites A, B, C contain ABC, ABD, DEF. Distances AB, BC, AC are 30, 40, 50 kilometers; Jaccard dissimilarities are 0.5, 0.8, 1.0."></div>
 <p class="visual-takeaway">Keep site order aligned when pairing <strong>species differences</strong> with geographic distances.</p>
@@ -145,7 +145,7 @@ body { background:var(--paper); }
 </section>
 
 <section id="distance-decay">
-<div class="kicker">A spatial pattern to explain</div>
+<div class="kicker">Distance decay of similarity</div>
 <h2>Do distant sites share fewer recorded species?</h2>
 <div class="image-wide"><img class="image-chart" src="assets/Lecture11-distance-decay.png" alt="Actual Maine 20 kilometer Jaccard similarity versus distance, with 50 kilometer band means, alongside band curves at all three grains."></div>
 <p class="visual-takeaway">Distance decay summarizes a pattern. Its strength and shape can change with grain.</p>
@@ -154,17 +154,16 @@ body { background:var(--paper); }
 </section>
 
 <section id="mechanisms">
-<div class="kicker">Think biologically</div>
+<div class="kicker">Community change over the landscape</div>
 <h2>Several processes can produce distance decay</h2>
 <div class="image-wide"><img class="image-chart" src="assets/Lecture11-mechanisms.svg" alt="Three hypothetical scenarios show changing environments, a dispersal barrier between similar habitats, and reduced reporting of the same underlying community."></div>
 <p class="visual-takeaway">Environment, dispersal, history, and observation can act together.</p>
-<p class="caption">Illustrated hypotheses · the spatial pattern alone does not identify its cause.</p>
 <aside class="notes">In the first cartoon, increasingly different climates can favor different species. In the second, similar-looking habitats can support different communities because of a barrier or different colonization histories. In the third, fewer observations produce a shorter recorded list even if the underlying list is the same. These are possible explanations, not mechanisms estimated separately by the cartoon or established from a scatterplot. Ask what extra information would distinguish them: habitat measurements, repeated detection surveys, movement data, historical context, or independent site samples.</aside>
 </section>
 
 
 <section id="local-neighbors">
-<div class="kicker">Map a local comparison</div>
+<div class="kicker">Neighborhood similarity</div>
 <h2>Which recorded communities differ nearby?</h2>
 <div class="image-wide"><img class="image-chart" src="assets/Lecture11-local.svg" alt="A focal ABC cell is compared with seven sampled neighbors: three identical lists and four disjoint DEF lists. The mean dissimilarity is four sevenths; an unsampled gray cell is excluded."></div>
 <p class="visual-takeaway">Mean neighbor Jaccard describes <strong>local compositional difference</strong>.</p>
@@ -208,17 +207,8 @@ body { background:var(--paper); }
 <aside class="notes">Both temperature intervals are two degrees wide. In the flat lower segment, their transformed values remain close. In the steep segment, the same temperature step has a much larger transformed difference. Fitted smooth increasing transformations allow this rate to vary along the gradient. The curve is invented to explain the operation, not a fitted Maine threshold or an amphibian physiological limit. An increasing cumulative transformation is not a claim that richness increases with temperature. Its difference between the two site values contributes to predicted dissimilarity.</aside>
 </section>
 
-<section id="gdm-link">
-<div class="kicker">From differences to an expected response</div>
-<h2>Ecological distances accumulate, then saturate</h2>
-<div class="image-wide"><img class="image-chart" src="assets/Lecture11-gdm-link.png" alt="An invented intercept, two environmental contributions and a geographic contribution sum to 1.4; a saturating link maps this total to expected dissimilarity about 0.75."></div>
-<p class="visual-takeaway">Expected dissimilarity approaches one as modeled ecological distance increases.</p>
-<p class="caption">Worked example · expected dissimilarity = 1 − exp(−ecological distance).</p>
-<aside class="notes">The left panel adds fitted contributions in common ecological-distance units. Climate contributions are absolute differences between transformed site values; geography has a separately fitted distance transformation. The illustrated values are not raw temperature, rainfall or kilometer values. The response uses one minus exp(−distance), so a total of 1.4 gives about 0.75 dissimilarity. This saturates because communities cannot become more than completely different under the chosen metric. There are 19 environmental contributions in the full lab, and coefficients are learned from the pairwise data. No manual equation implementation is required.</aside>
-</section>
-
 <section id="curves">
-<div class="kicker">Read the fitted response</div>
+<div class="kicker">Environmental correlates of community turnover</div>
 <h2>Steep segments identify intervals of modeled change</h2>
 <div class="image-wide"><img class="image-chart" src="assets/Lecture11-curves.png" alt="Actual Maine fitted transformations for the three climate predictors with highest 20 kilometer transformation heights, showing each grain on the same predictor panel."></div>
 <p class="visual-takeaway">Read the <strong>slope and climate interval</strong>, then compare grains.</p>
@@ -227,7 +217,7 @@ body { background:var(--paper); }
 </section>
 
 <section id="ordination">
-<div class="kicker">From a model to a composition map</div>
+<div class="kicker">Projecting estimated community turnover across the landscape</div>
 <h2>Summarize the transformed environments</h2>
 <div class="image-wide"><img class="image-chart" src="assets/Lecture11-pca-workflow.svg" alt="A workflow transforms 19 site climate variables with GDM, sums weighted spline components per predictor, runs PCA, and assigns the same colors to map and biplot."></div>
 <p class="visual-takeaway">Transform first, then use PCA to display the major axes of expected compositional variation.</p>
