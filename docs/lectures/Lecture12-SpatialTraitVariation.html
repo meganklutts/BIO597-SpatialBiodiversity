@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="BIO597 Lecture12: spatial life-history gradients, functional diversity, environmental filtering, competition, functional turnover, null models, and PCA maps." name="description"/>
+<title>Lecture 12: Spatial Trait Variation</title>
+<link href="reveal.js/dist/reset.css" rel="stylesheet"/>
+<link href="reveal.js/dist/reveal.css" rel="stylesheet"/>
+<style>
+:root {--ink:#18212b;--muted:#52606d;--paper:#f7f8f6;--teal:#087e8b;--coral:#d95d39;}
+body {background:var(--paper);}
+.reveal {color:var(--ink);font-family:Inter,"Avenir Next",Avenir,Arial,sans-serif;font-size:32px;}
+.reveal .slides {text-align:left;}
+.reveal .slides section {box-sizing:border-box;padding:40px 60px;height:810px;}
+.reveal h1,.reveal h2,.reveal h3 {font-family:inherit;color:var(--ink);font-weight:700;text-transform:none;letter-spacing:0;line-height:1.12;}
+.reveal h1 {font-size:2em;margin:0 0 14px;}
+.reveal h2 {font-size:1.28em;margin:0 0 14px;}
+.reveal h3 {font-size:1em;margin:0 0 24px;}
+.reveal strong {color:var(--teal);}
+.reveal a {color:var(--teal);text-decoration:underline;text-underline-offset:3px;}
+.reveal p {line-height:1.3;margin:0;}
+.kicker {font-size:18px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--coral);margin-bottom:10px;}
+.figure {height:460px;display:flex;align-items:center;justify-content:center;}
+.figure img {display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;}
+.reveal .takeaway {font-size:27px;line-height:1.25;margin:14px 0 0;}
+.cover .figure {height:410px;}
+.subtitle {color:var(--muted);font-size:30px;margin-bottom:12px!important;}
+.two-col {display:grid;grid-template-columns:1fr 1fr;gap:70px;margin-top:55px;}
+.reveal .question {font-size:30px;font-weight:600;line-height:1.3;margin:0 0 35px;}
+.sources {font-size:23px;}
+.sources p {margin-bottom:24px;}
+.reveal .slide-number {background:transparent;color:var(--muted);font-size:18px;right:24px;bottom:16px;}
+.reveal .controls,.reveal .progress {color:var(--teal);}
+.reveal .progress {height:5px;}
+
+.species-photos {display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin:14px 0 8px;}
+.species-photo {text-align:center;font-size:22px;line-height:1.2;}
+.species-photo img {display:block;height:145px;width:100%;object-fit:contain;margin:0 auto 8px;}
+#traits .figure {height:320px;}
+#relationships .figure {height:550px;}
+</style></head><body><div class="reveal"><div class="slides">
+<section class="cover" id="title">
+<div class="kicker">Week 12 · BIO597 Spatial Analysis of Biodiversity</div>
+<h1>Spatial trait-based ecology</h1>
+<p class="subtitle">Where do richness and functional diversity disagree? What processes can this tell us about?</p>
+<div class="figure"><img alt="Two hypothetical four-species communities shown with frog illustrations on body size and rugosity axes. One contains similarly sized, moderately textured frogs; the other includes small, large, smooth, and rough-skinned frogs." src="assets/Lecture12-frog-trait-space.png"/></div>
+<p class="takeaway">Both communities have four species, but one has much higher functional diversity (trait variation).</p>
+
+</section><section id="predictors">
+<div class="kicker"></div><h2>How does environment and geography influence life history at the species and community level?</h2>
+<div class="figure"><img alt="Three Maine maps show a north–south latitude gradient, spatial temperature variation, and the proportion of mapped area covered by upland forest." src="assets/Lecture12-predictors.png"/></div>
+<p class="takeaway">Which life-history strategies or traits occur along gradients of latitude, climate, and habitat?</p>
+<p class="takeaway">Bergmann's rule: Larger bodied species found in colder environments (true for endotherms).</p>
+</section>
+<section id="traits">
+<div class="kicker">Compile amphibian trait data</div><h2>Five traits describe size, maturity, and reproduction</h2>
+<div class="species-photos"><div class="species-photo"><img alt="American bullfrog, Lithobates catesbeianus" src="assets/Lecture12-bullfrog.jpg"/><div>American bullfrog</div></div><div class="species-photo"><img alt="Red-backed salamander, Plethodon cinereus" src="assets/Lecture12-red-backed-salamander.jpg"/><div>Red-backed salamander</div></div><div class="species-photo"><img alt="Spring peeper, Pseudacris crucifer" src="assets/Lecture12-spring-peeper.jpg"/><div>Spring peeper</div></div></div><div class="figure"><img alt="Five panels show maximum adult length, minimum maturity age, maximum clutch size, minimum maturity size, and minimum clutch size for three Maine species." src="assets/Lecture12-five-traits.png"/></div>
+<p class="takeaway">The trait table gives each species a <strong>life-history profile</strong>.</p>
+</section>
+
+<section id="scaling">
+<div class="kicker">Scaling and standardizing for comparability</div><h2>Make proportional changes comparable</h2>
+<div class="figure"><img alt="Three Maine scatterplots show body length versus maximum clutch size in original units, log10 units, and standardized log units." src="assets/Lecture12-scaling.png"/></div>
+<p class="takeaway">Log10 makes proportional differences comparable; standardization gives each trait equal variance.</p>
+<p class="takeaway">Here each point is a species.</p>
+</section>
+
+<section id="means-map">
+<div class="kicker">The first spatial question</div><h2>Where do community mean traits change?</h2>
+<div class="figure"><img alt="Maine maps show geometric means of maximum body length, minimum maturity age, and maximum clutch size for cells with adequate trait coverage." src="assets/Lecture12-community-means.png"/></div>
+<p class="takeaway">Do colder or more disturbed places contain species with different body sizes, maturity ages, or clutch sizes?</p>
+</section>
+
+<section id="mean-trait-gradients"><div class="kicker">Correlating environmental predictors with mean community traits</div><h2>Which environmental gradients accompany shifts in mean traits?</h2><div class="figure"><img alt="Three empirical Maine scatterplots compare typical maximum body length with annual temperature, maturity age with coldest-month temperature, and maximum clutch size with the percentage of developed land." src="assets/Lecture12-mean-trait-gradients.png"/></div>
+<p class="takeaway">Do any of these relationships look meaningful to you? How would you interpret these figures?</p>
+<p class="takeaway">Here each point is a community average.</p>
+</section>
+
+<section id="centroid">
+<div class="kicker">Summarizing trait variation w/in communities (Functional diversity)</div>
+<p class="subtitle">Functional dispersion (FDis) is the mean distance to the multivariate trait centroid</p>
+<div class="figure"><img alt="Two hypothetical four-species communities shown with frog illustrations on body size and rugosity axes. One contains similarly sized, moderately textured frogs; the other includes small, large, smooth, and rough-skinned frogs." src="assets/Lecture12-frog-trait-space.png"/></div>
+<p class="takeaway">In this cartoon the centroids of these two communities are identical</p>
+<p class="takeaway">Species in the community on the right occupy a wider spread of the measured trait space, so it will have a larger FDis value</p>
+</section>
+
+<section id="equal-richness">
+<div class="kicker">A worked example for ME amphibians</div>
+<h2>These two real communities have very different FDis values</h2>
+<div class="figure"><img alt="Two Maine communities with four species are highlighted on the same regional species PCA; their full-space functional dispersion differs." src="assets/Lecture12-equal-richness.png"/></div>
+<p class="takeaway">The red star indicates the centroid in multivariate trait-space for the given community</p>
+</section>
+
+<section id="pca-rows">
+<div class="kicker">How similar are communities in trait-space?</div>
+<h2>PCA applied to species+traits versus communities+trait means</h2>
+<div class="figure"><img alt="A Maine species PCA with one dot per species is shown beside a separate PCA of five community mean traits with one dot per retained cell." src="assets/Lecture12-two-pcas.png"/></div>
+<p class="takeaway">Nearby species have similar trait profiles. Nearby communities contain species with similar average traits.</p>
+</section>
+
+<section id="filtering-hypothesis"><div class="kicker">How do biotic and abiotic interactions shape community trait distributions?</div>
+<h2>Filtering favors similarity; competition can favor divergence</h2><div class="figure"><img alt="Two hypothetical assembly scenarios start with the same nine-species regional body-size distribution. Environmental filtering retains three similarly sized species, while interspecific competition favors three widely spaced body-size strategies. Both local communities have three species." src="assets/Lecture12-filtering-hypothesis.png"/></div><p class="takeaway">Abiotic constraints can favor similar species; resource competition can favor dissimilar coexisting species.</p>
+</section>
+
+<section id="shuffle">
+<div class="kicker">Testing the ecological hypotheses with trait randomization</div>
+<h2>Within each site: Shuffle rows of the trait dataframe; recalculate FDis; repeat 1000x</h2>
+<div class="figure"><img alt="Two tables show a joint permutation of five-trait rows among fixed species A through F. The same cell species lists remain below both tables." src="assets/Lecture12-null-shuffle.png"/></div>
+<p class="takeaway">The distribution of FDis values can be used get a p-value for the observed FDis</p>
+</section>
+
+<section id="null-distribution">
+<div class="kicker">Observed versus null distribution of FDis values</div>
+<h2>Is the observed functional dispersion significantly different from randomized FDis?</h2>
+<div class="figure"><img alt="Two Maine histograms show randomized functional dispersion and the observed values for cells with contrasting standardized departures." src="assets/Lecture12-null-distributions.png"/></div>
+<p class="takeaway">The standardized effect size (SES) is (observed FDis - null mean) / null SD.</p>
+<p class="takeaway">Negative values indicate clustering; positive values indicate greater spread than expected.</p>
+</section>
+
+<section id="ses">
+<div class="kicker">Looking at spatial patterns of FDis</div>
+<h2>Where is functional dispersion significantly smaller relative to the regional pool?</h2>
+<div class="figure"><img alt="Maine maps compare raw functional dispersion with the standardized effect size relative to the trait-shuffling null model." src="assets/Lecture12-fdis-ses.png"/></div>
+<p class="takeaway">One might hypothesize that colder climate would impose an environmental filter</p>
+<p class="takeaway">How would you interpret the spatial pattern of FDis here?</p>
+</section>
+
+<section id="relationships">
+<div class="kicker">Connecting FDis to environmental predictors</div>
+<h2>How does trait dispersion vary with environment?</h2>
+<div class="figure"><img alt="Six scatterplots from Lab12 Step 4 show community functional dispersion against midpoint latitude, annual mean temperature, coldest-month minimum temperature, warmest-quarter mean temperature, upland forest fraction, and developed fraction. All correlations use Pearson r." src="assets/Lecture12-correlations.png"/></div>
+<p class="takeaway">Each panel relates community trait dispersion (FDis) to environment, latitude, and habitat type</p>
+</section>
+
+<section id="ranking">
+<div class="kicker">Connecting traits to environment</div><h2>Which gradients track community life-history strategies?</h2>
+<div class="figure"><img alt="A bar chart ranks Maine predictors by mean squared correlation across five trait means, beside arrows based only on correlations with PC1 and PC2." src="assets/Lecture12-rankings.png"/></div>
+<p class="takeaway">Use the ranking to identify associated gradients and the arrows to see how trait combinations change along them.</p>
+</section>
+
+<section id="map-pca">
+<div class="kicker">Putting it all together</div>
+<h2>How does environment drive similarity in community trait composition?</h2>
+<div class="figure"><img alt="A Maine grid map colored by community PCA scores is paired with the same colored cells in PCA space and three predictor arrows." src="assets/Lecture12-synthesis.png"/></div>
+<p class="takeaway">Similar map colors identify communities with similar combinations of mean life-history traits.</p>
+</section>
+
+</div></div>
+<script src="reveal.js/dist/reveal.js"></script>
+<script src="reveal.js/dist/plugin/notes.js"></script>
+<script>Reveal.initialize({hash:true,controls:true,progress:true,center:false,slideNumber:"c/t",
+width:1440,height:810,margin:.03,transition:"fade",transitionSpeed:"fast",plugins:[RevealNotes]});</script>
+</body></html>
